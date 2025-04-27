@@ -15,6 +15,10 @@ import * as process from 'node:process';
 
 import { User, UserSchema } from '@/user/entities/user.entity';
 import { HttpLoggerMiddleware } from '@/middleware/logger.middleware';
+import { ReviewModule } from './review/review.module';
+import { TicketModule } from './ticket/ticket.module';
+import { ImageModule } from './image/image.module';
+
 
 @Module({
   imports: [
@@ -28,6 +32,9 @@ import { HttpLoggerMiddleware } from '@/middleware/logger.middleware';
     EventModule,
     UserModule,
     AuthModule,
+    ReviewModule,
+    TicketModule,
+    ImageModule,
   ],
   controllers: [],
   providers: [],

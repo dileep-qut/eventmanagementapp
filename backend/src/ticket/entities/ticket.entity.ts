@@ -8,6 +8,7 @@ export type TicketDocument = Ticket & Document;
 export interface ITicket {
   event_id: Event;
   user_id: User;
+  checked_in: boolean;
   ticket_price: number;
   transaction_id: string;
 }
@@ -19,6 +20,9 @@ class Ticket implements ITicket {
 
   @Prop({ required: true, type: Types.ObjectId, ref: 'User' })
   user_id: User;
+
+  @Prop({ default: false })
+  checked_in: boolean;
 
   @Prop({ required: true })
   ticket_price: number;

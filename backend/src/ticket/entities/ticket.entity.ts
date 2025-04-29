@@ -9,7 +9,6 @@ export interface ITicket {
   event_id: Event;
   user_id: User;
   checked_in: boolean;
-  ticket_price: number;
   transaction_id: string;
 }
 
@@ -23,9 +22,6 @@ export class Ticket implements ITicket {
 
   @Prop({ default: false })
   checked_in: boolean;
-
-  @Prop({ required: true })
-  ticket_price: number;
 
   @Prop({ required: true })
   transaction_id: string;

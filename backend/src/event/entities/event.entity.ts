@@ -9,6 +9,8 @@ interface IEvent {
   date: Date;
   creator: Types.ObjectId;
   participants: Types.ObjectId[];
+  ticket_price: number;
+  ticket_available: number;
 }
 
 @Schema({ timestamps: true, autoCreate: true, collection: 'events' })
@@ -30,6 +32,12 @@ export class Event implements IEvent {
 
   @Prop({ type: [Types.ObjectId], ref: User.name, default: [] })
   participants: Types.ObjectId[];
+
+  @Prop({ required: true })
+  ticket_price: number;
+
+  @Prop({ required: true })
+  ticket_available: number;
 }
 
 export const EventSchema = SchemaFactory.createForClass(Event);

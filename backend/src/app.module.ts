@@ -18,7 +18,8 @@ import { HttpLoggerMiddleware } from '@/middleware/logger.middleware';
 import { ReviewModule } from './review/review.module';
 import { TicketModule } from './ticket/ticket.module';
 import { ImageModule } from './image/image.module';
-
+import { CategoryModule } from './category/category.module';
+import { InitModule } from './init/init.module';
 
 @Module({
   imports: [
@@ -35,19 +36,21 @@ import { ImageModule } from './image/image.module';
     ReviewModule,
     TicketModule,
     ImageModule,
+    CategoryModule,
+    InitModule,
   ],
   controllers: [],
   providers: [],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(HttpLoggerMiddleware).forRoutes('*');
+    consumer.apply(HttpLoggerMiddleware).forRoutes('*path');
     consumer
       .apply(AuthMiddleware)
       .exclude(
         { path: 'auth/login', method: RequestMethod.POST },
         { path: 'auth/register', method: RequestMethod.POST },
       )
-      .forRoutes('*'); // Apply to all other routes
+      .forRoutes('*path'); // Apply to all other routes
   }
 }

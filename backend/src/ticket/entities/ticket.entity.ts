@@ -14,7 +14,7 @@ export interface ITicket {
 }
 
 @Schema({ timestamps: true, autoCreate: true, collection: 'tickets' })
-class Ticket implements ITicket {
+export class Ticket implements ITicket {
   @Prop({ required: true, type: Types.ObjectId, ref: 'Event' })
   event_id: Event;
 

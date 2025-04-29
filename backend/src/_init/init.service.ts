@@ -46,9 +46,9 @@ export class Initializer implements OnModuleInit {
 
   private async createAdminUser() {
     await this.userModel.create({
-      name: 'root',
-      email: 'root@root.root',
-      password: 'root',
+      name: 'dev',
+      email: 'dev@qut.edu.au',
+      password: '123456',
       phone: '0000000000',
     });
   }
@@ -67,7 +67,7 @@ export class Initializer implements OnModuleInit {
   }
 
   private async seedEvents() {
-    const root_user = await this.userModel.findOne({ name: 'root' });
+    const root_user = await this.userModel.findOne({ name: 'dev' });
 
     const all_users = await this.userModel.find({}).select('_id');
 
@@ -80,6 +80,8 @@ export class Initializer implements OnModuleInit {
         category: `Category ${i}`,
         creator: root_user!._id,
         participants: _.sampleSize(all_users, 3).map((user) => user._id),
+        ticket_available: 1000,
+        ticket_price: 15,
       });
     }
   }

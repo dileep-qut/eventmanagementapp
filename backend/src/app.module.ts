@@ -18,7 +18,6 @@ import { HttpLoggerMiddleware } from '@/_middleware/logger.middleware';
 import { ReviewModule } from './review/review.module';
 import { TicketModule } from './ticket/ticket.module';
 import { ImageModule } from './image/image.module';
-import { CategoryModule } from './category/category.module';
 import { InitModule } from '@/_init/init.module';
 
 @Module({
@@ -36,7 +35,6 @@ import { InitModule } from '@/_init/init.module';
     ReviewModule,
     TicketModule,
     ImageModule,
-    CategoryModule,
     InitModule,
   ],
   controllers: [],

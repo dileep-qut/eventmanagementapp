@@ -13,6 +13,7 @@ async function bootstrap() {
     .setTitle('Events Management API')
     .setDescription('The event API description')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

@@ -1,0 +1,86 @@
+import { Injectable, OnModuleInit } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+
+import { User } from '@/user/entities/user.entity';
+import { Event } from '@/event/entities/event.entity';
+import { Image } from '@/image/entities/image.entity';
+import { Ticket } from '@/ticket/entities/ticket.entity';
+
+import * as _ from 'lodash';
+
+import * as process from 'node:process';
+
+@Injectable()
+export class Initializer implements OnModuleInit {
+  constructor(
+    @InjectModel(User.name) private readonly userModel: Model<User>,
+    @InjectModel(Event.name) private readonly eventModel: Model<Event>,
+    @InjectModel(Image.name) private readonly imageModel: Model<Image>,
+    @InjectModel(Ticket.name) private readonly ticketModel: Model<Ticket>,
+  ) {}
+
+  async onModuleInit() {
+    if (
+      process.env.NODE_ENV === 'development' &&
+      process.env.SEED_DB === 'true'
+    ) {
+      await this.cleanDatabase();
+      await this.seedDB();
+    }
+  }
+
+  private async seedDB() {
+    // This must be called in order strictly
+    await this.createAdminUser();
+    await this.seedUsers();
+    await this.seedEvents();
+  }
+
+  private async cleanDatabase() {
+    await this.userModel.deleteMany({});
+    await this.eventModel.deleteMany({});
+    await this.imageModel.deleteMany({});
+    await this.ticketModel.deleteMany({});
+  }
+
+  private async createAdminUser() {
+    await this.userModel.create({
+      name: 'root',
+      email: 'root@root.root',
+      password: 'root',
+      phone: '0000000000',
+    });
+  }
+
+  private async seedUsers() {
+    for (let i = 0; i < 10; i++) {
+      await this.userModel.create({
+        name: `User ${i}`,
+        email: `user_${i}@qut.edu.au`,
+        password: `password${i}`,
+        phone: `000000000${i}`,
+        university: `University ${i}`,
+        address: `Address ${i}`,
+      });
+    }
+  }
+
+  private async seedEvents() {
+    const root_user = await this.userModel.findOne({ name: 'root' });
+
+    const all_users = await this.userModel.find({}).select('_id');
+
+    for (let i = 0; i < 10; i++) {
+      await this.eventModel.create({
+        name: `Event ${i}`,
+        description: `Description ${i}`,
+        date: new Date(),
+        location: `Location ${i}`,
+        category: `Category ${i}`,
+        creator: root_user!._id,
+        participants: _.sampleSize(all_users, 3).map((user) => user._id),
+      });
+    }
+  }
+}

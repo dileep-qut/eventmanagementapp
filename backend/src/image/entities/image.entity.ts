@@ -9,7 +9,7 @@ export interface IImage {
 }
 
 @Schema({ timestamps: true, autoCreate: true, collection: 'images' })
-class Image implements IImage {
+export class Image implements IImage {
   @Prop({ required: true })
   image_name: string;
   image_url: string;

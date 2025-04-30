@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
-import { IUser, User } from '@/user/entities/user.entity';
+import { User } from '@/user/entities/user.entity';
 
 interface IEvent {
   name: string;

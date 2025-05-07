@@ -55,16 +55,10 @@ export class AuthService {
   }
 
   async getProfile(userId: string) {
-    const user = await this.userModel.findById(userId);
+    const user = await this.userModel.findById(userId).select('-password');
     if (!user) throw new NotFoundException('User not found');
 
-    return {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      university: user.university,
-      address: user.address,
-    };
+    return user;
   }
 
   async updateProfile(userId: string, dto: UpdateProfileDto) {

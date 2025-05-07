@@ -1,11 +1,10 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import { Injectable, OnModuleInit, Inject } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
 import { User } from '@/user/entities/user.entity';
 import { Event } from '@/event/entities/event.entity';
 import { Image } from '@/image/entities/image.entity';
-import { Ticket } from '@/ticket/entities/ticket.entity';
 
 import * as _ from 'lodash';
 
@@ -17,13 +16,12 @@ export class Initializer implements OnModuleInit {
     @InjectModel(User.name) private readonly userModel: Model<User>,
     @InjectModel(Event.name) private readonly eventModel: Model<Event>,
     @InjectModel(Image.name) private readonly imageModel: Model<Image>,
-    @InjectModel(Ticket.name) private readonly ticketModel: Model<Ticket>,
   ) {}
 
   async onModuleInit() {
     if (
       process.env.NODE_ENV === 'development' &&
-      process.env.SEED_DB === 'true'
+      process.env.SEED_DB === 'TRUE'
     ) {
       await this.cleanDatabase();
       await this.seedDB();
@@ -41,14 +39,13 @@ export class Initializer implements OnModuleInit {
     await this.userModel.deleteMany({});
     await this.eventModel.deleteMany({});
     await this.imageModel.deleteMany({});
-    await this.ticketModel.deleteMany({});
   }
 
   private async createAdminUser() {
     await this.userModel.create({
-      name: 'root',
-      email: 'root@root.root',
-      password: 'root',
+      name: 'dev',
+      email: 'dev@qut.edu.au',
+      password: '123456',
       phone: '0000000000',
     });
   }
@@ -67,19 +64,24 @@ export class Initializer implements OnModuleInit {
   }
 
   private async seedEvents() {
-    const root_user = await this.userModel.findOne({ name: 'root' });
+    const root_user = await this.userModel.findOne({ name: 'dev' });
 
     const all_users = await this.userModel.find({}).select('_id');
 
-    for (let i = 0; i < 10; i++) {
+    // Create Music Events
+    for (let i = 0; i < 5; i++) {
       await this.eventModel.create({
         name: `Event ${i}`,
         description: `Description ${i}`,
-        date: new Date(),
         location: `Location ${i}`,
         category: `Category ${i}`,
         creator: root_user!._id,
         participants: _.sampleSize(all_users, 3).map((user) => user._id),
+        ticket_available: 1000,
+        ticket_price: 15,
+        start_time: new Date(2025, 12, 25),
+        end_time: new Date(2025, 12, 26),
+        speakers: [],
       });
     }
   }

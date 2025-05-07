@@ -18,7 +18,7 @@ import { HttpLoggerMiddleware } from '@/_middleware/logger.middleware';
 import { ReviewModule } from './review/review.module';
 import { TicketModule } from './ticket/ticket.module';
 import { ImageModule } from './image/image.module';
-import { InitModule } from '@/_init/init.module';
+import { InitModule } from './init/init.module';
 
 @Module({
   imports: [

@@ -3,17 +3,17 @@ import { Document, Types } from 'mongoose';
 import { Event } from '@/event/entities/event.entity';
 import { User } from '@/user/entities/user.entity';
 
-export type TicketDocument = Ticket & Document;
+export type TicketListDocument = TicketList & Document;
 
-export interface ITicket {
+export interface ITicketListList {
   event_id: Event;
   user_id: User;
   checked_in: boolean;
   transaction_id: string;
 }
 
-@Schema({ timestamps: true, autoCreate: true, collection: 'tickets' })
-export class Ticket implements ITicket {
+@Schema({ timestamps: true, autoCreate: true, collection: 'ticket-list' })
+export class TicketList implements ITicketListList {
   @Prop({ required: true, type: Types.ObjectId, ref: 'Event' })
   event_id: Event;
 
@@ -27,4 +27,4 @@ export class Ticket implements ITicket {
   transaction_id: string;
 }
 
-export const TicketSchema = SchemaFactory.createForClass(Ticket);
+export const TicketListSchema = SchemaFactory.createForClass(TicketList);

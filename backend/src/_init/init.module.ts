@@ -2,18 +2,23 @@ import { Module } from '@nestjs/common';
 import { Initializer } from './init.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from '@/user/entities/user.entity';
-import { Event, EventSchema } from '@/event/entities/event.entity';
 import { Image, ImageSchema } from '@/image/entities/image.entity';
-import { Ticket, TicketSchema } from '@/ticket/entities/ticket.entity';
+import { Event, EventSchema } from '@/event/entities/event.entity';
+import {
+  TicketList,
+  TicketListSchema,
+} from '@/ticket/entities/ticket-list.entity';
+import { EventModule } from '@/event/event.module';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: User.name, schema: UserSchema },
-      { name: Event.name, schema: EventSchema },
       { name: Image.name, schema: ImageSchema },
-      { name: Ticket.name, schema: TicketSchema },
+      { name: TicketList.name, schema: TicketListSchema },
+      { name: Event.name, schema: EventSchema },
     ]),
+    EventModule,
   ],
   controllers: [],
   providers: [Initializer],

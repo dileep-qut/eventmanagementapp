@@ -1,7 +1,16 @@
-import { IsString, IsNotEmpty, IsDateString } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  IsDateString,
+  IsOptional,
+  IsDate,
+  IsNumber,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { IEvent } from '@/event/entities/event.entity';
+import { Types } from 'mongoose';
 
-export class CreateEventDto {
+export class CreateEventDto implements IEvent {
   @ApiProperty({
     description: 'Event name',
     example: 'Tech Conference 2023',
@@ -11,26 +20,68 @@ export class CreateEventDto {
   name: string;
 
   @ApiProperty({
-    description: 'Event description',
-    example: 'A conference about the latest in technology.',
+    description: 'Event date',
+    example: '2023-10-01T10:00:00Z',
   })
-  @IsString()
+  @IsDateString()
   @IsNotEmpty()
-  description: string;
+  date: string;
 
   @ApiProperty({
     description: 'Event location',
-    example: 'Brisbane Convention Centre, Brisbane, QLD 4000',
+    example: 'New York, NY',
   })
   @IsString()
   @IsNotEmpty()
   location: string;
 
   @ApiProperty({
-    description: 'Event date',
-    example: '2023-10-15',
+    description: 'Description and detail of the event ',
+    example: 'Here is the description of the event which is a long string',
   })
-  @IsDateString()
-  @IsNotEmpty()
-  date: string;
+  @IsString()
+  @IsOptional()
+  description: string;
+
+  @ApiProperty({
+    description: 'Start time of the event in Javascript Date() format',
+    example: '2019-02-01T00:00:00Z',
+  })
+  @IsString()
+  start_time: Date;
+
+  @ApiProperty({
+    description: 'End time of the event in Javascript Date() format',
+    example: '2019-02-01T00:00:00Z',
+  })
+  @IsString()
+  end_time: Date;
+
+  @ApiProperty({
+    description: 'The user who created the event',
+    example: '60d5ec49b3f1f8c8a4e4b8c2',
+  })
+  @IsString()
+  creator: Types.ObjectId;
+
+  @ApiProperty({
+    description: 'List of participants in the event',
+    example: '["60d5ec49b3f1f8c8a4e4b8c2", "60d5ec49b3f1f8c8a4e4b8c3"]',
+  })
+  @IsString({ each: true })
+  participants: Types.ObjectId[];
+
+  @ApiProperty({
+    description: 'Event category',
+    example: 'Technology',
+  })
+  @IsNumber()
+  ticket_price: number;
+
+  @ApiProperty({
+    description: 'Event category',
+    example: 'Technology',
+  })
+  @IsNumber()
+  ticket_available: number;
 }

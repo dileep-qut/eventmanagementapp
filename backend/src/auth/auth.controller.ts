@@ -46,14 +46,42 @@ export class AuthController {
   }
 
   @ApplyApiResponse([400, 401, 403, 500])
+  @ApiResponse({
+    status: 200,
+    description: 'Get user profile',
+    schema: {
+      example: {
+        _id: '6811a67495c4b721f28e63ca',
+        name: 'John Doe',
+        email: 'n123456789@qut.edu.au',
+        createdAt: '2025-04-30T04:26:28.408Z',
+        updatedAt: '2025-04-30T04:26:28.408Z',
+      },
+    },
+  })
   @ApiBearerAuth()
   @Get('profile')
   getProfile(@Request() req: any) {
-    return this.authService.getProfile(req.user.id);
+    return this.authService.getProfile(req.user._id);
   }
 
+  @ApplyApiResponse([400, 401, 403, 500])
+  @ApiResponse({
+    status: 200,
+    description: 'Get user profile',
+    schema: {
+      example: {
+        _id: '6811a67495c4b721f28e63ca',
+        name: 'John Doe',
+        email: 'n123456789@qut.edu.au',
+        createdAt: '2025-04-30T04:26:28.408Z',
+        updatedAt: '2025-04-30T04:26:28.408Z',
+      },
+    },
+  })
+  @ApiBearerAuth()
   @Put('profile')
   updateProfile(@Request() req: any, @Body() dto: UpdateProfileDto) {
-    return this.authService.updateProfile(req.user.id, dto);
+    return this.authService.updateProfile(req.user._id, dto);
   }
 }

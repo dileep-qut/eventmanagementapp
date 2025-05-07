@@ -7,7 +7,8 @@ export class StripeService {
 
   constructor() {
     this.stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-      apiVersion: '2025-03-31.basil',
+      //FIX: this causing error
+      //apiVersion: '2025-03-31.basil',
       typescript: true,
     });
   }

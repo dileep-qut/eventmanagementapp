@@ -55,7 +55,6 @@ export class AuthService {
   }
 
   async getProfile(userId: string) {
-    console.log(userId);
     const user = await this.userModel.findById(userId).select('-password');
     if (!user) throw new NotFoundException('User not found');
 

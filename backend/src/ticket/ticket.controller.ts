@@ -44,29 +44,20 @@ export class TicketController {
   })
   @Post('purchase')
   async purchaseTicket(@Body() dto: PurchaseTicketDto, @Request() req: any) {
-    return await this.ticketService.purchaseTicket(
+    const purchase = await this.ticketService.purchaseTicket(
       dto.event_id,
       req.user._id,
       dto.add_on,
     );
-  }
 
-  @ApplyApiResponse([400, 401, 403, 500])
-  @Post('create-checkout-session')
-  @ApiBearerAuth()
-  async createCheckoutSession(@Body() dto: GetTicketPriceDto) {
-    const price = await this.ticketService.getTicketPrice(
-      dto.event_id,
-      dto.add_on,
-    );
-
-    if (!price) {
-      throw new Error('Price not found');
+    if (!purchase) {
+      return { message: 'Ticket purchase failed' };
     }
 
     const paymentContext: PaymentContext = {
-      price: price.price,
+      price: purchase.price,
       eventId: dto.event_id,
+      ticketId: purchase.ticket_id as string,
     };
 
     const response = await this.paymentService.processPayment(paymentContext);

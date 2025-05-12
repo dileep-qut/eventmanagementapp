@@ -4,6 +4,7 @@ export interface PaymentContext {
   price: number;
   userEmail?: string;
   eventId?: string;
+  ticketId?: string;
 }
 
 export interface PaymentMiddleware {

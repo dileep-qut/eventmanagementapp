@@ -14,7 +14,8 @@ import { EventService } from './event.service';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { ApplyApiResponse } from '@/_decorators/apply-api-response.decorator';
-import { ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
+import { ApiResponse } from '@nestjs/swagger';
+import { ApplyStrictAuth } from '@/_decorators/apply-strict-auth.decorator';
 
 @Controller('events')
 export class EventController {
@@ -27,77 +28,136 @@ export class EventController {
     schema: {
       example: [
         {
-          _id: '681b0c29b93d75a8938d1f86',
-          name: 'Event 0',
-          description: 'Description 0',
-          location: 'Location 0',
+          _id: '68210420f639de1251ae31c5',
+          name: 'Event 4',
+          description: 'Description 4',
+          location: 'Location 4',
           start_time: '2026-01-24T14:00:00.000Z',
           end_time: '2026-01-25T14:00:00.000Z',
           creator: {
-            _id: '681b0c28b93d75a8938d1f6e',
+            _id: '68210420f639de1251ae31a5',
             name: 'dev',
             email: 'dev@qut.edu.au',
           },
-          participants: [
-            {
-              _id: '681b0c28b93d75a8938d1f70',
-              name: 'User 0',
-              email: 'user_0@qut.edu.au',
-            },
-            {
-              _id: '681b0c28b93d75a8938d1f74',
-              name: 'User 2',
-              email: 'user_2@qut.edu.au',
-            },
-            {
-              _id: '681b0c28b93d75a8938d1f7a',
-              name: 'User 5',
-              email: 'user_5@qut.edu.au',
-            },
-          ],
           ticket_price: 15,
           ticket_available: 1000,
-          createdAt: '2025-05-07T07:30:49.079Z',
-          updatedAt: '2025-05-07T07:30:49.079Z',
+          category: 'Workshop',
+          createdAt: '2025-05-11T20:10:08.537Z',
+          updatedAt: '2025-05-11T20:10:08.537Z',
           __v: 0,
-          isEditable: false,
-          isRegistered: false,
         },
       ],
     },
   })
-  @ApiBearerAuth()
   @Get()
-  findAll(@Request() req: any) {
-    return this.eventsService.findAll(req.user.id);
+  async findAll(@Request() req: any) {
+    return await this.eventsService.findAll();
   }
 
+  @ApplyApiResponse([400, 401, 403, 404, 500])
+  @ApiResponse({
+    status: 200,
+    description: 'Get event by id',
+    schema: {
+      example: {
+        _id: '68218a44558c61c3d0e5c773',
+        name: 'Event 0',
+        description: 'Description 0',
+        location: 'Location 0',
+        start_time: '2026-01-24T14:00:00.000Z',
+        end_time: '2026-01-25T14:00:00.000Z',
+        creator: '68210420f639de1251ae31a5',
+        ticket_price: 15,
+        ticket_available: 1000,
+        category: 'Workshop',
+        createdAt: '2025-05-12T05:42:28.577Z',
+        updatedAt: '2025-05-12T05:42:28.577Z',
+        __v: 0,
+      },
+    },
+  })
+  @Get(':id')
+  async findById(@Param('id') id: string) {
+    return await this.eventsService.findById(id);
+  }
+
+  @ApplyStrictAuth(true)
+  @ApplyApiResponse([400, 401, 403, 500])
+  @ApiResponse({
+    status: 201,
+    description: 'Create event',
+    schema: {
+      example: {
+        name: 'Tech Conference 2023',
+        description:
+          'Here is the description of the event which is a long string',
+        location: 'New York, NY',
+        start_time: '2019-02-01T00:00:00.000Z',
+        end_time: '2019-02-01T00:00:00.000Z',
+        creator: {
+          _id: '68210420f639de1251ae31a5',
+          name: 'dev',
+          email: 'dev@qut.edu.au',
+        },
+        participants: [],
+        ticket_price: 10,
+        ticket_available: 100,
+        category: 'Networking',
+        image_id: '60d5ec49b3f1f8c8a4e4b8c2',
+        _id: '6821886a312ff80975a1e661',
+        createdAt: '2025-05-12T05:34:34.384Z',
+        updatedAt: '2025-05-12T05:34:34.384Z',
+        __v: 0,
+      },
+    },
+  })
   @Post()
-  create(@Body() dto: CreateEventDto, @Request() req: any) {
-    return this.eventsService.create(dto, req.user.id);
+  async create(@Body() dto: CreateEventDto, @Request() req: any) {
+    return await this.eventsService.create(dto, req.user._id);
   }
 
+  @ApplyStrictAuth(true)
+  @ApplyApiResponse([400, 401, 403, 500])
+  @ApiResponse({
+    status: 201,
+    description: 'Create event',
+    schema: {
+      example: {
+        name: 'Tech Conference 2023',
+        description:
+          'Here is the description of the event which is a long string',
+        location: 'New York, NY',
+        start_time: '2019-02-01T00:00:00.000Z',
+        end_time: '2019-02-01T00:00:00.000Z',
+        creator: {
+          _id: '68210420f639de1251ae31a5',
+          name: 'dev',
+          email: 'dev@qut.edu.au',
+        },
+        participants: [],
+        ticket_price: 10,
+        ticket_available: 100,
+        category: 'Networking',
+        image_id: '60d5ec49b3f1f8c8a4e4b8c2',
+        _id: '6821886a312ff80975a1e661',
+        createdAt: '2025-05-12T05:34:34.384Z',
+        updatedAt: '2025-05-12T05:34:34.384Z',
+        __v: 0,
+      },
+    },
+  })
   @Put(':id')
-  update(
+  async update(
     @Param('id') id: string,
     @Body() dto: UpdateEventDto,
     @Request() req: any,
   ) {
-    return this.eventsService.update(id, dto, req.user.id);
+    return await this.eventsService.update(id, dto, req.user._id);
   }
 
+  @ApplyStrictAuth(true)
   @Delete(':id')
-  remove(@Param('id') id: string, @Request() req: any) {
-    return this.eventsService.remove(id, req.user.id);
+  async remove(@Param('id') id: string, @Request() req: any) {
+    return await this.eventsService.remove(id, req.user._id);
   }
-
-  // @Post('register/:id')
-  // register(@Param('id') id: string, @Request() req: any) {
-  //   return this.eventsService.register(id, req.user.id);
-  // }
-  //
-  // @Delete('unregister/:id')
-  // unregister(@Param('id') id: string, @Request() req: any) {
-  //   return this.eventsService.unregister(id, req.user.id);
-  // }
 }

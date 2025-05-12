@@ -12,6 +12,7 @@ import { UserModule } from '@/user/user.module';
 import { AuthModule } from '@/auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import * as process from 'node:process';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 import { User, UserSchema } from '@/user/entities/user.entity';
 import { HttpLoggerMiddleware } from '@/_middleware/logger.middleware';
@@ -27,11 +28,16 @@ import { InitModule } from '@/_init/init.module';
       global: true,
       secret: process.env.JWT_SECRET || 'defaultsecret',
     }),
+    ServeStaticModule.forRoot({
+      rootPath: process.cwd() + '/public',
+      serveRoot: '/public/',
+      exclude: ['/api*'],
+    }),
     MongooseModule.forRoot(process.env.MONGO_URI || ''),
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+    AuthModule,
     EventModule,
     UserModule,
-    AuthModule,
     ReviewModule,
     TicketModule,
     ImageModule,

@@ -5,6 +5,9 @@ import { Model } from 'mongoose';
 import { User } from '@/user/entities/user.entity';
 import { Event } from '@/event/entities/event.entity';
 import { Image } from '@/image/entities/image.entity';
+import mongoose from 'mongoose';
+
+import { CategoryEnum } from '@/event/entities/event.entity';
 
 import * as _ from 'lodash';
 
@@ -43,6 +46,7 @@ export class Initializer implements OnModuleInit {
 
   private async createAdminUser() {
     await this.userModel.create({
+      _id: new mongoose.mongo.ObjectId('68210420f639de1251ae31a5'),
       name: 'dev',
       email: 'dev@qut.edu.au',
       password: '123456',
@@ -68,13 +72,12 @@ export class Initializer implements OnModuleInit {
 
     const all_users = await this.userModel.find({}).select('_id');
 
-    // Create Music Events
     for (let i = 0; i < 5; i++) {
       await this.eventModel.create({
         name: `Event ${i}`,
         description: `Description ${i}`,
         location: `Location ${i}`,
-        category: `Category ${i}`,
+        category: _.sample(CategoryEnum),
         creator: root_user!._id,
         participants: _.sampleSize(all_users, 3).map((user) => user._id),
         ticket_available: 1000,

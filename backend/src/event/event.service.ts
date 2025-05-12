@@ -35,12 +35,23 @@ export class EventService {
     };
   }
 
-  async findAll(userId: string) {
-    const events = await this.eventModel
+  async findAll() {
+    return await this.eventModel
       .find()
-      .populate('creator participants', 'name email')
+      .select('-participants')
+      .populate('creator', 'name email')
       .exec();
-    return events.map((evt) => this.mapFlags(evt, userId));
+  }
+
+  async findById(id: string) {
+    const event = await this.eventModel
+      .findById(id)
+      .select('-participants')
+      .populate('creator', 'name email')
+      .exec();
+
+    if (!event) throw new NotFoundException('Event not found');
+    return event;
   }
 
   async create(createDto: CreateEventDto, userId: string) {
@@ -52,8 +63,6 @@ export class EventService {
     await created.populate('creator', 'name email');
     return {
       ...created.toObject(),
-      isEditable: true,
-      isRegistered: false,
     };
   }
 

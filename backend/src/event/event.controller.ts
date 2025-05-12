@@ -24,7 +24,7 @@ export class EventController {
   @ApplyApiResponse([400, 401, 403, 500])
   @ApiResponse({
     status: 200,
-    description: 'Get user profile',
+    description: 'Get all events',
     schema: {
       example: [
         {
@@ -117,9 +117,9 @@ export class EventController {
   }
 
   @ApplyStrictAuth(true)
-  @ApplyApiResponse([400, 401, 403, 500])
+  @ApplyApiResponse([400, 401, 404, 403, 500])
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'Create event',
     schema: {
       example: {
@@ -134,7 +134,6 @@ export class EventController {
           name: 'dev',
           email: 'dev@qut.edu.au',
         },
-        participants: [],
         ticket_price: 10,
         ticket_available: 100,
         category: 'Networking',
@@ -155,9 +154,49 @@ export class EventController {
     return await this.eventsService.update(id, dto, req.user._id);
   }
 
+  @ApplyApiResponse([400, 401, 404, 403, 500])
+  @ApiResponse({
+    status: 200,
+    description: 'Delete event',
+    schema: {
+      example: {
+        message: 'Event deleted successfully',
+      },
+    },
+  })
   @ApplyStrictAuth(true)
   @Delete(':id')
   async remove(@Param('id') id: string, @Request() req: any) {
     return await this.eventsService.remove(id, req.user._id);
+  }
+
+  @ApplyStrictAuth(true)
+  @ApplyApiResponse([400, 401, 403, 500])
+  @ApiResponse({
+    status: 200,
+    description: 'Get event attendees',
+    schema: {
+      example: [
+        {
+          _id: '68218e24f41de91e2e46ecf6',
+          name: 'User 2',
+          email: 'user_2@qut.edu.au',
+        },
+        {
+          _id: '68218e24f41de91e2e46ecf4',
+          name: 'User 1',
+          email: 'user_1@qut.edu.au',
+        },
+        {
+          _id: '68210420f639de1251ae31a5',
+          name: 'dev',
+          email: 'dev@qut.edu.au',
+        },
+      ],
+    },
+  })
+  @Get(':id/attendees')
+  async getAttendees(@Param('id') event_id: string, @Request() req: any) {
+    return await this.eventsService.getAttendees(event_id, req.user._id);
   }
 }

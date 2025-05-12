@@ -53,21 +53,35 @@ export class EventService {
   async update(id: string, updateDto: UpdateEventDto, user_id: string) {
     const event = await this.eventModel.findById(id);
     if (!event) throw new NotFoundException('Event not found');
-    if (event.creator.toString() !== user_id) {
+    if (event.creator.toString() !== user_id.toString()) {
       throw new ForbiddenException('Not authorised to update this event');
     }
     return this.eventModel
       .findByIdAndUpdate(id, updateDto, { new: true })
+      .select('-participants')
       .populate('creator', 'name email');
   }
 
   async remove(id: string, user_id: string) {
     const event = await this.eventModel.findById(id);
     if (!event) throw new NotFoundException('Event not found');
-    if (event.creator.toString() !== user_id) {
+    if (event.creator.toString() !== user_id.toString()) {
       throw new ForbiddenException('Not authorised to delete this event');
     }
     await event.deleteOne();
     return { message: 'Event deleted' };
+  }
+
+  async getAttendees(id: string, user_id: string) {
+    const event = await this.eventModel.findById(id);
+    if (!event) throw new NotFoundException('Event not found');
+
+    if (event.creator.toString() !== user_id.toString()) {
+      throw new ForbiddenException('Not authorised to get attendees');
+    }
+
+    await event.populate('participants', 'name email');
+
+    return event.participants;
   }
 }

@@ -15,7 +15,7 @@ export class StripePaymentMiddleware implements PaymentMiddleware {
     next: (context: PaymentContext) => Promise<PaymentResponse>,
   ): Promise<PaymentResponse> {
     const session = await this.stripeService.createCheckoutSession(
-      context.priceId,
+      context.price,
       context.userEmail,
     );
     const response: PaymentResponse = {

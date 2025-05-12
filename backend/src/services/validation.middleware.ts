@@ -11,14 +11,14 @@ export class ValidationMiddleware implements PaymentMiddleware {
     context: PaymentContext,
     next: (context: PaymentContext) => Promise<PaymentResponse>,
   ): Promise<PaymentResponse> {
-    if (!context.priceId || context.priceId.trim() === '') {
+    if (!context.price || context.price <= 0) {
       return {
         paymentNeeded: false,
         uri: '/error',
       };
     }
 
-    if (!context.userEmail || !context.userEmail.includes('@')) {
+    if (!context.eventId || context.eventId.length === 0) {
       return {
         paymentNeeded: false,
         uri: '/error',

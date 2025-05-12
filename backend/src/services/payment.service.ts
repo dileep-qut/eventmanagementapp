@@ -12,8 +12,8 @@ export class PaymentService implements IPaymentService {
   private middlewares: PaymentMiddleware[] = [];
 
   constructor(
-    private readonly validationMiddleware: ValidationMiddleware,
-    private readonly stripeMiddleware: StripePaymentMiddleware,
+    validationMiddleware: ValidationMiddleware,
+    stripeMiddleware: StripePaymentMiddleware,
   ) {
     this.middlewares = [validationMiddleware, stripeMiddleware];
   }

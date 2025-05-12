@@ -1,8 +1,9 @@
 import { PaymentResponse } from './payment.service.interface';
 
 export interface PaymentContext {
-  priceId: string;
+  price: number;
   userEmail?: string;
+  eventId?: string;
 }
 
 export interface PaymentMiddleware {

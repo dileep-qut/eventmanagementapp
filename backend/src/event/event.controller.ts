@@ -55,7 +55,6 @@ export class EventController {
   }
 
   @ApplyApiResponse([400, 401, 403, 404, 500])
-  @ApplyStrictAuth(false)
   @ApiResponse({
     status: 200,
     description: 'Get event by id',
@@ -118,6 +117,35 @@ export class EventController {
   }
 
   @ApplyStrictAuth(true)
+  @ApplyApiResponse([400, 401, 403, 500])
+  @ApiResponse({
+    status: 201,
+    description: 'Create event',
+    schema: {
+      example: {
+        name: 'Tech Conference 2023',
+        description:
+          'Here is the description of the event which is a long string',
+        location: 'New York, NY',
+        start_time: '2019-02-01T00:00:00.000Z',
+        end_time: '2019-02-01T00:00:00.000Z',
+        creator: {
+          _id: '68210420f639de1251ae31a5',
+          name: 'dev',
+          email: 'dev@qut.edu.au',
+        },
+        participants: [],
+        ticket_price: 10,
+        ticket_available: 100,
+        category: 'Networking',
+        image_id: '60d5ec49b3f1f8c8a4e4b8c2',
+        _id: '6821886a312ff80975a1e661',
+        createdAt: '2025-05-12T05:34:34.384Z',
+        updatedAt: '2025-05-12T05:34:34.384Z',
+        __v: 0,
+      },
+    },
+  })
   @Put(':id')
   async update(
     @Param('id') id: string,

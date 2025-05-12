@@ -19,22 +19,6 @@ export class EventService {
     private readonly eventModel: Model<EventDocument>,
   ) {}
 
-  private mapFlags(event: EventDocument, userId: string) {
-    const obj = event.toObject();
-    const creatorId =
-      event.creator instanceof Types.ObjectId
-        ? event.creator.toString()
-        : (event.creator as any).id;
-    const participantIds = (event.participants as Types.ObjectId[]).map((p) =>
-      p.toString(),
-    );
-    return {
-      ...obj,
-      isEditable: creatorId === userId,
-      isRegistered: creatorId === userId || participantIds.includes(userId),
-    };
-  }
-
   async findAll() {
     return await this.eventModel
       .find()
@@ -66,69 +50,24 @@ export class EventService {
     };
   }
 
-  async update(id: string, updateDto: UpdateEventDto, userId: string) {
+  async update(id: string, updateDto: UpdateEventDto, user_id: string) {
     const event = await this.eventModel.findById(id);
     if (!event) throw new NotFoundException('Event not found');
-    if (event.creator.toString() !== userId) {
+    if (event.creator.toString() !== user_id) {
       throw new ForbiddenException('Not authorised to update this event');
     }
-    const updated = await this.eventModel
+    return this.eventModel
       .findByIdAndUpdate(id, updateDto, { new: true })
       .populate('creator', 'name email');
-    return this.mapFlags(updated!, userId);
   }
 
-  async remove(id: string, userId: string) {
+  async remove(id: string, user_id: string) {
     const event = await this.eventModel.findById(id);
     if (!event) throw new NotFoundException('Event not found');
-    if (event.creator.toString() !== userId) {
+    if (event.creator.toString() !== user_id) {
       throw new ForbiddenException('Not authorised to delete this event');
     }
     await event.deleteOne();
     return { message: 'Event deleted' };
-  }
-
-  async register(id: string, userId: string) {
-    const event = await this.eventModel
-      .findById(id)
-      .populate('creator participants', 'name email');
-    if (!event) throw new NotFoundException('Event not found');
-
-    const pid = userId;
-    if (
-      (event.participants as Types.ObjectId[])
-        .map((p) => p.toString())
-        .includes(pid)
-    ) {
-      throw new BadRequestException('Already registered');
-    }
-
-    event.participants.push(new Types.ObjectId(pid));
-    await event.save();
-    await event.populate('creator participants', 'name email');
-    return this.mapFlags(event, userId);
-  }
-
-  async unregister(id: string, userId: string) {
-    const event = await this.eventModel
-      .findById(id)
-      .populate('creator participants', 'name email');
-    if (!event) throw new NotFoundException('Event not found');
-
-    const pid = userId;
-    if (
-      !(event.participants as Types.ObjectId[])
-        .map((p) => p.toString())
-        .includes(pid)
-    ) {
-      throw new BadRequestException('Not registered');
-    }
-
-    event.participants = (event.participants as Types.ObjectId[]).filter(
-      (p) => p.toString() !== pid,
-    );
-    await event.save();
-    await event.populate('creator participants', 'name email');
-    return this.mapFlags(event, userId);
   }
 }

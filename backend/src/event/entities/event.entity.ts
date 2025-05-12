@@ -21,8 +21,8 @@ export interface IEvent {
   location: string;
   start_time: Date;
   end_time: Date;
-  creator: Types.ObjectId;
-  participants: Types.ObjectId[];
+  creator: User;
+  participants: User[];
   ticket_price: number;
   ticket_available: number;
   category: string;
@@ -51,10 +51,10 @@ export class Event implements IEvent {
   end_time: Date;
 
   @Prop({ type: Types.ObjectId, ref: User.name, required: true })
-  creator: Types.ObjectId;
+  creator: User;
 
   @Prop({ type: [Types.ObjectId], ref: User.name, default: [] })
-  participants: Types.ObjectId[];
+  participants: User[];
 
   @Prop({ required: true })
   ticket_price: number;

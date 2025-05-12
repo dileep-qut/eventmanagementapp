@@ -1,8 +1,10 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, Request } from '@nestjs/common';
 import { TicketService } from './ticket.service';
 import { GetTicketPriceDto } from './dto/get-ticket-price.dto';
 import { ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { ApplyApiResponse } from '@/_decorators/apply-api-response.decorator';
+import { PurchaseTicketDto } from '@/ticket/dto/purchase-ticket.dto';
+import { ApplyStrictAuth } from '@/_decorators/apply-strict-auth.decorator';
 
 @Controller('ticket')
 export class TicketController {
@@ -19,8 +21,28 @@ export class TicketController {
       },
     },
   })
-  @ApiBearerAuth()
   async getTicketPrice(@Body() dto: GetTicketPriceDto) {
     return await this.ticketService.getTicketPrice(dto.event_id, dto.add_on);
+  }
+
+  @ApplyStrictAuth(true)
+  @ApplyApiResponse([400, 401, 403, 500])
+  @ApiResponse({
+    status: 201,
+    description: 'Purchase ticket',
+    schema: {
+      example: {
+        price: 142,
+        ticket_id: '68219a6b5d758dfb1640733d',
+      },
+    },
+  })
+  @Post('purchase')
+  async purchaseTicket(@Body() dto: PurchaseTicketDto, @Request() req: any) {
+    return await this.ticketService.purchaseTicket(
+      dto.event_id,
+      req.user._id,
+      dto.add_on,
+    );
   }
 }

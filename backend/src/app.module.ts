@@ -30,8 +30,8 @@ import { InitModule } from '@/_init/init.module';
     }),
     ServeStaticModule.forRoot({
       rootPath: process.cwd() + '/public',
-      serveRoot: '/public/',
-      exclude: ['/api*'],
+      serveRoot: '/api/public/',
+      exclude: ['/api/(?!public).*'],
     }),
     MongooseModule.forRoot(process.env.MONGO_URI || ''),
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),

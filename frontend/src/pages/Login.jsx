@@ -1,47 +1,227 @@
-import { useState } from 'react';
-import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import {
+  Box,
+  Paper,
+  Stack,
+  TextInput,
+  Button,
+  Title,
+  Text,
+  Alert
+} from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
+import { Link, useNavigate } from 'react-router-dom';
+
 import axiosInstance from '../axiosConfig';
 
-const Login = () => {
+const Login = ({setToken}) => {
   const [formData, setFormData] = useState({ email: '', password: '' });
-  const { login } = useAuth();
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axiosInstance.post('/api/auth/login', formData);
-      login(response.data);
-      navigate('/events');
-    } catch (error) {
-      alert('Login failed. Please try again.');
-    }
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    const { email, password } = formData;
+
+    try {
+      const response = await axiosInstance.post('/api/auth/login', {
+        email,
+        password,
+      });
+      console.log(response.data);
+
+      const { token,id } = response.data;
+
+      
+      localStorage.setItem('jwt', token);
+      localStorage.setItem('user_id',id );
+
+      setToken(token)
+      
+      navigate('/events');
+    } catch (err) {
+      console.log(err);
+      
+      setError(err.response?.data?.message || 'Login failed');
+    } finally {
+      setLoading(false);
+    }
+  };
+  
   return (
-    <div className="max-w-md mx-auto mt-20">
-      <form onSubmit={handleSubmit} className="bg-white p-6 shadow-md rounded">
-        <h1 className="text-2xl font-bold mb-4 text-center">Login</h1>
-        <input
-          type="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-          className="w-full mb-4 p-2 border rounded"
+    <Box
+      style={{
+        minHeight: '100vh',
+        backgroundColor: '#f3f3f3',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: '2rem',
+      }}
+    >
+      <Paper
+        radius="lg"
+        shadow="md"
+        style={{
+          display: 'flex',
+          flexDirection: isMobile ? 'column' : 'row',
+          width: '100%',
+          maxWidth: '1200px',
+          height: isMobile ? 'auto' : '500px',
+          overflow: 'hidden',
+        }}
+      >
+        
+        
+        <Box
+          style={{
+            width: isMobile ? '100%' : '50%',
+            height: isMobile ? '200px' : '100%',
+            backgroundImage: 'url(/image-3.png)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            borderTopLeftRadius: isMobile ? '12px' : '12px',
+            borderTopRightRadius: isMobile ? '12px' : 0,
+            borderBottomLeftRadius: isMobile ? 0 : '12px'
+          }}
         />
-        <input
-          type="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-          className="w-full mb-4 p-2 border rounded"
-        />
-        <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded">
-          Login
-        </button>
-      </form>
-    </div>
+        
+
+        
+        <Box
+          style={{
+            width: isMobile ? '100%' : '50%',
+            backgroundColor: 'white',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderBottomLeftRadius: isMobile ? '12px' : 0,
+            borderBottomRightRadius: '12px',
+            borderTopRightRadius: isMobile ? 0 : '12px',
+            padding: isMobile ? '2rem 1rem' : '0',
+          }}
+        >
+          
+          
+          <Stack spacing="md" style={{ width: '80%', maxWidth: 400 }}>
+            <Title  order={2} fw={700} ta="center"
+            style={{
+              fontSize:'2rem',paddingBottom:20
+            }}>
+              Welcome back to EventX
+            </Title>
+            <Text  size="sm" ta="center"
+            style={{ color : 'grey'}}>
+              Seamlessly Discover, Organize and Book your next Event
+            </Text>
+            
+
+            
+            <form onSubmit={handleLogin}>
+              
+            <TextInput
+              label="Email"
+              placeholder=" "
+              withAsterisk
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+              styles={{
+                label: {
+                  position: 'relative',
+                  top: 8,
+                  left: 12,
+                  fontSize: 14,
+                  backgroundColor: 'white',
+                  padding: '0 4px',
+                  pointerEvents: 'none',
+                },
+                input: {
+                  paddingTop: 20,
+                  paddingLeft: 12,
+                  width: '100%',
+                  height: '60px',
+                  padding: '10px',
+                  border: '1px solid #ccc',
+                  borderRadius: '10px',
+                  transition: 'border 0.3s',
+                },
+              }}
+            />
+            
+
+            <TextInput
+              label="Password"
+              placeholder=" "
+              value={formData.password}
+              onChange={handleChange}
+              withAsterisk
+              name="password"
+              type="password"
+              styles={{
+                label: {
+                  position: 'relative',
+                  top: 8,
+                  left: 12,
+                  fontSize: 14,
+                  backgroundColor: 'white',
+                  padding: '0 4px',
+                  pointerEvents: 'none',
+                },
+                input: {
+                  paddingTop: 20,
+                  paddingLeft: 12,
+                  width: '100%',
+                  height: '60px',
+                  padding: '10px',
+                  border: '1px solid #ccc',
+                  borderRadius: '10px',
+                  transition: 'border 0.3s',
+                },
+            
+              }}
+            />
+
+            <Button type="submit" loading={loading} style={{
+                  marginTop: 30,
+                  paddingTop: 10,
+                  paddingLeft: 12,
+                  backgroundColor: '#6E58F6',
+                  color: 'white',
+                  width: '100%',
+                  height: '50px',
+                  padding: '10px',
+                  border: '1px solid #ccc',
+                  borderRadius: '10px',
+                  transition: 'border 0.3s'}}>
+              Login
+            </Button>
+            {error && <Alert color="red" mb="sm">{error}</Alert>}
+
+            <Text size="sm" ta="center"
+            style={{
+              paddingTop:30
+            }}>
+              Don't have an account?{' '}
+              <Text component={Link} to="/register" fw={500} color="violet">
+                Register
+              </Text>
+            </Text>
+            </form>
+          </Stack>
+        </Box>
+      </Paper>
+    </Box>
   );
 };
 

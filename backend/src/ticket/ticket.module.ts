@@ -7,6 +7,7 @@ import {
   TicketList,
   TicketListSchema,
 } from '@/ticket/entities/ticket-list.entity';
+import { PaymentModule } from '@/services/payment.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import {
         schema: TicketListSchema,
       },
     ]),
+    PaymentModule,
   ],
   controllers: [TicketController],
   providers: [TicketService],

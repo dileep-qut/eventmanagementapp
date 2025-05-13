@@ -9,11 +9,14 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
   app.useGlobalPipes(new ValidationPipe());
 
+  const baseServer = process.env.BASE_SERVER || 'http://localhost:3001';
+
   const config = new DocumentBuilder()
     .setTitle('Events Management API')
     .setDescription('The event API description')
     .setVersion('1.0')
     .addBearerAuth()
+    .addServer(baseServer)
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

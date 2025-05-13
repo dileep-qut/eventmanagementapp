@@ -10,7 +10,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IEvent } from '@/event/entities/event.entity';
 import { Types } from 'mongoose';
 
-export class CreateEventDto implements IEvent {
+export class CreateEventDto {
   @ApiProperty({
     description: 'Event name',
     example: 'Tech Conference 2023',
@@ -58,30 +58,32 @@ export class CreateEventDto implements IEvent {
   end_time: Date;
 
   @ApiProperty({
-    description: 'The user who created the event',
-    example: '60d5ec49b3f1f8c8a4e4b8c2',
-  })
-  @IsString()
-  creator: Types.ObjectId;
-
-  @ApiProperty({
-    description: 'List of participants in the event',
-    example: '["60d5ec49b3f1f8c8a4e4b8c2", "60d5ec49b3f1f8c8a4e4b8c3"]',
-  })
-  @IsString({ each: true })
-  participants: Types.ObjectId[];
-
-  @ApiProperty({
-    description: 'Event category',
-    example: 'Technology',
+    description: 'Price of the Ticket',
+    example: 10,
   })
   @IsNumber()
   ticket_price: number;
 
   @ApiProperty({
-    description: 'Event category',
-    example: 'Technology',
+    description: 'How many ticket is available',
+    example: 100,
   })
   @IsNumber()
   ticket_available: number;
+
+  @ApiProperty({
+    description: 'Event category',
+    example: 'Networking',
+  })
+  @IsString()
+  @IsNotEmpty()
+  category: string;
+
+  @ApiProperty({
+    description: 'Image ID associated with the event',
+    example: '60d5ec49b3f1f8c8a4e4b8c2',
+  })
+  @IsString()
+  @IsOptional()
+  image_id?: Types.ObjectId;
 }

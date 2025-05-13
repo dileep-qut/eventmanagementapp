@@ -7,20 +7,25 @@ export class StripeService {
 
   constructor() {
     this.stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-      //FIX: this causing error
-      //apiVersion: '2025-03-31.basil',
+      apiVersion: '2025-04-30.basil',
       typescript: true,
     });
   }
 
   async createCheckoutSession(
-    priceId: string,
+    price: number,
     userEmail?: string,
   ): Promise<Stripe.Checkout.Session> {
     return this.stripe.checkout.sessions.create({
       line_items: [
         {
-          price: priceId,
+          price_data: {
+            currency: 'aud',
+            product_data: {
+              name: 'Event Ticket',
+            },
+            unit_amount: price * 100, // Convert price to cents
+          },
           quantity: 1,
         },
       ],

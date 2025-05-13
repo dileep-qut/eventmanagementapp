@@ -11,7 +11,6 @@ import {
   Box,
   Paper,
   Stack,
-  Container,
 } from '@mantine/core';
 import { Link } from 'react-router-dom';
 
@@ -34,7 +33,6 @@ const Register = () => {
     }
   };
   return (
-
     <Box
       style={{
         minHeight: '100vh',
@@ -192,7 +190,6 @@ const Register = () => {
       </Paper>
       
     </Box>
-
   );
 };
 

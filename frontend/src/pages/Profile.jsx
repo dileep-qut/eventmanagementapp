@@ -1,98 +1,203 @@
-import { useState, useEffect } from 'react';
-import { useAuth } from '../context/AuthContext';
-import axiosInstance from '../axiosConfig';
+import { useState, useEffect } from "react";
+import {
+  Container,
+  TextInput,
+  Button,
+  Title,
+  Loader,
+  Paper,
+  Group,
+  Notification,
+} from "@mantine/core";
+import axiosInstance from "../axiosConfig";
 
-const Profile = () => {
-  const { user } = useAuth(); // Access user token from context
+export default function Profile() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    university: '',
-    address: '',
+    name: "",
+    email: "",
+    university: "",
+    address: "",
   });
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
-    // Fetch profile data from the backend
+    const token = localStorage.getItem("jwt");
+    if (!token) {
+      alert("You must be logged in to view your profile.");
+      return;
+    }
+
     const fetchProfile = async () => {
-      setLoading(true);
       try {
-        const response = await axiosInstance.get('/api/auth/profile', {
-          headers: { Authorization: `Bearer ${user.token}` },
+        const response = await axiosInstance.get("/api/auth/profile", {
+          headers: { Authorization: `Bearer ${token}` },
         });
+
         setFormData({
-          name: response.data.name,
-          email: response.data.email,
-          university: response.data.university || '',
-          address: response.data.address || '',
+          name: response.data.name || "",
+          email: response.data.email || "",
+          university: response.data.university || "",
+          address: response.data.address || "",
         });
       } catch (error) {
-        alert('Failed to fetch profile. Please try again.');
+        console.error("Error fetching profile:", error);
+        alert("Failed to fetch profile.");
       } finally {
         setLoading(false);
       }
     };
 
-    if (user) fetchProfile();
-  }, [user]);
+    fetchProfile();
+  }, []);
+
+  const handleChange = (field) => (event) => {
+    setFormData((prev) => ({ ...prev, [field]: event.target.value }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    setSubmitting(true);
+    setSuccess(false);
+    const token = localStorage.getItem("jwt");
+
     try {
-      await axiosInstance.put('/api/auth/profile', formData, {
-        headers: { Authorization: `Bearer ${user.token}` },
+      await axiosInstance.put("/api/auth/profile", formData, {
+        headers: { Authorization: `Bearer ${token}` },
       });
-      alert('Profile updated successfully!');
+      setSuccess(true);
     } catch (error) {
-      alert('Failed to update profile. Please try again.');
+      console.error("Error updating profile:", error);
+      alert("Failed to update profile.");
     } finally {
-      setLoading(false);
+      setSubmitting(false);
     }
   };
 
   if (loading) {
-    return <div className="text-center mt-20">Loading...</div>;
+    return (
+      <Container size="sm" mt="lg">
+        <Loader size="lg" />
+      </Container>
+    );
   }
 
   return (
-    <div className="max-w-md mx-auto mt-20">
-      <form onSubmit={handleSubmit} className="bg-white p-6 shadow-md rounded">
-        <h1 className="text-2xl font-bold mb-4 text-center">Your Profile</h1>
-        <input
-          type="text"
-          placeholder="Name"
-          value={formData.name}
-          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          className="w-full mb-4 p-2 border rounded"
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-          className="w-full mb-4 p-2 border rounded"
-        />
-        <input
-          type="text"
-          placeholder="University"
-          value={formData.university}
-          onChange={(e) => setFormData({ ...formData, university: e.target.value })}
-          className="w-full mb-4 p-2 border rounded"
-        />
-        <input
-          type="text"
-          placeholder="Address"
-          value={formData.address}
-          onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-          className="w-full mb-4 p-2 border rounded"
-        />
-        <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded">
-          {loading ? 'Updating...' : 'Update Profile'}
-        </button>
-      </form>
-    </div>
-  );
-};
+    <Container size="sm" my="xl">
+      <Paper
+        withBorder
+        shadow="md"
+        p="xl"
+        style={{
+          borderRadius: 30,
+        }}
+      >
+        <Title order={2} align="center" mb="md">
+          Your Profile
+        </Title>
 
-export default Profile;
+        <form onSubmit={handleSubmit}>
+          <TextInput
+            label="Name"
+            placeholder=" "
+            withAsterisk
+            name="name"
+            type="name"
+            value={formData.name}
+            onChange={handleChange}
+            styles={{
+              input: {
+                marginBottom: 20,
+                width: "100%",
+                height: "60px",
+                padding: "10px",
+                border: "1px solid #ccc",
+                borderRadius: "10px",
+                transition: "border 0.3s",
+              },
+            }}
+          />
+
+          <TextInput
+            label="Email"
+            placeholder=" "
+            withAsterisk
+            name="email"
+            type="email"
+            value={formData.email}
+            onChange={handleChange}
+            styles={{
+              input: {
+                marginBottom: 20,
+                width: "100%",
+                height: "60px",
+                padding: "10px",
+                border: "1px solid #ccc",
+                borderRadius: "10px",
+                transition: "border 0.3s",
+              },
+            }}
+          />
+
+          <TextInput
+            label="University"
+            placeholder="Your University"
+            withAsterisk
+            name="university"
+            type="university"
+            value={formData.university}
+            onChange={handleChange}
+            styles={{
+              input: {
+                marginBottom: 20,
+                width: "100%",
+                height: "60px",
+                padding: "10px",
+                border: "1px solid #ccc",
+                borderRadius: "10px",
+                transition: "border 0.3s",
+              },
+            }}
+          />
+
+          <TextInput
+            label="Address"
+            placeholder="Your Address"
+            withAsterisk
+            name="address"
+            type="address"
+            value={formData.address}
+            onChange={handleChange}
+            styles={{
+              input: {
+                marginBottom: 20,
+                width: "100%",
+                height: "60px",
+                padding: "10px",
+                border: "1px solid #ccc",
+                borderRadius: "10px",
+                transition: "border 0.3s",
+              },
+            }}
+          />
+
+          <Group position="center" mt="lg">
+            <Button style={{
+              backgroundColor: '#6E58F6',
+              marginTop:20
+            }} type="submit" loading={submitting} fullWidth>
+              {submitting ? "Updating..." : "Update Profile"}
+            </Button>
+          </Group>
+        </form>
+
+        {success && (
+          <Notification mt="lg" color="green" title="Success">
+            Profile updated successfully!
+          </Notification>
+        )}
+      </Paper>
+    </Container>
+  );
+}

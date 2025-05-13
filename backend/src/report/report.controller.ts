@@ -1,5 +1,4 @@
 import { Controller, Get, Param, Res, StreamableFile } from '@nestjs/common';
-import { ReportService } from './report.service';
 import {
   CsvAttendeesExporter,
   TicketSaleExporter,
@@ -9,7 +8,6 @@ import { Response } from 'express';
 @Controller('report')
 export class ReportController {
   constructor(
-    private readonly reportService: ReportService,
     private readonly attendeeExporter: CsvAttendeesExporter,
     private readonly ticketSaleExporter: TicketSaleExporter,
   ) {}
@@ -29,7 +27,17 @@ export class ReportController {
   }
 
   @Get('eventId/tickets')
-  async getTickets(@Param('eventId') eventId: string): Promise<Buffer> {
-    return this.ticketSaleExporter.export(eventId);
+  async getTickets(
+    @Param('eventId') eventId: string,
+    @Res({ passthrough: true }) res: Response,
+  ): Promise<StreamableFile> {
+    const buffer = await this.ticketSaleExporter.export(eventId);
+    res.set({
+      'Content-Type': 'text/csv',
+      'Content-Disposition': `attachment; filename=tickets-${eventId}.csv`,
+      'Content-Length': buffer.length.toString(),
+    });
+
+    return new StreamableFile(buffer);
   }
 }

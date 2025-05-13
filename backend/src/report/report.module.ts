@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { ReportService } from './report.service';
 import { ReportController } from './report.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import {
@@ -26,6 +25,6 @@ import {
     ]),
   ],
   controllers: [ReportController],
-  providers: [ReportService, CsvAttendeesExporter, TicketSaleExporter],
+  providers: [CsvAttendeesExporter, TicketSaleExporter],
 })
 export class ReportModule {}

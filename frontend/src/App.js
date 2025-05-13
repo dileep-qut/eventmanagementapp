@@ -9,7 +9,7 @@ import { useState,useEffect } from 'react';
 function App() {
 
   const [token, setToken] = useState(null);
-  
+  console.log(token)
       useEffect(() => {
           const checkToken = () => {
             const token = localStorage.getItem('jwt');

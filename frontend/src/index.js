@@ -5,7 +5,9 @@ import App from './App';
 import '@mantine/core/styles.css';
 import { BrowserRouter } from 'react-router-dom';
 
-import { MantineProvider } from '@mantine/core';
+import '@mantine/core/styles.css';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

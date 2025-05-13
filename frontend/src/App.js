@@ -3,13 +3,13 @@ import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
-import Events from './pages/Events';
+import Event from './pages/Event';
 import { useState,useEffect } from 'react';
 
 function App() {
 
   const [token, setToken] = useState(null);
-  
+  console.log(token)
       useEffect(() => {
           const checkToken = () => {
             const token = localStorage.getItem('jwt');
@@ -35,7 +35,7 @@ function App() {
         <Route path="/login" element={<Login setToken={setToken} />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/events" element={<Events />} />
+        <Route path="/events/:eventId" element={<Event />} />
       </Routes>
     </Router>
   );

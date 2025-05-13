@@ -20,6 +20,7 @@ import { ReviewModule } from './review/review.module';
 import { TicketModule } from './ticket/ticket.module';
 import { ImageModule } from '@/image/image.module';
 import { InitModule } from '@/_init/init.module';
+import { ReportModule } from './report/report.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { InitModule } from '@/_init/init.module';
     TicketModule,
     ImageModule,
     InitModule,
+    ReportModule,
   ],
   controllers: [],
   providers: [],

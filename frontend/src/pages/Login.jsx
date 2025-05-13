@@ -137,18 +137,8 @@ const Login = ({setToken}) => {
               value={formData.email}
               onChange={handleChange}
               styles={{
-                label: {
-                  position: 'relative',
-                  top: 8,
-                  left: 12,
-                  fontSize: 14,
-                  backgroundColor: 'white',
-                  padding: '0 4px',
-                  pointerEvents: 'none',
-                },
+
                 input: {
-                  paddingTop: 20,
-                  paddingLeft: 12,
                   width: '100%',
                   height: '60px',
                   padding: '10px',
@@ -169,18 +159,7 @@ const Login = ({setToken}) => {
               name="password"
               type="password"
               styles={{
-                label: {
-                  position: 'relative',
-                  top: 8,
-                  left: 12,
-                  fontSize: 14,
-                  backgroundColor: 'white',
-                  padding: '0 4px',
-                  pointerEvents: 'none',
-                },
                 input: {
-                  paddingTop: 20,
-                  paddingLeft: 12,
                   width: '100%',
                   height: '60px',
                   padding: '10px',
@@ -195,7 +174,6 @@ const Login = ({setToken}) => {
             <Button type="submit" loading={loading} style={{
                   marginTop: 30,
                   paddingTop: 10,
-                  paddingLeft: 12,
                   backgroundColor: '#6E58F6',
                   color: 'white',
                   width: '100%',

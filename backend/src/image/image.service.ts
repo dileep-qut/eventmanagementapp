@@ -22,4 +22,12 @@ export class ImageService {
 
     return newImage;
   }
+
+  async findImageById(id: string) {
+    const image = await this.imageModel.findById(id);
+    if (!image) {
+      throw new BadRequestException('Image not found');
+    }
+    return image;
+  }
 }

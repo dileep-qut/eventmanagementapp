@@ -34,7 +34,7 @@ const Register = () => {
     }
   };
   return (
-    <Container
+    <Box
       style={{
         minHeight: '100vh',
         backgroundColor: '#f3f3f3',
@@ -106,18 +106,9 @@ const Register = () => {
               value={formData.name}
               onChange={handleChange}
               styles={{
-                label: {
-                  position: 'relative',
-                  top: 8,
-                  left: 12,
-                  fontSize: 14,
-                  backgroundColor: 'white',
-                  padding: '0 4px',
-                  pointerEvents: 'none',
-                },
+        
                 input: {
                   paddingTop: 20,
-                  paddingLeft: 12,
                   width: '100%',
                   height: '60px',
                   padding: '10px',
@@ -136,18 +127,8 @@ const Register = () => {
               value={formData.email}
               onChange={handleChange}
               styles={{
-                label: {
-                  position: 'relative',
-                  top: 8,
-                  left: 12,
-                  fontSize: 14,
-                  backgroundColor: 'white',
-                  padding: '0 4px',
-                  pointerEvents: 'none',
-                },
                 input: {
                   paddingTop: 20,
-                  paddingLeft: 12,
                   width: '100%',
                   height: '60px',
                   padding: '10px',
@@ -167,18 +148,8 @@ const Register = () => {
               onChange={handleChange}
               type="password"
               styles={{
-                label: {
-                  position: 'relative',
-                  top: 8,
-                  left: 12,
-                  fontSize: 14,
-                  backgroundColor: 'white',
-                  padding: '0 4px',
-                  pointerEvents: 'none',
-                },
                 input: {
                   paddingTop: 20,
-                  paddingLeft: 12,
                   width: '100%',
                   height: '60px',
                   padding: '10px',
@@ -207,7 +178,7 @@ const Register = () => {
 
             <Text size="sm" ta="center"
             style={{
-              paddingTop:30
+              paddingTop:20
             }}>
               Already have an account?{' '}
               <Text component={Link} to="/login" fw={500} color="violet">
@@ -220,7 +191,7 @@ const Register = () => {
        
       </Paper>
       
-    </Container>
+    </Box>
   );
 };
 

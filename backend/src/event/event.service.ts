@@ -91,4 +91,15 @@ export class EventService {
 
     return event.participants;
   }
+
+  async findMyEvents(user_id: string) {
+    const events = await this.eventModel
+      .find({ creator: user_id })
+      .populate('creator', 'name email')
+      .populate('participants', 'name email')
+      .exec();
+
+    if (!events) throw new NotFoundException('No events found');
+    return events;
+  }
 }

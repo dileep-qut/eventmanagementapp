@@ -1,5 +1,3 @@
-// src/events/events.controller.ts
-
 import {
   Controller,
   Get,
@@ -54,6 +52,57 @@ export class EventController {
   @Get()
   async findAll(@Query() query: GetEventsQueryDto) {
     return await this.eventsService.findAll(query);
+  }
+
+  @ApplyStrictAuth(true)
+  @ApplyApiResponse([400, 401, 403, 500])
+  @ApiResponse({
+    status: 200,
+    description: 'Get my events',
+    schema: {
+      example: [
+        {
+          _id: '68218e24f41de91e2e46ed0a',
+          name: 'Event 1',
+          description: 'Description 1',
+          location: 'Location 1',
+          start_time: '2026-01-24T14:00:00.000Z',
+          end_time: '2026-01-25T14:00:00.000Z',
+          creator: {
+            _id: '68210420f639de1251ae31a5',
+            name: 'dev',
+            email: 'dev@qut.edu.au',
+          },
+          participants: [
+            {
+              _id: '68218e24f41de91e2e46ecf6',
+              name: 'User 2',
+              email: 'user_2@qut.edu.au',
+            },
+            {
+              _id: '68218e24f41de91e2e46ecf4',
+              name: 'User 1',
+              email: 'user_1@qut.edu.au',
+            },
+            {
+              _id: '68210420f639de1251ae31a5',
+              name: 'dev',
+              email: 'dev@qut.edu.au',
+            },
+          ],
+          ticket_price: 15,
+          ticket_available: 1000,
+          category: 'Hackathon',
+          createdAt: '2025-05-12T05:59:00.722Z',
+          updatedAt: '2025-05-12T05:59:00.722Z',
+          __v: 0,
+        },
+      ],
+    },
+  })
+  @Get('my-events')
+  async findMyEvents(@Request() req: any) {
+    return await this.eventsService.findMyEvents(req.user._id);
   }
 
   @ApplyApiResponse([400, 401, 403, 404, 500])

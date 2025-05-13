@@ -25,7 +25,7 @@ export class AuthMiddleware implements NestMiddleware {
 
     // Check if the authorization header is present
     if (!authHeader) {
-      throw new UnauthorizedException('Missing authorization header');
+      return next();
     }
 
     // Check if the authorization header is in the correct format
@@ -58,6 +58,6 @@ export class AuthMiddleware implements NestMiddleware {
     }
 
     req.user = user as Omit<UserDocument, 'password'>;
-    next();
+    return next();
   }
 }

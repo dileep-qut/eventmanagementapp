@@ -34,6 +34,7 @@ const Register = () => {
     }
   };
   return (
+
     <Box
       style={{
         minHeight: '100vh',
@@ -106,7 +107,6 @@ const Register = () => {
               value={formData.name}
               onChange={handleChange}
               styles={{
-        
                 input: {
                   paddingTop: 20,
                   width: '100%',
@@ -192,6 +192,7 @@ const Register = () => {
       </Paper>
       
     </Box>
+
   );
 };
 

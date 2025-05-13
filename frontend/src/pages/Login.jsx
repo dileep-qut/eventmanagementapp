@@ -137,6 +137,7 @@ const Login = ({setToken}) => {
               value={formData.email}
               onChange={handleChange}
               styles={{
+
                 input: {
                   width: '100%',
                   height: '60px',

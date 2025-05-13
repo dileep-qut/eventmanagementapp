@@ -6,8 +6,8 @@ import { Event } from '@/event/entities/event.entity';
 export type ReviewDocument = Review & Document;
 
 export interface IReview {
-  user_id: User;
-  event_id: Event;
+  user: User;
+  event: Event;
   rating: number;
   comment: string;
 }
@@ -15,10 +15,10 @@ export interface IReview {
 @Schema({ timestamps: true, autoCreate: true, collection: 'reviews' })
 export class Review implements IReview {
   @Prop({ required: true, type: Types.ObjectId, ref: 'User' })
-  user_id: User;
+  user: User;
 
   @Prop({ required: true, type: Types.ObjectId, ref: 'Event' })
-  event_id: Event;
+  event: Event;
 
   @Prop({ required: true })
   rating: number;

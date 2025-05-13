@@ -115,6 +115,20 @@ export class TicketService {
     };
   }
 
+  async findMyTickets(user_id: string) {
+    const tickets = await this.ticketListModel
+      .find({ user_id })
+      .populate('event_id', 'name description location start_time end_time')
+      .select('-user_id')
+      .exec();
+
+    if (!tickets) {
+      throw new NotFoundException('No tickets found');
+    }
+
+    return tickets;
+  }
+
   /**
    * Select the pricing strategy based on the request context
    * @param event

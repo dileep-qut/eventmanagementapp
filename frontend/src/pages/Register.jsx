@@ -11,7 +11,6 @@ import {
   Box,
   Paper,
   Stack,
-  Container,
 } from '@mantine/core';
 import { Link } from 'react-router-dom';
 

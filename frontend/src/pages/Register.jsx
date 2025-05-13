@@ -106,7 +106,6 @@ const Register = () => {
               value={formData.name}
               onChange={handleChange}
               styles={{
-        
                 input: {
                   paddingTop: 20,
                   width: '100%',

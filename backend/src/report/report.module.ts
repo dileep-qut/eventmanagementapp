@@ -1,7 +1,10 @@
 import { Module } from '@nestjs/common';
-import { EventService } from './event.service';
-import { EventController } from './event.controller';
+import { ReportController } from './report.controller';
 import { MongooseModule } from '@nestjs/mongoose';
+import {
+  CsvAttendeesExporter,
+  TicketSaleExporter,
+} from '@/report/exporter.concrete';
 import { Event, EventSchema } from '@/event/entities/event.entity';
 import {
   TicketList,
@@ -21,8 +24,7 @@ import {
       },
     ]),
   ],
-  controllers: [EventController],
-  providers: [EventService],
-  exports: [],
+  controllers: [ReportController],
+  providers: [CsvAttendeesExporter, TicketSaleExporter],
 })
-export class EventModule {}
+export class ReportModule {}

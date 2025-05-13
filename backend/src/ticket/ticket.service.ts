@@ -1,6 +1,10 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { Event, EventDocument } from '@/event/entities/event.entity';
 import {
   TicketList,
@@ -48,16 +52,81 @@ export class TicketService {
 
     return { price: this.applyAddOns(ticketPrice, add_on) };
   }
-
-  async orderTicket(event_id, add_on) {
+  // This function will serve as the template flow for purchasing a ticket
+  async purchaseTicket(
+    event_id: string,
+    user_id: string,
+    add_on: {
+      vip: boolean;
+      parking: boolean;
+      food: boolean;
+      priority: boolean;
+    },
+  ) {
     const event = await this.eventModel.findById(event_id);
 
+    // Step 1: Check if the event exists
     if (!event) {
       throw new NotFoundException('Event not found');
     }
 
+    // Step 2: Apply add-ons and pricing strategy to the ticket
     const ticket_strategy = this.selectPricingStrategy(event);
     const ticket_price = ticket_strategy.apply(event.ticket_price);
+    const final_price = this.applyAddOns(ticket_price, add_on);
+
+    // Step 3: Check if enough tickets are available
+    const ticket_purchased_count = await this.ticketListModel.countDocuments({
+      event_id: event._id,
+    });
+    // If ticket_purchased_count is not less than or equal to event.ticket_available
+    if (!(ticket_purchased_count < event.ticket_available)) {
+      throw new ForbiddenException('Ticket Sold Out');
+    }
+
+    // Step 4: Check if the user already has a ticket
+    const existingTicket = await this.ticketListModel.findOne({
+      event_id: event._id,
+      user_id,
+    });
+
+    if (existingTicket) {
+      throw new ForbiddenException('User already has a ticket');
+    }
+
+    // Step 5: Create a new ticket list entry
+    const ticketList = new this.ticketListModel({
+      event_id: event._id,
+      user_id,
+      checked_in: false,
+      transaction_id: 'dummy_transaction_id', // Replace with actual transaction ID
+    });
+
+    await ticketList.save();
+
+    // Step 6: Add participants to the event
+    event.participants.push(ticketList.user_id);
+    await event.save();
+
+    // Step 7: Return the ticket entry
+    return {
+      price: final_price,
+      ticket_id: ticketList._id,
+    };
+  }
+
+  async findMyTickets(user_id: string) {
+    const tickets = await this.ticketListModel
+      .find({ user_id })
+      .populate('event_id', 'name description location start_time end_time')
+      .select('-user_id')
+      .exec();
+
+    if (!tickets) {
+      throw new NotFoundException('No tickets found');
+    }
+
+    return tickets;
   }
 
   /**

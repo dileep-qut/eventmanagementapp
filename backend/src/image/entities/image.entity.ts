@@ -12,6 +12,8 @@ export interface IImage {
 export class Image implements IImage {
   @Prop({ required: true })
   image_name: string;
+
+  @Prop({ required: true })
   image_url: string;
 }
 

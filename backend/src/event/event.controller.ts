@@ -9,6 +9,7 @@ import {
   Body,
   Param,
   Request,
+  Query,
 } from '@nestjs/common';
 import { EventService } from './event.service';
 import { CreateEventDto } from './dto/create-event.dto';
@@ -16,6 +17,7 @@ import { UpdateEventDto } from './dto/update-event.dto';
 import { ApplyApiResponse } from '@/_decorators/apply-api-response.decorator';
 import { ApiResponse } from '@nestjs/swagger';
 import { ApplyStrictAuth } from '@/_decorators/apply-strict-auth.decorator';
+import { GetEventsQueryDto } from '@/event/dto/get-events.query.dto';
 
 @Controller('events')
 export class EventController {
@@ -50,8 +52,8 @@ export class EventController {
     },
   })
   @Get()
-  async findAll(@Request() req: any) {
-    return await this.eventsService.findAll();
+  async findAll(@Query() query: GetEventsQueryDto) {
+    return await this.eventsService.findAll(query);
   }
 
   @ApplyApiResponse([400, 401, 403, 404, 500])

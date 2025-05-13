@@ -9,6 +9,7 @@ import { Model, Types, Document } from 'mongoose';
 import { Event } from './entities/event.entity';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
+import { GetEventsQueryDto } from './dto/get-events.query.dto';
 
 export type EventDocument = Event & Document;
 
@@ -19,9 +20,15 @@ export class EventService {
     private readonly eventModel: Model<EventDocument>,
   ) {}
 
-  async findAll() {
+  async findAll(query: GetEventsQueryDto) {
+    const { name, category } = query;
     return await this.eventModel
-      .find()
+      .find({
+        name: {
+          $regex: name ? name : '',
+        },
+        category: category ? category : { $exists: true },
+      })
       .select('-participants')
       .populate('creator', 'name email')
       .exec();

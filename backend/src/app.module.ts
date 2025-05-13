@@ -39,7 +39,7 @@ import { ReportModule } from './report/report.module';
     AuthModule,
     EventModule,
     UserModule,
-    ReviewModule,
+    //ReviewModule,
     TicketModule,
     ImageModule,
     InitModule,

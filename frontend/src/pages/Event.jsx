@@ -11,6 +11,7 @@ export default function EventPage() {
   const [eventDetails, setEventDetails] = useState(null);
   const [loading, setLoading] = useState(true);
 
+
  const token = localStorage.getItem('jwt')
 
 
@@ -57,6 +58,7 @@ export default function EventPage() {
       <Container
           size="xl"
           py="sm">
+
         <div style={{ marginTop: 30 }} />
 
         {image && (
@@ -104,9 +106,13 @@ export default function EventPage() {
         <Flex
           justify="space-between"
           align="center"
+
+
           wrap="wrap" 
           gap="md"    
           mt={30}     
+
+
         >
           <CircleWithIcon icon="/assets/calender.svg" text={start.format('dddd, MMM YYYY')} />
           <CircleWithIcon icon="/assets/clock.svg" text={formattedTime} />
@@ -127,6 +133,7 @@ export default function EventPage() {
               minWidth: "50%", 
               paddingLeft: 15,
               paddingRight: 15, 
+
             }}
           >
             <div style={{ paddingLeft: 20 }}>
@@ -136,11 +143,10 @@ export default function EventPage() {
           </Paper>
 
         </Paper>
+
       </Container>
   
 
-      </div>
-    </div>
 
   );
 }

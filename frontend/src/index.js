@@ -14,6 +14,11 @@ import '@mantine/core/styles.css';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 
+import '@mantine/core/styles.css';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
      

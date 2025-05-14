@@ -4,6 +4,9 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
 import Event from './pages/Event';
+import MyTickets from './pages/My-tickets';
+
+
 import { useState,useEffect } from 'react';
 
 function App() {
@@ -35,7 +38,11 @@ function App() {
         <Route path="/login" element={<Login setToken={setToken} />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/mytickets" element={<MyTickets />} />
+
         <Route path="/events/:eventId" element={<Event />} />
+
+
       </Routes>
     </Router>
   );

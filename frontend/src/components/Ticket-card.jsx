@@ -12,7 +12,8 @@ import {
 
 import { useMediaQuery } from '@mantine/hooks';
 
-const TicketCard = () => {
+const TicketCard = ({ ticket }) => {
+    const event = ticket.event_id;
     const isLargeScreen = useMediaQuery('(min-width: 768px)');
 
     return (<Card
@@ -49,16 +50,16 @@ const TicketCard = () => {
                 </div>
                 <Stack spacing={4}>
                     <Title fw={700} size="md" style={{ fontSize: 20 }}>
-                        Networking event
+                       {event.name}
                     </Title>
-                    <Text size="sm">28 May 2025, 10:00 PM – 11:00 PM</Text>
+                    <Text size="sm">{new Date(event.start_time).toLocaleString()} - {new Date(event.end_time).toLocaleString()}</Text>
                     <Flex align="center" gap={6}>
                         <img
                             src="/assets/location-grey.svg"
                             style={{ width: 18, height: 18 }}
                         />
                         <Text size="xs" fw={700} c="dimmed">
-                            STAR Hotel, Brisbane
+                        {event.location}
                         </Text>
                     </Flex>
                 </Stack>

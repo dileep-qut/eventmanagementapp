@@ -50,7 +50,6 @@ export default function EventPage() {
 
   return (
     
-      // <div style={{ paddingLeft: '20px', paddingRight: '20px' }}>
       <Container
           size="xl"
           py="sm">
@@ -101,9 +100,9 @@ export default function EventPage() {
         <Flex
           justify="space-between"
           align="center"
-          wrap="wrap" // Optional: wraps items on smaller screens
-          gap="md"    // Optional: adds spacing between items
-          mt={30}     // Optional: adds top margin
+          wrap="wrap" 
+          gap="md"    
+          mt={30}     
         >
           <CircleWithIcon icon="/assets/calender.svg" text={start.format('dddd, MMM YYYY')} />
           <CircleWithIcon icon="/assets/clock.svg" text={formattedTime} />
@@ -120,10 +119,10 @@ export default function EventPage() {
             radius="md"
             style={{
               backgroundColor: "#E5E5E5",
-              display: "inline-flex", // use inline-flex to adjust based on content
-              minWidth: "50%", // set the minimum width
+              display: "inline-flex", 
+              minWidth: "50%", 
               paddingLeft: 15,
-              paddingRight: 15, // optional, if you want to add padding on the right side
+              paddingRight: 15, 
             }}
           >
             <div style={{ paddingLeft: 20 }}>

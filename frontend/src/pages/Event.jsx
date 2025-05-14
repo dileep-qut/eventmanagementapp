@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Flex, Text, Title, Paper, Button, Stack } from "@mantine/core";
+import { Flex, Text, Title, Paper, Button, Stack,Container } from "@mantine/core";
 import { useParams } from 'react-router-dom';
 import axiosInstance from '../axiosConfig';
 import dayjs from 'dayjs';
@@ -49,8 +49,11 @@ export default function EventPage() {
 
 
   return (
-    <div>
-      <div style={{ paddingLeft: '20px', paddingRight: '20px' }}>
+    
+      // <div style={{ paddingLeft: '20px', paddingRight: '20px' }}>
+      <Container
+          size="xl"
+          py="sm">
         <div style={{ marginTop: 30 }} />
 
         {image && (
@@ -130,8 +133,8 @@ export default function EventPage() {
           </Paper>
 
         </Paper>
-      </div>
-    </div>
+      </Container>
+  
   );
 }
 

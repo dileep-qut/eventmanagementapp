@@ -6,6 +6,7 @@ import Profile from './pages/Profile';
 import Event from './pages/Event';
 import MyTickets from './pages/My-tickets';
 
+
 import { useState,useEffect } from 'react';
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
         <Route path="/events/my-tickets/" element={<MyTickets />} />
 
         <Route path="/events/:eventId" element={<Event />} />
+
 
       </Routes>
     </Router>

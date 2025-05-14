@@ -1,7 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 import { User } from '@/user/entities/user.entity';
-import { Image } from '@/image/entities/image.entity';
 
 export type EventDocument = Event & Document;
 
@@ -26,7 +25,7 @@ export interface IEvent {
   ticket_price: number;
   ticket_available: number;
   category: string;
-  image_id?: Types.ObjectId; // Optional field for images
+  image_url?: string;
 }
 
 @Schema({
@@ -69,8 +68,8 @@ export class Event implements IEvent {
   })
   category: string;
 
-  @Prop({ type: Types.ObjectId, ref: Image.name, required: false })
-  image_id?: Types.ObjectId; // Optional field for images
+  @Prop({ type: String, required: false })
+  image_url?: string;
 }
 
 export const EventSchema = SchemaFactory.createForClass(Event);

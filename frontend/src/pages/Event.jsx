@@ -13,6 +13,7 @@ export default function EventPage() {
 
  const token = localStorage.getItem('jwt')
 
+
   useEffect(() => {
     const fetchEventDetails = async () => {
       try {

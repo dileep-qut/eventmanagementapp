@@ -9,7 +9,7 @@ export default function EventPage() {
   const [eventDetails, setEventDetails] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MjMzZjJhYjNhMzA0MmQ0MzI3NTI0MiIsImlhdCI6MTc0NzE0MTc5NX0.6wfWLqUts3GU4RvrOds_0Dbrki1sFr0R9vpz1f1vcL8'; // use from env ideally
+ const token = localStorage.getItem('jwt')
 
   useEffect(() => {
     const fetchEventDetails = async () => {

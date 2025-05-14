@@ -14,7 +14,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Deploy over SSH
+      - name: Deploy to via SSH
         uses: appleboy/ssh-action@v1.2.2
         with:
           host: ${{ secrets.SERVER_HOST }}
@@ -26,7 +26,14 @@ jobs:
               source ~/.bashrc || true
               cd eventmanagementapp
               git pull
+            
               cd backend
               bun install
+              bun run build
+
+              cd ../frontend
+              bun install
+              bun run build
+              
               pm2 restart all
             '

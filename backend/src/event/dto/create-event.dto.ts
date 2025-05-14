@@ -80,10 +80,10 @@ export class CreateEventDto {
   category: string;
 
   @ApiProperty({
-    description: 'Image ID associated with the event',
+    description: 'This is optional field of image url',
     example: '60d5ec49b3f1f8c8a4e4b8c2',
   })
   @IsString()
   @IsOptional()
-  image_id?: Types.ObjectId;
+  image_url?: string;
 }

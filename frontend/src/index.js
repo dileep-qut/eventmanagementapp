@@ -5,6 +5,14 @@ import App from './App';
 import '@mantine/core/styles.css';
 import { MantineProvider } from '@mantine/core';
 
+import '@mantine/core/styles.css';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
+import '@mantine/core/styles.css';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
 
 import '@mantine/core/styles.css';
 

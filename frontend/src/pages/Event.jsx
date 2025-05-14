@@ -107,9 +107,11 @@ export default function EventPage() {
           justify="space-between"
           align="center"
 
+
           wrap="wrap" 
           gap="md"    
           mt={30}     
+
 
         >
           <CircleWithIcon icon="/assets/calender.svg" text={start.format('dddd, MMM YYYY')} />
@@ -144,6 +146,7 @@ export default function EventPage() {
 
       </Container>
   
+
 
   );
 }

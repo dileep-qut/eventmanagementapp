@@ -12,11 +12,19 @@ import {
 
 import { useMediaQuery } from '@mantine/hooks';
 
+import { useDisclosure } from '@mantine/hooks';
+
+import TicketQRCode from './TicketQR-code'
+
 const TicketCard = ({ ticket }) => {
+    const [opened, { open, close }] = useDisclosure(false);
     const event = ticket.event_id;
     const isLargeScreen = useMediaQuery('(min-width: 768px)');
 
-    return (<Card
+    return (
+    <>
+    <TicketQRCode opened={opened} onClose={close} ticket={ticket} />
+    <Card
         shadow="md"
         radius="xl"
         p="md"
@@ -75,6 +83,7 @@ const TicketCard = ({ ticket }) => {
                 <Button
                     color="violet"
                     radius="md"
+                    onClick={open}
                     size="sm"
                     fullWidth={true}
                     styles={{
@@ -108,6 +117,7 @@ const TicketCard = ({ ticket }) => {
             </Stack>
         </Flex>
     </Card>
+    </>
     );
 }
 

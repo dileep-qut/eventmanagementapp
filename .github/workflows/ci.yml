@@ -22,9 +22,11 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            source ~/.bashrc || true
-            cd eventmanagementapp
-            git pull
-            cd backend
-            bun install
-            pm2 restart all
+            bash -ic '
+              source ~/.bashrc || true
+              cd eventmanagementapp
+              git pull
+              cd backend
+              bun install
+              pm2 restart all
+            '

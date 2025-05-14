@@ -38,7 +38,7 @@ function App() {
         <Route path="/login" element={<Login setToken={setToken} />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/events/my-tickets/" element={<MyTickets />} />
+        <Route path="/mytickets" element={<MyTickets />} />
 
         <Route path="/events/:eventId" element={<Event />} />
 

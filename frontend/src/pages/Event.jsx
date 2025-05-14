@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+
 import { Flex, Text, Title, Paper, Button, Stack,Container } from "@mantine/core";
+
 import { useParams } from 'react-router-dom';
 import axiosInstance from '../axiosConfig';
 import dayjs from 'dayjs';
@@ -49,6 +51,7 @@ export default function EventPage() {
 
 
   return (
+
     
       <Container
           size="xl"
@@ -134,6 +137,10 @@ export default function EventPage() {
         </Paper>
       </Container>
   
+
+      </div>
+    </div>
+
   );
 }
 

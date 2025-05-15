@@ -58,6 +58,7 @@ export class TicketController {
       price: purchase.price,
       eventId: dto.event_id,
       ticketId: purchase.ticket_id as string,
+      userEmail: req.user.email as string,
     };
 
     const response = await this.paymentService.processPayment(paymentContext);

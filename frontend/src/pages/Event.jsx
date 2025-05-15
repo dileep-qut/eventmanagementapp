@@ -25,6 +25,7 @@ export default function EventPage() {
 
   const [modalOpened, setModalOpened] = useState(false); // For the Addon Model
 
+
   const [selectedAddons, setSelectedAddons] = useState([]); // Store the selected addon if the request fullfills
   const [_selectedAddons, _setSelectedAddons] = useState([]); //To store the selected addon in a temp variable
 
@@ -33,6 +34,7 @@ export default function EventPage() {
 
 
   const token = localStorage.getItem('jwt')
+
 
 
   useEffect(() => {
@@ -273,9 +275,11 @@ export default function EventPage() {
           align="center"
 
 
+
           wrap="wrap"
           gap="md"
           mt={30}
+
 
 
         >
@@ -297,7 +301,9 @@ export default function EventPage() {
               display: "inline-flex",
               minWidth: "50%",
               paddingLeft: 15,
+
               paddingRight: 15,
+
 
             }}
           >
@@ -310,6 +316,7 @@ export default function EventPage() {
         </Paper>
 
       </Container>
+
 
       <Modal
         opened={modalOpened}
@@ -337,6 +344,7 @@ export default function EventPage() {
               <Text fw={600}>Price: ${ticket_price}</Text>
             </Stack>
           </Checkbox.Group>
+
 
           <Button
             variant={addonConfirmed ? 'filled' : 'outline'}

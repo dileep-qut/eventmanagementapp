@@ -81,7 +81,8 @@ export class CreateEventDto {
 
   @ApiProperty({
     description: 'This is optional field of image url',
-    example: '60d5ec49b3f1f8c8a4e4b8c2',
+    example:
+      'This is optional field of image url and should be URL return when creating new image',
   })
   @IsString()
   @IsOptional()

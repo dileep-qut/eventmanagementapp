@@ -5,6 +5,7 @@ import { Model } from 'mongoose';
 import { User } from '@/user/entities/user.entity';
 import { Event } from '@/event/entities/event.entity';
 import { Image } from '@/image/entities/image.entity';
+import { TicketList } from '@/ticket/entities/ticket-list.entity';
 import mongoose from 'mongoose';
 
 import { CategoryEnum } from '@/event/entities/event.entity';
@@ -19,6 +20,8 @@ export class Initializer implements OnModuleInit {
     @InjectModel(User.name) private readonly userModel: Model<User>,
     @InjectModel(Event.name) private readonly eventModel: Model<Event>,
     @InjectModel(Image.name) private readonly imageModel: Model<Image>,
+    @InjectModel(TicketList.name)
+    private readonly ticketListModel: Model<TicketList>,
   ) {}
 
   async onModuleInit() {
@@ -42,6 +45,7 @@ export class Initializer implements OnModuleInit {
     await this.userModel.deleteMany({});
     await this.eventModel.deleteMany({});
     await this.imageModel.deleteMany({});
+    await this.ticketListModel.deleteMany({});
   }
 
   private async createAdminUser() {
@@ -55,7 +59,7 @@ export class Initializer implements OnModuleInit {
   }
 
   private async seedUsers() {
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 50; i++) {
       await this.userModel.create({
         name: `User ${i}`,
         email: `user_${i}@qut.edu.au`,
@@ -70,22 +74,35 @@ export class Initializer implements OnModuleInit {
   private async seedEvents() {
     const root_user = await this.userModel.findOne({ name: 'dev' });
 
-    const all_users = await this.userModel.find({}).select('_id');
+    const all_users = await this.userModel.find().select('_id');
 
-    for (let i = 0; i < 5; i++) {
-      await this.eventModel.create({
+    for (let i = 0; i < 20; i++) {
+      const possible_participants = _.sampleSize(all_users, 10).map(
+        (user) => user._id,
+      );
+
+      const event = await this.eventModel.create({
         name: `Event ${i}`,
         description: `Description ${i}`,
         location: `Location ${i}`,
         category: _.sample(CategoryEnum),
         creator: root_user!._id,
-        participants: _.sampleSize(all_users, 3).map((user) => user._id),
+        participants: possible_participants,
         ticket_available: 1000,
         ticket_price: 15,
         start_time: new Date(2025, 12, 25),
         end_time: new Date(2025, 12, 26),
         speakers: [],
       });
+
+      for (const e of possible_participants) {
+        await this.ticketListModel.create({
+          event_id: event._id,
+          user_id: e,
+          checked_in: false,
+          transaction_id: `Sample Transaction ID`,
+        });
+      }
     }
   }
 }

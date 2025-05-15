@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
 import Event from './pages/Event';
+import Home from './pages/Home';
 import MyTickets from './pages/My-tickets';
 
 
@@ -37,6 +38,7 @@ function App() {
         <Route path="/login" element={<Login setToken={setToken} />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/" element={<Home />} />
         <Route path="/mytickets" element={<MyTickets />} />
 
         <Route path="/events/:eventId" element={<Event />} />

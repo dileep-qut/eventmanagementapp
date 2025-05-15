@@ -3,7 +3,7 @@ import { ReportController } from './report.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import {
   CsvAttendeesExporter,
-  TicketSaleExporter,
+  RevenueExporter,
 } from '@/report/exporter.concrete';
 import { Event, EventSchema } from '@/event/entities/event.entity';
 import {
@@ -25,6 +25,6 @@ import {
     ]),
   ],
   controllers: [ReportController],
-  providers: [CsvAttendeesExporter, TicketSaleExporter],
+  providers: [CsvAttendeesExporter, RevenueExporter],
 })
 export class ReportModule {}

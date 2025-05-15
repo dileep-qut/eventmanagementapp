@@ -20,7 +20,7 @@ const TicketCard = ({ ticket }) => {
     const [opened, { open, close }] = useDisclosure(false);
     const event = ticket.event_id;
     const isLargeScreen = useMediaQuery('(min-width: 768px)');
-
+    if(event ==null) return null
     return (
     <>
     <TicketQRCode opened={opened} onClose={close} ticket={ticket} />

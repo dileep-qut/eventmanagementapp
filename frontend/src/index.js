@@ -9,8 +9,6 @@ import { Notifications } from '@mantine/notifications';
 
 
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 

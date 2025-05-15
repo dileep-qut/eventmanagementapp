@@ -1,0 +1,1 @@
+export const baseURL = "https://ifn636.marcusnguyen.dev/api";

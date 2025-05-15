@@ -5,13 +5,13 @@ import { User } from '@/user/entities/user.entity';
 export type EventDocument = Event & Document;
 
 export const CategoryEnum = [
-  'Business',
-  'Webinar',
-  'Workshop',
-  'Conference',
+  'Music',
   'Networking',
-  'Hackathon',
-  'Other',
+  'Night Life',
+  'CyberSecurity',
+  'Computer Science',
+  'Dating',
+  'Hobbies',
 ];
 
 export interface IEvent {

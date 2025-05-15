@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { Flex, Text, Title, Paper, Button, Stack, Container, Box, Modal, Checkbox, Loader } from "@mantine/core";
-import {useDisclosure} from '@mantine/hooks'
+import { useDisclosure } from '@mantine/hooks'
 import { useParams } from 'react-router-dom';
 
 import axiosInstance from '../axiosConfig';
@@ -17,8 +17,8 @@ import { baseURL } from '../config';
 
 export default function EventPage() {
   const { eventId } = useParams();
-   const [TicketConfirmedModalOpened, { TicketConfirmedModalOpen, TicketConfirmedModalClose }] = useDisclosure(false);
-   const [ticket, setTicket] = useState(null); // This will be initialised when the booking confirms
+  const [TicketConfirmedModalOpened, { TicketConfirmedModalOpen, TicketConfirmedModalClose }] = useDisclosure(false);
+  const [ticket, setTicket] = useState(null); // This will be initialised when the booking confirms
   const [eventDetails, setEventDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [modalLoading, setModalLoading] = useState(false);
@@ -60,9 +60,9 @@ export default function EventPage() {
       } catch (err) {
         showNotification({
           title: 'Error',
-          message: err.message,
+          message: err?.response?.data?.message || err.message || 'Something went wrong',
           autoClose: 3000,
-          color: 'red'
+          color: 'red',
         });
       } finally {
         setLoading(false);
@@ -106,9 +106,9 @@ export default function EventPage() {
       setAddonConfirmed(false)
       showNotification({
         title: 'Error',
-        message: err.message,
+        message: err?.response?.data?.message || err.message || 'Something went wrong',
         autoClose: 3000,
-        color: 'red'
+        color: 'red',
       });
     } finally {
     }
@@ -134,20 +134,7 @@ export default function EventPage() {
       });
 
       if (response.status === 201 || response.status === 200) {
-        setTicket( {
-          "_id": response.data.ticket_id,
-          "event_id": {
-            "_id": "68218e24f41de91e2e46ed0a",
-            "name": name,
-            "description": description,
-            "location": location,
-            "start_time": start_time,
-            "end_time": end_time
-          },
-          "checked_in": false,
-          "transaction_id": ""
-        })
-        TicketConfirmedModalOpen()
+        window.location.href = response.data.url;
       } else {
         showNotification({
           title: 'Error',
@@ -157,13 +144,11 @@ export default function EventPage() {
         });
       }
     } catch (err) {
-      console.log('ERROR');
-      
       showNotification({
         title: 'Error',
-        message: err.message,
+        message: err?.response?.data?.message || err.message || 'Something went wrong',
         autoClose: 3000,
-        color: 'red'
+        color: 'red',
       });
     } finally {
       setModalLoading(false)
@@ -190,7 +175,7 @@ export default function EventPage() {
   return (
 
     <>
-     <TicketQRCode opened={TicketConfirmedModalOpened} onClose={TicketConfirmedModalClose} ticket={ticket} />
+      <TicketQRCode opened={TicketConfirmedModalOpened} onClose={TicketConfirmedModalClose} ticket={ticket} />
       <Container
         size="xl"
         py="sm">
@@ -199,7 +184,7 @@ export default function EventPage() {
 
         {image_url && (
           <img
-          src={`${baseURL}${image_url}`}
+            src={`${baseURL}${image_url}`}
             alt="Event Banner"
             style={{
               width: '100%',
@@ -350,7 +335,7 @@ export default function EventPage() {
             variant={addonConfirmed ? 'filled' : 'outline'}
             color="#6E58F6"
             fullWidth
-            onClick={ addonConfirmed? purchaseTicket: getTicketPrice}
+            onClick={addonConfirmed ? purchaseTicket : getTicketPrice}
             disabled={modalLoading} // Optional: disables button while loading
             style={{
               borderColor: '#6E58F6',

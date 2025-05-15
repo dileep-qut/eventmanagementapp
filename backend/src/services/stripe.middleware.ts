@@ -12,6 +12,7 @@ export class StripePaymentMiddleware implements PaymentMiddleware {
 
   async process(
     context: PaymentContext,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     next: (context: PaymentContext) => Promise<PaymentResponse>,
   ): Promise<PaymentResponse> {
     const session = await this.stripeService.createCheckoutSession(
@@ -22,9 +23,7 @@ export class StripePaymentMiddleware implements PaymentMiddleware {
       paymentNeeded: true,
       uri: session.url ?? undefined,
     };
-    return next(context).then((nextResponse) => ({
-      ...nextResponse,
-      ...response,
-    }));
+
+    return response;
   }
 }

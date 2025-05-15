@@ -1,120 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
+import EventCard from "../components/EventCard";
 import {
   TextInput,
   Flex,
-  Text,
-  Stack,
-  Card,
-  Group,
-  Box,
-  Image,
-  Badge
 } from "@mantine/core";
+import CircleWithIcon from "../components/CategoryIcon";
 import axiosInstance from "../axiosConfig";
-import { useMediaQuery } from "@mantine/hooks";
 
-function EventCard({ event }) {
-    return (
-      <Card
-        shadow="sm"
-        padding="md"
-        radius="xl"
-        withBorder
-        style={{
-          width: 450, // uniform width
-          height: 320, // uniform height
-          display: "flex",
-          margin:20,
-          flexDirection: "column",
-          justifyContent: "space-between",
-        }}
-      >
-        <Box style={{ position: "relative" }}>
-          <Image
-            src={event.imageUrl || "/default-event.jpg"} // fallback image
-            height={160}
-            radius="md"
-            alt={event.name}
-            style={{ objectFit: "cover" }}
-          />
-          <Badge
-            color="dark"
-            variant="filled"
-            style={{
-              position: "absolute",
-              top: 10,
-              left: 10,
-              borderRadius: "999px",
-              backgroundColor: "white",
-              color: "black",
-              fontWeight: 600,
-              padding: "5px 10px",
-            }}
-          >
-            ${event.ticket_price}
-          </Badge>
-        </Box>
-  
-        <Group mt="md" spacing="xs" align="flex-start">
-          <Stack spacing={0} align="center" w={50}>
-            <Text size="xs" c="blue" fw={700}>
-              {new Date(event.start_time).toLocaleString("default", { month: "short" }).toUpperCase()}
-            </Text>
-            <Text size="lg" fw={700}>
-              {new Date(event.start_time).getDate()}
-            </Text>
-          </Stack>
-  
-          <Stack spacing={2}>
-            <Text fw={700} size="md" lineClamp={2}>
-              {event.name}
-            </Text>
-            <Text size="sm" c="gray" lineClamp={1}>
-              {event.location}
-            </Text>
-          </Stack>
-        </Group>
-      </Card>
-    );
-  }
 
-function CircleWithIcon({ icon, text }) {
-  const isMobile = useMediaQuery("(max-width: 768px)");
+const categories = [
+  { icon: "/assets/music-filter.svg", text: "Music" },
+  { icon: "/assets/sms-tracking.svg", text: "Networking" },
+  { icon: "/assets/global.svg", text: "Night Life" },
+  { icon: "/assets/key.svg", text: "Cyber" },
+  { icon: "/assets/message-programming.svg", text: "Coding" },
+  { icon: "/assets/lovely.svg", text: "Dating" },
+];
 
-  const circleSize = isMobile ? 50 : 90;
-  const iconSize = isMobile ? 20 : 30;
-  return (
-    <Stack
-      align="center"
-      spacing="xs"
-      style={{ flex: "1 0 auto", textAlign: "center" }}
-    >
-      <div
-        style={{
-          width: circleSize,
-          height: circleSize,
-          borderRadius: "50%",
-          border: "1px solid #ACAEAF",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <img
-          src={icon}
-          alt="Icon"
-          style={{ width: iconSize, height: iconSize }}
-        />
-      </div>
-      <Text size="sm" fw={500} ta="center">
-        {text}
-      </Text>
-    </Stack>
-  );
-}
+
+
 
 export default function EventPage() {
+  const [selectedCategory, setSelectedCategory] = useState('');
     const [events, setEvents] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
 
@@ -133,34 +41,33 @@ export default function EventPage() {
         fetchEvents();
       }, []);
 
-      const filteredEvents = searchQuery.trim()
-  ? events.filter((event) =>
-      event.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      event.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      event.category.toLowerCase().includes(searchQuery.toLowerCase())
-    )
-  : events;
+      const filteredEvents = events.filter((event) => {
+  const matchesSearch = searchQuery.trim() === '' || 
+    event.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    event.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    event.category.toLowerCase().includes(searchQuery.toLowerCase());
+
+  const matchesCategory = selectedCategory === '' || 
+    event.category.toLowerCase() === selectedCategory.toLowerCase();
+
+  return matchesSearch && matchesCategory;
+});
 
   return (
     <div>
-      <Flex
-        justify="space-between"
-        align="center"
-        wrap="wrap" 
-        gap="md"
-        mt={40}
-      >
-        <CircleWithIcon icon="/assets/music-filter.svg" text={"Music"} />
-        <CircleWithIcon icon="/assets/sms-tracking.svg" text={"Networking"} />
-        <CircleWithIcon icon="/assets/global.svg" text={"Night Life"} />
-        <CircleWithIcon icon="/assets/key.svg" text={"Cyber"} />
-        <CircleWithIcon
-          icon="/assets/message-programming.svg"
-          text={"Coding"}
-        />
-        <CircleWithIcon icon="/assets/lovely.svg" text={"Dating"} />
-        {/* <CircleWithIcon icon="/assets/harmony-(one).svg" text={"Hobbies"} /> */}
-      </Flex>
+      <Flex justify="space-between" align="center" wrap="wrap" gap="md" mt={40}>
+  {categories.map(({ icon, text }) => (
+    <CircleWithIcon
+      key={text}
+      icon={icon}
+      text={text}
+      selected={selectedCategory === text}
+      onClick={() =>
+        setSelectedCategory((prev) => (prev === text ? '' : text))
+      }
+    />
+  ))}
+</Flex>
 
       <div
         style={{

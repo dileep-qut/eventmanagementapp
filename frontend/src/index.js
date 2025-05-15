@@ -8,16 +8,6 @@ import { MantineProvider } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
 
 
-import '@mantine/core/styles.css';
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-
-import '@mantine/core/styles.css';
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-
-
-import '@mantine/core/styles.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 

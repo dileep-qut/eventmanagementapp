@@ -9,6 +9,7 @@ const MyEventsPage = () => {
     setMyEvents((events) => events.filter((e) => e._id !== deletedId));
   };
 
+
   const [myEvents, setMyEvents] = useState([]);
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -26,12 +27,16 @@ const MyEventsPage = () => {
         console.log(response.data);
 
         if (response.data.length === 0) {
+
           setError("You haven't hosted any events yet");
+
         } else {
           setMyEvents(response.data);
         }
       } catch (err) {
+
         setError("Failed to fetch events.");
+
         console.error(err);
       } finally {
         setLoading(false);
@@ -43,6 +48,7 @@ const MyEventsPage = () => {
 
   return (
     <div style={{ padding: "40px" }}>
+
       
       <div
         style={{
@@ -80,7 +86,7 @@ const MyEventsPage = () => {
         }}
       />
 
-      
+
       <Container size="xl" py="sm" style={{ backgroundColor: "transparent" }}>
         {loading ? (
           <Loader size="lg" />
@@ -91,11 +97,13 @@ const MyEventsPage = () => {
         ) : (
           <Stack>
             {myEvents.map((event) => (
+
               <MyEventCard
                 key={event._id}
                 event={event}
                 onEventDeleted={handleEventDeleted}
               />
+
             ))}
           </Stack>
         )}

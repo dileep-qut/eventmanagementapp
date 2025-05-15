@@ -14,7 +14,6 @@ import MyEventsPage from './pages/My-events';
 
 
 
-
 function App() {
 
   const [token, setToken] = useState(null);

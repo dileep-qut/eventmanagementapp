@@ -43,7 +43,7 @@ export default function AddEventModal({ opened, onClose, onEventCreated }) {
       },
     };
 
-    
+
     const formImage = new FormData();
     formImage.append("file", formData.image);
     const uploadRes = await axiosInstance.post(
@@ -53,7 +53,6 @@ export default function AddEventModal({ opened, onClose, onEventCreated }) {
     );
     const imageUrl = uploadRes.data.path;
 
-    
     const payload = {
       ...formData,
       image_url: imageUrl,

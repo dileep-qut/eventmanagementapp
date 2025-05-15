@@ -140,7 +140,7 @@ const Navbar = ({token, setToken }) => {
                   <Button component={Link} to="/login" onClick={() => { navigate('/login') }}>
                     Login
                   </Button>
-                  <Button component={Link} to="/signup" onClick={() => { navigate('/register') }}>
+                  <Button component={Link} to="/register" onClick={() => { navigate('/register') }}>
                     Register
                   </Button>
                 </>

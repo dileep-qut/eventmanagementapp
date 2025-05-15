@@ -63,7 +63,7 @@ export default function Profile() {
     const token = localStorage.getItem("jwt");
 
     try {
-      await axiosInstance.put("/api/auth/profile", formData, {
+      await axiosInstance.put("/auth/profile", formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setSuccess(true);
@@ -105,7 +105,7 @@ export default function Profile() {
             name="name"
             type="name"
             value={formData.name}
-            onChange={handleChange}
+            onChange={handleChange('name')}
             styles={{
               input: {
                 marginBottom: 20,
@@ -126,7 +126,7 @@ export default function Profile() {
             name="email"
             type="email"
             value={formData.email}
-            onChange={handleChange}
+            onChange={handleChange('email')}
             styles={{
               input: {
                 marginBottom: 20,
@@ -145,9 +145,9 @@ export default function Profile() {
             placeholder="Your University"
             withAsterisk
             name="university"
-            type="university"
+            type="text"
             value={formData.university}
-            onChange={handleChange}
+            onChange={handleChange('university')}
             styles={{
               input: {
                 marginBottom: 20,
@@ -166,9 +166,9 @@ export default function Profile() {
             placeholder="Your Address"
             withAsterisk
             name="address"
-            type="address"
+            type="text"
             value={formData.address}
-            onChange={handleChange}
+            onChange={handleChange('address')}
             styles={{
               input: {
                 marginBottom: 20,

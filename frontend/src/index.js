@@ -16,7 +16,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
   <React.StrictMode>
     <MantineProvider withGlobalStyles withNormalizeCSS>
- my-tickets
       <Notifications position="top-right"/>
       <App />
     </MantineProvider>

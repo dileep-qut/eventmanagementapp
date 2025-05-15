@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Flex, Text, Title, Paper, Button, Stack } from "@mantine/core";
+
+import { Flex, Text, Title, Paper, Button, Stack,Container } from "@mantine/core";
+
 import { useParams } from 'react-router-dom';
 import axiosInstance from '../axiosConfig';
 import dayjs from 'dayjs';
@@ -9,7 +11,9 @@ export default function EventPage() {
   const [eventDetails, setEventDetails] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MjMzZjJhYjNhMzA0MmQ0MzI3NTI0MiIsImlhdCI6MTc0NzE0MTc5NX0.6wfWLqUts3GU4RvrOds_0Dbrki1sFr0R9vpz1f1vcL8'; // use from env ideally
+
+ const token = localStorage.getItem('jwt')
+
 
   useEffect(() => {
     const fetchEventDetails = async () => {
@@ -49,8 +53,12 @@ export default function EventPage() {
 
 
   return (
-    <div>
-      <div style={{ paddingLeft: '20px', paddingRight: '20px' }}>
+
+    
+      <Container
+          size="xl"
+          py="sm">
+
         <div style={{ marginTop: 30 }} />
 
         {image && (
@@ -98,9 +106,13 @@ export default function EventPage() {
         <Flex
           justify="space-between"
           align="center"
-          wrap="wrap" // Optional: wraps items on smaller screens
-          gap="md"    // Optional: adds spacing between items
-          mt={30}     // Optional: adds top margin
+
+
+          wrap="wrap" 
+          gap="md"    
+          mt={30}     
+
+
         >
           <CircleWithIcon icon="/assets/calender.svg" text={start.format('dddd, MMM YYYY')} />
           <CircleWithIcon icon="/assets/clock.svg" text={formattedTime} />
@@ -117,10 +129,11 @@ export default function EventPage() {
             radius="md"
             style={{
               backgroundColor: "#E5E5E5",
-              display: "inline-flex", // use inline-flex to adjust based on content
-              minWidth: "50%", // set the minimum width
+              display: "inline-flex", 
+              minWidth: "50%", 
               paddingLeft: 15,
-              paddingRight: 15, // optional, if you want to add padding on the right side
+              paddingRight: 15, 
+
             }}
           >
             <div style={{ paddingLeft: 20 }}>
@@ -130,8 +143,11 @@ export default function EventPage() {
           </Paper>
 
         </Paper>
-      </div>
-    </div>
+
+      </Container>
+  
+
+
   );
 }
 

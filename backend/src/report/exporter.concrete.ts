@@ -5,6 +5,8 @@ import { Model } from 'mongoose';
 import { Event } from '@/event/entities/event.entity';
 import { TicketList } from '@/ticket/entities/ticket-list.entity';
 import { Parser } from 'json2csv';
+import { Types } from 'mongoose';
+import PDFDocument from 'pdfkit';
 
 @Injectable()
 export class CsvAttendeesExporter extends Exporter {
@@ -42,7 +44,7 @@ export class CsvAttendeesExporter extends Exporter {
 }
 
 @Injectable()
-export class TicketSaleExporter extends Exporter {
+export class RevenueExporter extends Exporter {
   constructor(
     @InjectModel(TicketList.name)
     private readonly ticketModel: Model<TicketList>,
@@ -51,29 +53,44 @@ export class TicketSaleExporter extends Exporter {
   }
   protected async fetch(eventId: string): Promise<any> {
     const ticketList = await this.ticketModel
-      .find({ event_id: eventId })
+      .find({
+        event_id: new Types.ObjectId(eventId),
+      })
       .populate('user_id', 'name email')
+      .populate('event_id', 'ticket_price')
       .exec();
 
     if (ticketList.length == 0) {
       throw new NotFoundException('No ticket sold for this event');
     }
 
-    return ticketList.map((ticket, index) => {
-      return {
-        id: index + 1,
-        name: ticket.user_id.name,
-        email: ticket.user_id.email,
-        ticket_id: ticket._id,
-        transaction_id: ticket.transaction_id,
-      };
+    let totalRevenue = 0;
+    ticketList.forEach((ticket) => {
+      totalRevenue += ticket.event_id.ticket_price;
     });
+
+    return totalRevenue;
   }
 
-  protected async serialize(raw: any): Promise<Buffer> {
-    // Convert the raw data to CSV format
-    const parser = new Parser();
-    const csv = parser.parse(raw); // csv is a UTF-8 string
-    return Buffer.from(csv, 'utf-8');
+  protected async serialize(raw: number): Promise<Buffer> {
+    const totalRevenue = raw;
+    const doc = new PDFDocument({ margin: 40 });
+    const chunks: Buffer[] = [];
+
+    return new Promise<Buffer>((resolve, reject) => {
+      doc.on('data', (chunk) => chunks.push(chunk));
+      doc.on('end', () => resolve(Buffer.concat(chunks)));
+      doc.on('error', (err) => reject(err));
+
+      // build the PDF content
+      doc.fontSize(20).text('Ticket Sales Report', { align: 'center' });
+      doc.moveDown();
+      doc
+        .fontSize(14)
+        .text(`Total Revenue: $${totalRevenue.toFixed(2)}`, { align: 'right' });
+
+      // finalize
+      doc.end();
+    });
   }
 }

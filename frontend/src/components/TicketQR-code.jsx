@@ -5,11 +5,27 @@ import {
     Title,
     Button,
     Stack,
-    Center,
     Group,
 } from '@mantine/core';
 
+
+// Expects [ticket] in the format 
+/* {
+    "_id": "682345d4c36f1bd8acc37ac0",
+    "event_id": {
+      "_id": "68218e24f41de91e2e46ed0a",
+      "name": "Event 1",
+      "description": "Description 1",
+      "location": "Location 1",
+      "start_time": "2026-01-24T14:00:00.000Z",
+      "end_time": "2026-01-25T14:00:00.000Z"
+    },
+    "checked_in": false,
+    "transaction_id": "dummy_transaction_id"
+  }
+}*/
 export default function TicketQRCode({ opened, onClose, ticket }) {
+    if (!ticket) return null;
     const event = ticket?.event_id;
 
     return (
@@ -25,6 +41,8 @@ export default function TicketQRCode({ opened, onClose, ticket }) {
                 content: { borderRadius: '24px', textAlign: 'center' },
             }}
         >
+
+
             {/* Close Button Top Right */}
             <Group justify="flex-end" style={{ padding: '8px' }}>
                 <Image src='/assets/close-circle.svg'

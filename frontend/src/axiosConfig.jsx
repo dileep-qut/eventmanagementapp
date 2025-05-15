@@ -1,8 +1,7 @@
 import axios from 'axios';
-
+import { baseURL } from './config';
 const axiosInstance = axios.create({
-  //baseURL: 'http://localhost:5001', // local
-  baseURL: 'https://ifn636.marcusnguyen.dev', // live
+  baseURL: baseURL, // live
   headers: { 'Content-Type': 'application/json' },
 });
 

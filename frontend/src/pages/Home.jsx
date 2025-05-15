@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
+
 import EventCard from "../components/EventCard";
 import {
   TextInput,
@@ -23,6 +24,7 @@ const categories = [
 
 export default function EventPage() {
   const [selectedCategory, setSelectedCategory] = useState('');
+
     const [events, setEvents] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
 
@@ -40,6 +42,7 @@ export default function EventPage() {
       
         fetchEvents();
       }, []);
+
 
       const filteredEvents = events.filter((event) => {
   const matchesSearch = searchQuery.trim() === '' || 
@@ -68,6 +71,7 @@ export default function EventPage() {
     />
   ))}
 </Flex>
+
 
       <div
         style={{

@@ -11,23 +11,16 @@ export default function MyTickets() {
   useEffect(() => {
     const fetchTickets = async () => {
       try {
-        const response = await axiosInstance.get('/api/ticket/find-my-tickets',{
+        const response = await axiosInstance.get('/ticket/find-my-tickets',{
             headers: { Authorization: `Bearer ${token}` },
         });
         console.log(response.data);
-        setTickets([ {
-            event_id: {
-              name: 'Networking Event',
-              location: 'The STAR HOTEL, BRISBANE',
-              start_time: '2025-05-21T10:00:00.000Z',
-              end_time: '2025-05-21T12:00:00.000Z',
-            },
-          }])
-        // if(response.data.length === 0){
-        //     setError('You haven\'t purchased any tickets yet');
-        // }else{
-        //     setTickets(response.data); 
-        // }
+       
+        if(response.data.length === 0){
+            setError('You haven\'t purchased any tickets yet');
+        }else{
+            setTickets(response.data); 
+        }
       } catch (err) {
         setError('Failed to fetch tickets.');
         console.error(err);

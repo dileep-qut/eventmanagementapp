@@ -33,7 +33,7 @@ const Login = ({setToken}) => {
     const { email, password } = formData;
 
     try {
-      const response = await axiosInstance.post('/api/auth/login', {
+      const response = await axiosInstance.post('/auth/login', {
         email,
         password,
       });
@@ -47,7 +47,7 @@ const Login = ({setToken}) => {
 
       setToken(token)
       
-      navigate('/events');
+      navigate('/');
     } catch (err) {
       console.log(err);
       

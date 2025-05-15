@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, Loader, Text, Stack } from '@mantine/core';
 import TicketCard from '../components/Ticket-card';
 import axiosInstance from '../axiosConfig'; // make sure this path is correct
+import { showNotification } from '@mantine/notifications';
 
 export default function MyTickets() {
   const [tickets, setTickets] = useState([]);
@@ -24,6 +25,12 @@ export default function MyTickets() {
       } catch (err) {
         setError('Failed to fetch tickets.');
         console.error(err);
+        showNotification({
+          title: 'Error',
+          message: err?.response?.data?.message || err.message || 'Something went wrong',
+          autoClose: 3000,
+          color: 'red',
+        });
       } finally {
         setLoading(false);
       }

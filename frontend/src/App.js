@@ -6,6 +6,8 @@ import Profile from './pages/Profile';
 import Event from './pages/Event';
 import Home from './pages/Home';
 import MyTickets from './pages/My-tickets';
+import PaymentSuccessPage from './pages/payment-success'
+import PaymentFailurePage from './pages/payment-failure';
 
 
 import { useState,useEffect } from 'react';
@@ -40,6 +42,10 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/" element={<Home />} />
         <Route path="/mytickets" element={<MyTickets />} />
+        <Route path="/success" element={<PaymentSuccessPage />} />
+        <Route path="/cancel" element={<PaymentFailurePage />} />
+
+
 
         <Route path="/events/:eventId" element={<Event />} />
 

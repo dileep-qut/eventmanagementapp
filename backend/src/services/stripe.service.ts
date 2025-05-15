@@ -30,8 +30,8 @@ export class StripeService {
         },
       ],
       mode: 'payment',
-      success_url: `${process.env.SERVER_HOST}/mytickets`,
-      cancel_url: `${process.env.SERVER_HOST}/cancel`,
+      success_url: `https://${process.env.SERVER_HOST}/mytickets`,
+      cancel_url: `https://${process.env.SERVER_HOST}/cancel`,
       customer_email: userEmail,
     });
   }

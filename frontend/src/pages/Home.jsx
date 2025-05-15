@@ -121,7 +121,7 @@ export default function EventPage() {
     useEffect(() => {
         const fetchEvents = async () => {
           try {
-            const response = await axiosInstance.get("/api/events");
+            const response = await axiosInstance.get("/events");
             if (response.status === 200) {
               setEvents(response.data);
             }

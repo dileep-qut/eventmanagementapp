@@ -9,6 +9,7 @@ import MyTickets from './pages/My-tickets';
 
 
 import { useState,useEffect } from 'react';
+import MyEventsPage from './pages/My-events';
 
 function App() {
 
@@ -40,7 +41,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/" element={<Home />} />
         <Route path="/mytickets" element={<MyTickets />} />
-
+        <Route path="/myevents" element={<MyEventsPage />} />
         <Route path="/events/:eventId" element={<Event />} />
 
 

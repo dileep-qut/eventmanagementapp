@@ -134,20 +134,7 @@ export default function EventPage() {
       });
 
       if (response.status === 201 || response.status === 200) {
-        setTicket({
-          "_id": response.data.ticket_id,
-          "event_id": {
-            "_id": "68218e24f41de91e2e46ed0a",
-            "name": name,
-            "description": description,
-            "location": location,
-            "start_time": start_time,
-            "end_time": end_time
-          },
-          "checked_in": false,
-          "transaction_id": ""
-        })
-        TicketConfirmedModalOpen()
+        window.location.href = response.data.url;
       } else {
         showNotification({
           title: 'Error',

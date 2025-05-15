@@ -1,20 +1,13 @@
 import React, { useEffect, useState } from "react";
-import {
-  Text,
-  Stack,
-  Container,
-  Loader,
-} from "@mantine/core";
+import { Text, Stack, Container, Loader } from "@mantine/core";
 import axiosInstance from "../axiosConfig";
 import AddEventModal from "../components/AddEvent";
 import MyEventCard from "../components/MyEventCard";
 
-
-
 const MyEventsPage = () => {
-    const handleEventDeleted = (deletedId) => {
-  setMyEvents((events) => events.filter((e) => e._id !== deletedId));
-};
+  const handleEventDeleted = (deletedId) => {
+    setMyEvents((events) => events.filter((e) => e._id !== deletedId));
+  };
 
   const [myEvents, setMyEvents] = useState([]);
   const [addModalOpen, setAddModalOpen] = useState(false);
@@ -33,12 +26,12 @@ const MyEventsPage = () => {
         console.log(response.data);
 
         if (response.data.length === 0) {
-          setError("You haven't purchased any tickets yet");
+          setError("You haven't hosted any events yet");
         } else {
           setMyEvents(response.data);
         }
       } catch (err) {
-        setError("Failed to fetch tickets.");
+        setError("Failed to fetch events.");
         console.error(err);
       } finally {
         setLoading(false);
@@ -50,11 +43,11 @@ const MyEventsPage = () => {
 
   return (
     <div style={{ padding: "40px" }}>
-      {/* Big Add Events Bar */}
+      
       <div
         style={{
           width: "100%",
-          backgroundColor: "#13032C", // deep purple
+          backgroundColor: "#13032C",
           borderRadius: "30px",
           padding: "50px 0",
           marginBottom: "40px",
@@ -87,7 +80,7 @@ const MyEventsPage = () => {
         }}
       />
 
-      {/* Events List */}
+      
       <Container size="xl" py="sm" style={{ backgroundColor: "transparent" }}>
         {loading ? (
           <Loader size="lg" />
@@ -98,7 +91,11 @@ const MyEventsPage = () => {
         ) : (
           <Stack>
             {myEvents.map((event) => (
-              <MyEventCard key={event._id} event={event} onEventDeleted={handleEventDeleted} />
+              <MyEventCard
+                key={event._id}
+                event={event}
+                onEventDeleted={handleEventDeleted}
+              />
             ))}
           </Stack>
         )}

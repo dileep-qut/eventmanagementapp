@@ -13,11 +13,16 @@ import {
 import { useMediaQuery } from "@mantine/hooks";
 import axiosInstance from "../axiosConfig";
 import { baseURL } from "../config";
+import { useNavigate } from "react-router-dom";
 
 const MyEventCard = ({ event, onEventDeleted }) => {
+  const navigate = useNavigate();
   const [deleting, setDeleting] = useState(false);
   const isLargeScreen = useMediaQuery("(min-width: 768px)");
-
+  
+   const handleViewParticipants = () => {
+    navigate(`/events/${event._id}/attendees`);
+  };
   const handleDelete = async () => {
     if (!window.confirm("Are you sure you want to delete this event?")) return;
 
@@ -52,7 +57,7 @@ const MyEventCard = ({ event, onEventDeleted }) => {
         gap="md"
         direction={{ base: "column", sm: "row" }}
       >
-        {/* Image Left */}
+        
         <Box
           style={{
             flex: "0 0 130px",
@@ -67,12 +72,11 @@ const MyEventCard = ({ event, onEventDeleted }) => {
             src={`${baseURL}${event.image_url}`}
             alt={event.name}
             layout="fill"
-            objectFit="cover"
-            style={{ borderRadius: 8 }}
+            style={{ borderRadius: 8, objectFit:"cover" }}
           />
         </Box>
 
-        {/* Event Details Center */}
+        
         <Box
           style={{
             flex: "1 1 auto",
@@ -102,7 +106,7 @@ const MyEventCard = ({ event, onEventDeleted }) => {
           </Stack>
         </Box>
 
-        {/* Buttons Right */}
+        
         <Stack
           spacing="xs"
           align={isLargeScreen ? "flex-end" : "stretch"}
@@ -121,9 +125,9 @@ const MyEventCard = ({ event, onEventDeleted }) => {
           >
             ${event.ticket_price}
           </Badge>
-          <Button color="violet" size="sm" fullWidth={!isLargeScreen}>
-            View Participants
-          </Button>
+          <Button color="violet" size="sm" onClick={handleViewParticipants}>
+      View Participants
+    </Button>
           <Button
             color="red"
             variant="outline"

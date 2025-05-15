@@ -1,30 +1,69 @@
 import React, { useState, useEffect } from 'react';
-import { Flex, Text, Title, Paper, Button, Stack } from "@mantine/core";
+
+import { Flex, Text, Title, Paper, Button, Stack, Container, Box, Modal, Checkbox, Loader } from "@mantine/core";
+import {useDisclosure} from '@mantine/hooks'
 import { useParams } from 'react-router-dom';
+
 import axiosInstance from '../axiosConfig';
+import TicketQRCode from '../components/TicketQR-code'
+
 import dayjs from 'dayjs';
+import { showNotification } from '@mantine/notifications';
+
+
+
+import { baseURL } from '../config';
+
 
 export default function EventPage() {
   const { eventId } = useParams();
+   const [TicketConfirmedModalOpened, { TicketConfirmedModalOpen, TicketConfirmedModalClose }] = useDisclosure(false);
+   const [ticket, setTicket] = useState(null); // This will be initialised when the booking confirms
   const [eventDetails, setEventDetails] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [modalLoading, setModalLoading] = useState(false);
 
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MjMzZjJhYjNhMzA0MmQ0MzI3NTI0MiIsImlhdCI6MTc0NzE0MTc5NX0.6wfWLqUts3GU4RvrOds_0Dbrki1sFr0R9vpz1f1vcL8'; // use from env ideally
+  const [modalOpened, setModalOpened] = useState(false); // For the Addon Model
+
+
+  const [selectedAddons, setSelectedAddons] = useState([]); // Store the selected addon if the request fullfills
+  const [_selectedAddons, _setSelectedAddons] = useState([]); //To store the selected addon in a temp variable
+
+  const [ticket_price, setTicketPrice] = useState(null)
+  const [addonConfirmed, setAddonConfirmed] = useState(false)
+
+
+  const token = localStorage.getItem('jwt')
+
+
 
   useEffect(() => {
     const fetchEventDetails = async () => {
       try {
-        const response = await axiosInstance.get(`/api/events/${eventId}`, {
+        const response = await axiosInstance.get(`/events/${eventId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
         if (response.status === 200) {
+          console.log(response.data);
+
           setEventDetails(response.data);
+          setTicketPrice(response.data.ticket_price)
         } else {
-          console.log('Error:', response.data);
+          showNotification({
+            title: 'Error',
+            message: response.data.message,
+            autoClose: 3000,
+            color: 'red'
+          });
         }
       } catch (err) {
-        console.error(err);
+        showNotification({
+          title: 'Error',
+          message: err.message,
+          autoClose: 3000,
+          color: 'red'
+        });
       } finally {
         setLoading(false);
       }
@@ -33,10 +72,110 @@ export default function EventPage() {
     fetchEventDetails();
   }, [eventId, token]);
 
+  const getTicketPrice = async () => {
+    setModalLoading(true)
+    console.log('Selected Add-ons:', _selectedAddons);
+
+    try {
+      const response = await axiosInstance.post(`/ticket/get-price`, {
+        "event_id": eventId,
+        "add_on": {
+          "vip": _selectedAddons.includes('vip'),
+          "parking": _selectedAddons.includes('parking'),
+          "food": _selectedAddons.includes('food'),
+          "priority": _selectedAddons.includes('priority'),
+        }
+      }, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (response.status === 201 || response.status === 200) {
+        setTicketPrice(response.data.price)
+        setSelectedAddons(_selectedAddons)
+        setAddonConfirmed(true)
+      } else {
+        setAddonConfirmed(false)
+        showNotification({
+          title: 'Error',
+          message: response.data.message,
+          autoClose: 3000,
+          color: 'red'
+        });
+      }
+    } catch (err) {
+      setAddonConfirmed(false)
+      showNotification({
+        title: 'Error',
+        message: err.message,
+        autoClose: 3000,
+        color: 'red'
+      });
+    } finally {
+    }
+
+    setModalLoading(false)
+
+  };
+
+  const purchaseTicket = async () => {
+    setModalLoading(true)
+
+    try {
+      const response = await axiosInstance.post(`/ticket/purchase`, {
+        "event_id": eventId,
+        "add_on": {
+          "vip": selectedAddons.includes('vip'),
+          "parking": selectedAddons.includes('parking'),
+          "food": selectedAddons.includes('food'),
+          "priority": selectedAddons.includes('priority'),
+        }
+      }, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (response.status === 201 || response.status === 200) {
+        setTicket( {
+          "_id": response.data.ticket_id,
+          "event_id": {
+            "_id": "68218e24f41de91e2e46ed0a",
+            "name": name,
+            "description": description,
+            "location": location,
+            "start_time": start_time,
+            "end_time": end_time
+          },
+          "checked_in": false,
+          "transaction_id": ""
+        })
+        TicketConfirmedModalOpen()
+      } else {
+        showNotification({
+          title: 'Error',
+          message: response.data.message,
+          color: 'red',
+          autoClose: 3000,
+        });
+      }
+    } catch (err) {
+      console.log('ERROR');
+      
+      showNotification({
+        title: 'Error',
+        message: err.message,
+        autoClose: 3000,
+        color: 'red'
+      });
+    } finally {
+      setModalLoading(false)
+    }
+
+
+  };
+
   if (loading) return <Text>Loading event details...</Text>;
   if (!eventDetails) return <Text>Error loading event details.</Text>;
 
-  const { name, description, start_time, end_time, location, image, creator } = eventDetails;
+  const { name, description, start_time, end_time, location, image_url, creator, category, ticket_available } = eventDetails;
 
   const start = dayjs(start_time);
   const end = dayjs(end_time);
@@ -49,13 +188,18 @@ export default function EventPage() {
 
 
   return (
-    <div>
-      <div style={{ paddingLeft: '20px', paddingRight: '20px' }}>
+
+    <>
+     <TicketQRCode opened={TicketConfirmedModalOpened} onClose={TicketConfirmedModalClose} ticket={ticket} />
+      <Container
+        size="xl"
+        py="sm">
+
         <div style={{ marginTop: 30 }} />
 
-        {image && (
+        {image_url && (
           <img
-            src={image}
+          src={`${baseURL}${image_url}`}
             alt="Event Banner"
             style={{
               width: '100%',
@@ -67,28 +211,59 @@ export default function EventPage() {
           />
         )}
 
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
           <Stack spacing={4}>
-            <Text size="sm" style={{ fontSize: 15 }}>
-              On {start.format('dddd, MMM YYYY')}
-            </Text>
+            <Box
+              px="sm"
+              py={4}
+              style={{
+                display: 'inline-block',
+                borderRadius: 20,
+                backgroundColor: '#E0E7FF',
+                color: '#4338CA',
+                fontWeight: 600,
+                fontSize: 14,
+                textAlign: 'center',
+                width: 'fit-content'
+              }}
+            >
+              {category}
+            </Box>
             <Title order={2} fw={700} style={{ fontSize: 25 }} mb={0}>
               {name}
             </Title>
           </Stack>
           <div style={{ marginTop: 100 }} />
 
-          <Button
-            style={{
-              backgroundColor: "#28A745",
-              color: "#fff",
-              borderRadius: 5,
-              padding: "10px 20px"
-            }}
-            radius="md"
-          >
-            Get Tickets
-          </Button>
+
+
+          <Stack spacing={2} align="center">
+            <Text fz="md" fw={400} color="dimmed">
+              {ticket_available} tickets remaining
+            </Text>
+            <Button
+              style={{
+                backgroundColor: ticket_available === 0 ? '#adb5bd' : '#28A745',
+                color: '#fff',
+                borderRadius: 5,
+
+              }}
+              disabled={ticket_available === 0}
+              radius="md"
+              onClick={() => {
+                if (ticket_available > 0) {
+                  setModalOpened(true);
+                }
+              }}
+            >
+              Get For ${ticket_price}
+            </Button>
+            {(selectedAddons.length > 0) && (
+              <Text color="red" size="sm" mt="sm">
+                * Addons applied
+              </Text>
+            )}
+          </Stack>
         </div>
 
         <Text color="dimmed" mb={20} style={{ fontSize: 15 }}>{description}</Text>
@@ -98,9 +273,15 @@ export default function EventPage() {
         <Flex
           justify="space-between"
           align="center"
-          wrap="wrap" // Optional: wraps items on smaller screens
-          gap="md"    // Optional: adds spacing between items
-          mt={30}     // Optional: adds top margin
+
+
+
+          wrap="wrap"
+          gap="md"
+          mt={30}
+
+
+
         >
           <CircleWithIcon icon="/assets/calender.svg" text={start.format('dddd, MMM YYYY')} />
           <CircleWithIcon icon="/assets/clock.svg" text={formattedTime} />
@@ -117,10 +298,13 @@ export default function EventPage() {
             radius="md"
             style={{
               backgroundColor: "#E5E5E5",
-              display: "inline-flex", // use inline-flex to adjust based on content
-              minWidth: "50%", // set the minimum width
+              display: "inline-flex",
+              minWidth: "50%",
               paddingLeft: 15,
-              paddingRight: 15, // optional, if you want to add padding on the right side
+
+              paddingRight: 15,
+
+
             }}
           >
             <div style={{ paddingLeft: 20 }}>
@@ -130,8 +314,62 @@ export default function EventPage() {
           </Paper>
 
         </Paper>
-      </div>
-    </div>
+
+      </Container>
+
+
+      <Modal
+        opened={modalOpened}
+        onClose={() => setModalOpened(false)}
+        title={<Title order={3}>Add Extras</Title>}
+        centered
+        radius="lg"
+      >
+        <Stack spacing="md">
+          <Checkbox.Group
+            spacing="sm"
+            orientation="vertical"
+            label="Choose your add-ons"
+            value={_selectedAddons}
+            onChange={(value) => {
+              setAddonConfirmed(false);
+              _setSelectedAddons(value)
+            }}
+          >
+            <Stack spacing="sm" mt="xs">
+              <Checkbox value="vip" label="VIP" color='#6E58F6' />
+              <Checkbox value="parking" label="Parking" color='#6E58F6' />
+              <Checkbox value="food" label="Food" color='#6E58F6' />
+              <Checkbox value="priority" label="Priority Access" color='#6E58F6' />
+              <Text fw={600}>Price: ${ticket_price}</Text>
+            </Stack>
+          </Checkbox.Group>
+
+
+          <Button
+            variant={addonConfirmed ? 'filled' : 'outline'}
+            color="#6E58F6"
+            fullWidth
+            onClick={ addonConfirmed? purchaseTicket: getTicketPrice}
+            disabled={modalLoading} // Optional: disables button while loading
+            style={{
+              borderColor: '#6E58F6',
+              color: addonConfirmed ? '#fff' : '#6E58F6',
+              backgroundColor: addonConfirmed ? '#6E58F6' : 'transparent',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            {modalLoading ? (
+              <Loader size="xs" color={addonConfirmed ? "#fff" : "#6E58F6"} />
+            ) : (
+              addonConfirmed ? 'Confirm Booking' : 'Add Extras'
+            )}
+          </Button>
+        </Stack>
+      </Modal>
+    </>
   );
 }
 

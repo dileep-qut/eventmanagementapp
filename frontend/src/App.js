@@ -5,12 +5,14 @@ import Register from './pages/Register';
 import Profile from './pages/Profile';
 import Event from './pages/Event';
 import Home from './pages/Home';
+import MyTickets from './pages/My-tickets';
+
+
 import { useState,useEffect } from 'react';
 
 function App() {
 
   const [token, setToken] = useState(null);
-  console.log(token)
       useEffect(() => {
           const checkToken = () => {
             const token = localStorage.getItem('jwt');
@@ -37,7 +39,11 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/" element={<Home />} />
+        <Route path="/mytickets" element={<MyTickets />} />
+
         <Route path="/events/:eventId" element={<Event />} />
+
+
       </Routes>
     </Router>
   );

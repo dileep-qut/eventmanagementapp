@@ -44,57 +44,23 @@ export default function AddEventModal({ opened, onClose, onEventCreated }) {
       
 
 
-      const formImage = new FormData();
-      formImage.append("file", formData.image);
-   
-      const uploadRes = await axiosInstance.post(
-        "/image/upload",
-        formImage,
-        {
-          'headers': {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer ${token}`,
-          }
-        }
-      );
-      const imageUrl = uploadRes.data.image_url;
+    const formImage = new FormData();
+    formImage.append("file", formData.image);
+    const uploadRes = await axiosInstance.post(
+      "/image/upload",
+      formImage,
+      authHeader
+    );
+    const imageUrl = uploadRes.data.path;
 
-      const payload = {
-        ...formData,
-        image_url: imageUrl,
-        date: new Date(formData.start_time).toISOString(),
-        start_time: new Date(formData.start_time).toISOString(),
-        end_time: new Date(formData.end_time).toISOString(),
-        ticket_price: parseFloat(formData.ticket_price),
-        ticket_available: parseInt(formData.ticket_available),
-      };
-console.log(payload);
-
-      const eventRes = await axiosInstance.post("/events", payload, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        }
-      });
-      onEventCreated(eventRes.data);
-      showNotification({
-        title: 'Success',
-        message: 'Event created',
-        autoClose: 3000,
-        color: 'green',
-      });
-      onClose();
-    } catch (err) {
-      console.error("Failed to create event:", err);
-      showNotification({
-        title: 'Error',
-        message: err?.response?.data?.message || err.message || 'Something went wrong',
-        autoClose: 3000,
-        color: 'red',
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
+    const payload = {
+      ...formData,
+      image_url: imageUrl,
+      start_time: formData.start_time?.toISOString(),
+      end_time: formData.end_time?.toISOString(),
+      ticket_price: parseFloat(formData.ticket_price),
+      ticket_available: parseInt(formData.ticket_available),
+    };
 
 
   return (

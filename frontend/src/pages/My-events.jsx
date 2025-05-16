@@ -48,7 +48,7 @@ const MyEventsPage = () => {
   return (
     <div style={{ padding: "40px" }}>
 
-
+      
       <div
         style={{
           width: "100%",

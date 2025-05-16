@@ -3,6 +3,7 @@ import { Text, Stack, Container, Loader } from "@mantine/core";
 import axiosInstance from "../axiosConfig";
 import AddEventModal from "../components/AddEvent";
 import MyEventCard from "../components/MyEventCard";
+import { saveAs } from "file-saver";
 
 const MyEventsPage = () => {
   const handleEventDeleted = (deletedId) => {
@@ -15,6 +16,37 @@ const MyEventsPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const token = localStorage.getItem("jwt");
+
+  const handleDownloadCSV = async (eventId) => {
+  try {
+    
+
+    const response = await axiosInstance.get(`/report/${eventId}/attendees`, {
+      headers: { Authorization: `Bearer ${token}` },
+      responseType: "blob",
+    });
+
+    saveAs(response.data, `attendees_${eventId}.csv`);
+  } catch (err) {
+    console.error("CSV Download Failed:", err);
+  }
+};
+
+
+const handleDownloadPDF = async (eventId) => {
+  try {
+    
+
+    const response = await axiosInstance.get(`/report/${eventId}/tickets`, {
+      headers: { Authorization: `Bearer ${token}` },
+      responseType: "blob",
+    });
+
+    saveAs(response.data, `revenue_${eventId}.pdf`);
+  } catch (err) {
+    console.error("PDF Download Failed:", err);
+  }
+};
   useEffect(() => {
     const fetchMyEvents = async () => {
       try {
@@ -125,6 +157,8 @@ const MyEventsPage = () => {
                 key={event._id}
                 event={event}
                 onEventDeleted={handleEventDeleted}
+                onDownloadCSV={() => handleDownloadCSV(event._id)}
+                onDownloadPDF={() => handleDownloadPDF(event._id)}
               />
             ))}
           </Stack>

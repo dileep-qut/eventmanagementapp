@@ -10,6 +10,7 @@ import {
   Button,
   Loader,
 } from "@mantine/core";
+import { saveAs } from "file-saver";
 import { useMediaQuery } from "@mantine/hooks";
 import axiosInstance from "../axiosConfig";
 import { baseURL } from "../config";
@@ -18,28 +19,60 @@ import { useNavigate } from "react-router-dom";
 const MyEventCard = ({ event, onEventDeleted }) => {
   const navigate = useNavigate();
   const [deleting, setDeleting] = useState(false);
+  const [downloading, setDownloading] = useState({ csv: false, pdf: false });
   const isLargeScreen = useMediaQuery("(min-width: 768px)");
-  
-   const handleViewParticipants = () => {
+
+  const token = localStorage.getItem("jwt");
+
+  const handleViewParticipants = () => {
     navigate(`/events/${event._id}/attendees`);
   };
+
   const handleDelete = async () => {
     if (!window.confirm("Are you sure you want to delete this event?")) return;
-
     setDeleting(true);
     try {
-      const token = localStorage.getItem("jwt"); // or wherever you store your token
-
       await axiosInstance.delete(`/events/${event._id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-
       onEventDeleted(event._id);
     } catch (error) {
       console.error("Failed to delete event:", error);
       alert("Failed to delete event. Please try again.");
     } finally {
       setDeleting(false);
+    }
+  };
+
+  const handleDownloadCSV = async () => {
+    setDownloading((prev) => ({ ...prev, csv: true }));
+    try {
+      const res = await axiosInstance.get(`/report/${event._id}/attendees`, {
+        headers: { Authorization: `Bearer ${token}` },
+        responseType: "blob",
+      });
+      saveAs(res.data, `${event.name}-attendees.csv`);
+    } catch (err) {
+      console.error("CSV download failed", err);
+      alert("Failed to download attendees list.");
+    } finally {
+      setDownloading((prev) => ({ ...prev, csv: false }));
+    }
+  };
+
+  const handleDownloadPDF = async () => {
+    setDownloading((prev) => ({ ...prev, pdf: true }));
+    try {
+      const res = await axiosInstance.get(`/report/${event._id}/tickets`, {
+        headers: { Authorization: `Bearer ${token}` },
+        responseType: "blob",
+      });
+      saveAs(res.data, `${event.name}-revenue.pdf`);
+    } catch (err) {
+      console.error("PDF download failed", err);
+      alert("Failed to download revenue report.");
+    } finally {
+      setDownloading((prev) => ({ ...prev, pdf: false }));
     }
   };
 
@@ -61,18 +94,18 @@ const MyEventCard = ({ event, onEventDeleted }) => {
         <Box
           style={{
             flex: "0 0 130px",
-            height: 100,
+            height: 200,
             position: "relative",
             borderRadius: 8,
             overflow: "hidden",
-            minWidth: 130,
+            minWidth: 250,
           }}
         >
           <Image
             src={`${baseURL}${event.image_url}`}
             alt={event.name}
             layout="fill"
-            style={{ borderRadius: 8, objectFit:"cover" }}
+            style={{ borderRadius: 8, objectFit: "cover" }}
           />
         </Box>
 
@@ -125,9 +158,31 @@ const MyEventCard = ({ event, onEventDeleted }) => {
           >
             ${event.ticket_price}
           </Badge>
+
           <Button color="violet" size="sm" onClick={handleViewParticipants}>
-      View Participants
-    </Button>
+            View Participants
+          </Button>
+
+          <Button
+            variant="light"
+            size="xs"
+            color="blue"
+            onClick={handleDownloadCSV}
+            disabled={downloading.csv}
+          >
+            {downloading.csv ? <Loader size="xs" /> : "Download Attendees CSV"}
+          </Button>
+
+          <Button
+            variant="light"
+            size="xs"
+            color="gray"
+            onClick={handleDownloadPDF}
+            disabled={downloading.pdf}
+          >
+            {downloading.pdf ? <Loader size="xs" /> : "Download Revenue PDF"}
+          </Button>
+
           <Button
             color="red"
             variant="outline"

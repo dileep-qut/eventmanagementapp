@@ -370,7 +370,7 @@ export default function EventPage() {
             color="#6E58F6"
             fullWidth
             onClick={purchaseTicket}
-            disabled={modalLoading} // Optional: disables button while loading
+            disabled={modalLoading} 
             style={{
               borderColor: '#6E58F6',
               color: '#fff',

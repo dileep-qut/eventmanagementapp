@@ -3,40 +3,38 @@ import { Text, Stack, Container, Loader } from "@mantine/core";
 import axiosInstance from "../axiosConfig";
 import AddEventModal from "../components/AddEvent";
 import MyEventCard from "../components/MyEventCard";
+import { saveAs } from "file-saver";
 
 const MyEventsPage = () => {
-  const handleEventDeleted = (deletedId) => {
-    setMyEvents((events) => events.filter((e) => e._id !== deletedId));
-  };
-
-
   const [myEvents, setMyEvents] = useState([]);
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const token = localStorage.getItem("jwt");
+
+  // Defensive filter to ensure only valid events with _id get set
+  const setFilteredEvents = (events) => {
+    const filtered = (events || []).filter((event) => event && event._id);
+    setMyEvents(filtered);
+    if (filtered.length === 0) {
+      setError("You haven't hosted any events yet");
+    } else {
+      setError(null);
+    }
+  };
+
   useEffect(() => {
     const fetchMyEvents = async () => {
       try {
         const response = await axiosInstance.get("/events/my-events", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         });
 
-        console.log(response.data);
-
-        if (response.data.length === 0) {
-
-          setError("You haven't hosted any events yet");
-
-        } else {
-          setMyEvents(response.data);
-        }
+        // Filter out invalid events here
+        setFilteredEvents(response.data);
+        console.log("Fetched events:", response.data);
       } catch (err) {
-
         setError("Failed to fetch events.");
-
         console.error(err);
       } finally {
         setLoading(false);
@@ -44,12 +42,40 @@ const MyEventsPage = () => {
     };
 
     fetchMyEvents();
-  }, []);
+  }, [token]);
+
+  const handleEventDeleted = (deletedId) => {
+    setMyEvents((events) => events.filter((e) => e && e._id !== deletedId));
+  };
+
+  const handleDownloadCSV = async (eventId) => {
+    try {
+      const response = await axiosInstance.get(`/report/${eventId}/attendees`, {
+        headers: { Authorization: `Bearer ${token}` },
+        responseType: "blob",
+      });
+
+      saveAs(response.data, `attendees_${eventId}.csv`);
+    } catch (err) {
+      console.error("CSV Download Failed:", err);
+    }
+  };
+
+  const handleDownloadPDF = async (eventId) => {
+    try {
+      const response = await axiosInstance.get(`/report/${eventId}/tickets`, {
+        headers: { Authorization: `Bearer ${token}` },
+        responseType: "blob",
+      });
+
+      saveAs(response.data, `revenue_${eventId}.pdf`);
+    } catch (err) {
+      console.error("PDF Download Failed:", err);
+    }
+  };
 
   return (
     <div style={{ padding: "40px" }}>
-
-
       <div
         style={{
           width: "100%",
@@ -63,9 +89,7 @@ const MyEventsPage = () => {
           justifyContent: "center",
           cursor: "pointer",
           transition: "0.3s",
-          hover: {
-            backgroundColor: "#1E1E2F",
-          },
+         
         }}
         onClick={() => setAddModalOpen(true)}
       >
@@ -78,27 +102,29 @@ const MyEventsPage = () => {
           Add Events
         </Text>
       </div>
+
       <AddEventModal
         opened={addModalOpen}
         onClose={() => setAddModalOpen(false)}
         onEventCreated={(newEvent) => {
-          if (myEvents.length === 0) {
-            setMyEvents([newEvent])
-          } else {
+          // Defensive check before adding newEvent
+          if (newEvent && newEvent._id) {
             setMyEvents((prev) => [newEvent, ...prev]);
+            setError(null);
+          } else {
+            console.warn("Invalid event created:", newEvent);
           }
         }}
       />
-
 
       <Container size="xl" py="sm" style={{ backgroundColor: "transparent" }}>
         {loading ? (
           <div
             style={{
-              height: '60vh',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
+              height: "60vh",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
             <Loader size="lg" />
@@ -106,10 +132,10 @@ const MyEventsPage = () => {
         ) : error ? (
           <div
             style={{
-              height: '60vh',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
+              height: "60vh",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
             <Text color="red" size="lg" fw={600}>
@@ -120,13 +146,29 @@ const MyEventsPage = () => {
           <Text>No events created yet.</Text>
         ) : (
           <Stack>
-            {myEvents.map((event) => (
-              <MyEventCard
-                key={event._id}
-                event={event}
-                onEventDeleted={handleEventDeleted}
-              />
-            ))}
+            {myEvents
+              .filter((event) => event && event._id) // Defensive filtering here
+              .map((event) => (
+                <MyEventCard
+                  key={event._id}
+                  event={event}
+                  onEventDeleted={handleEventDeleted}
+                  onDownloadCSV={() => handleDownloadCSV(event._id)}
+                  onDownloadPDF={() => handleDownloadPDF(event._id)}
+                  onEventUpdated={(updatedEvent) => {
+                    // Defensive update check
+                    if (!updatedEvent || !updatedEvent._id) {
+                      console.warn("Invalid updated event:", updatedEvent);
+                      return;
+                    }
+                    setMyEvents((prevEvents) =>
+                      prevEvents.map((e) =>
+                        e._id === updatedEvent._id ? updatedEvent : e
+                      )
+                    );
+                  }}
+                />
+              ))}
           </Stack>
         )}
       </Container>

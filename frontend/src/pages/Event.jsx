@@ -196,7 +196,7 @@ export default function EventPage() {
   }
   
 
-  const { name, description, start_time, end_time, location, image_url, creator, category, ticket_available } = eventDetails;
+  const { name, description, start_time, end_time, location, image_url, creator, category ,ticket_left} = eventDetails;
 
   const start = dayjs(start_time);
   const end = dayjs(end_time);
@@ -259,19 +259,19 @@ export default function EventPage() {
 
           <Stack spacing={2} align="center">
             <Text fz="md" fw={400} color="dimmed">
-              {ticket_available} tickets remaining
+              {ticket_left} tickets left
             </Text>
             <Button
               style={{
-                backgroundColor: ticket_available === 0 ? '#adb5bd' : '#28A745',
+                backgroundColor: ticket_left === 0 ? '#adb5bd' : '#28A745',
                 color: '#fff',
                 borderRadius: 5,
 
               }}
-              disabled={ticket_available === 0}
+              disabled={ticket_left === 0}
               radius="md"
               onClick={() => {
-                if (ticket_available > 0) {
+                if (ticket_left > 0) {
                   setModalOpened(true);
                 }
               }}

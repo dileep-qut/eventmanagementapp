@@ -1,0 +1,2092 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/api/auth/register": {
+      "post": {
+        "operationId": "AuthController_register",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Login successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "id": "MongoDB ObjectId",
+                    "name": "dev",
+                    "email": "dev@qut.edu.au",
+                    "token": "This is a JWT token"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 400,
+                    "message": "Error",
+                    "error": "Bad Request"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 403,
+                    "message": "The action you are trying to perform is not allowed or just cannot be done",
+                    "error": "Forbidden"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 500,
+                    "message": "Something went wrong",
+                    "error": "Internal Server Error"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "operationId": "AuthController_login",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Login successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "id": "MongoDB ObjectId",
+                    "name": "dev",
+                    "email": "dev@qut.edu.au",
+                    "token": "This is a JWT token"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 400,
+                    "message": "Error",
+                    "error": "Bad Request"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 401,
+                    "message": "Invalid, malformed, or expired token",
+                    "error": "Unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 500,
+                    "message": "Something went wrong",
+                    "error": "Internal Server Error"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/api/auth/profile": {
+      "get": {
+        "operationId": "AuthController_getProfile",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Get user profile",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "_id": "6811a67495c4b721f28e63ca",
+                    "name": "John Doe",
+                    "email": "n123456789@qut.edu.au",
+                    "createdAt": "2025-04-30T04:26:28.408Z",
+                    "updatedAt": "2025-04-30T04:26:28.408Z"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 400,
+                    "message": "Error",
+                    "error": "Bad Request"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 401,
+                    "message": "Invalid, malformed, or expired token",
+                    "error": "Unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 403,
+                    "message": "The action you are trying to perform is not allowed or just cannot be done",
+                    "error": "Forbidden"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 500,
+                    "message": "Something went wrong",
+                    "error": "Internal Server Error"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Auth"
+        ]
+      },
+      "put": {
+        "operationId": "AuthController_updateProfile",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProfileDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Get user profile",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "_id": "6811a67495c4b721f28e63ca",
+                    "name": "John Doe",
+                    "email": "n123456789@qut.edu.au",
+                    "createdAt": "2025-04-30T04:26:28.408Z",
+                    "updatedAt": "2025-04-30T04:26:28.408Z"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 400,
+                    "message": "Error",
+                    "error": "Bad Request"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 401,
+                    "message": "Invalid, malformed, or expired token",
+                    "error": "Unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 403,
+                    "message": "The action you are trying to perform is not allowed or just cannot be done",
+                    "error": "Forbidden"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 500,
+                    "message": "Something went wrong",
+                    "error": "Internal Server Error"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/api/events": {
+      "get": {
+        "operationId": "EventController_findAll",
+        "parameters": [
+          {
+            "name": "name",
+            "required": false,
+            "in": "query",
+            "description": "Event name",
+            "schema": {
+              "example": "Tech",
+              "type": "string"
+            }
+          },
+          {
+            "name": "category",
+            "required": false,
+            "in": "query",
+            "description": "Event category",
+            "schema": {
+              "example": "Networking",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get all events",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": [
+                    {
+                      "_id": "68210420f639de1251ae31c5",
+                      "name": "Event 4",
+                      "description": "Description 4",
+                      "location": "Location 4",
+                      "start_time": "2026-01-24T14:00:00.000Z",
+                      "end_time": "2026-01-25T14:00:00.000Z",
+                      "creator": {
+                        "_id": "68210420f639de1251ae31a5",
+                        "name": "dev",
+                        "email": "dev@qut.edu.au"
+                      },
+                      "ticket_price": 15,
+                      "ticket_left": 100,
+                      "ticket_available": 1000,
+                      "category": "Workshop",
+                      "createdAt": "2025-05-11T20:10:08.537Z",
+                      "updatedAt": "2025-05-11T20:10:08.537Z",
+                      "__v": 0
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 400,
+                    "message": "Error",
+                    "error": "Bad Request"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 401,
+                    "message": "Invalid, malformed, or expired token",
+                    "error": "Unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 403,
+                    "message": "The action you are trying to perform is not allowed or just cannot be done",
+                    "error": "Forbidden"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 500,
+                    "message": "Something went wrong",
+                    "error": "Internal Server Error"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Event"
+        ]
+      },
+      "post": {
+        "operationId": "EventController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEventDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Create event",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "name": "Tech Conference 2023",
+                    "description": "Here is the description of the event which is a long string",
+                    "location": "New York, NY",
+                    "start_time": "2019-02-01T00:00:00.000Z",
+                    "end_time": "2019-02-01T00:00:00.000Z",
+                    "creator": {
+                      "_id": "68210420f639de1251ae31a5",
+                      "name": "dev",
+                      "email": "dev@qut.edu.au"
+                    },
+                    "participants": [],
+                    "ticket_price": 10,
+                    "ticket_available": 100,
+                    "category": "Networking",
+                    "image_url": "This is optional field of image url",
+                    "_id": "6821886a312ff80975a1e661",
+                    "createdAt": "2025-05-12T05:34:34.384Z",
+                    "updatedAt": "2025-05-12T05:34:34.384Z",
+                    "__v": 0
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 400,
+                    "message": "Error",
+                    "error": "Bad Request"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 401,
+                    "message": "Invalid, malformed, or expired token",
+                    "error": "Unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 403,
+                    "message": "The action you are trying to perform is not allowed or just cannot be done",
+                    "error": "Forbidden"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 500,
+                    "message": "Something went wrong",
+                    "error": "Internal Server Error"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Event"
+        ]
+      }
+    },
+    "/api/events/my-events": {
+      "get": {
+        "operationId": "EventController_findMyEvents",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Get my events",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": [
+                    {
+                      "_id": "68218e24f41de91e2e46ed0a",
+                      "name": "Event 1",
+                      "description": "Description 1",
+                      "location": "Location 1",
+                      "start_time": "2026-01-24T14:00:00.000Z",
+                      "end_time": "2026-01-25T14:00:00.000Z",
+                      "creator": {
+                        "_id": "68210420f639de1251ae31a5",
+                        "name": "dev",
+                        "email": "dev@qut.edu.au"
+                      },
+                      "participants": [
+                        {
+                          "_id": "68218e24f41de91e2e46ecf6",
+                          "name": "User 2",
+                          "email": "user_2@qut.edu.au"
+                        },
+                        {
+                          "_id": "68218e24f41de91e2e46ecf4",
+                          "name": "User 1",
+                          "email": "user_1@qut.edu.au"
+                        },
+                        {
+                          "_id": "68210420f639de1251ae31a5",
+                          "name": "dev",
+                          "email": "dev@qut.edu.au"
+                        }
+                      ],
+                      "ticket_price": 15,
+                      "ticket_available": 1000,
+                      "ticket_left": 100,
+                      "category": "Hackathon",
+                      "createdAt": "2025-05-12T05:59:00.722Z",
+                      "updatedAt": "2025-05-12T05:59:00.722Z",
+                      "__v": 0
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 400,
+                    "message": "Error",
+                    "error": "Bad Request"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 401,
+                    "message": "Invalid, malformed, or expired token",
+                    "error": "Unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 403,
+                    "message": "The action you are trying to perform is not allowed or just cannot be done",
+                    "error": "Forbidden"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 500,
+                    "message": "Something went wrong",
+                    "error": "Internal Server Error"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Event"
+        ]
+      }
+    },
+    "/api/events/{id}": {
+      "get": {
+        "operationId": "EventController_findById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get event by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "_id": "68218a44558c61c3d0e5c773",
+                    "name": "Event 0",
+                    "description": "Description 0",
+                    "location": "Location 0",
+                    "start_time": "2026-01-24T14:00:00.000Z",
+                    "end_time": "2026-01-25T14:00:00.000Z",
+                    "creator": "68210420f639de1251ae31a5",
+                    "ticket_price": 15,
+                    "ticket_available": 1000,
+                    "ticket_left": 100,
+                    "category": "Workshop",
+                    "createdAt": "2025-05-12T05:42:28.577Z",
+                    "updatedAt": "2025-05-12T05:42:28.577Z",
+                    "__v": 0
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 400,
+                    "message": "Error",
+                    "error": "Bad Request"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 401,
+                    "message": "Invalid, malformed, or expired token",
+                    "error": "Unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 403,
+                    "message": "The action you are trying to perform is not allowed or just cannot be done",
+                    "error": "Forbidden"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 404,
+                    "message": "Resource not found",
+                    "error": "Not Found"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 500,
+                    "message": "Something went wrong",
+                    "error": "Internal Server Error"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Event"
+        ]
+      },
+      "put": {
+        "operationId": "EventController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateEventDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Create event",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "name": "Tech Conference 2023",
+                    "description": "Here is the description of the event which is a long string",
+                    "location": "New York, NY",
+                    "start_time": "2019-02-01T00:00:00.000Z",
+                    "end_time": "2019-02-01T00:00:00.000Z",
+                    "creator": {
+                      "_id": "68210420f639de1251ae31a5",
+                      "name": "dev",
+                      "email": "dev@qut.edu.au"
+                    },
+                    "ticket_price": 10,
+                    "ticket_available": 100,
+                    "category": "Networking",
+                    "image_url": "This is optional field of image url",
+                    "_id": "6821886a312ff80975a1e661",
+                    "createdAt": "2025-05-12T05:34:34.384Z",
+                    "updatedAt": "2025-05-12T05:34:34.384Z",
+                    "__v": 0
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 400,
+                    "message": "Error",
+                    "error": "Bad Request"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 401,
+                    "message": "Invalid, malformed, or expired token",
+                    "error": "Unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 403,
+                    "message": "The action you are trying to perform is not allowed or just cannot be done",
+                    "error": "Forbidden"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 404,
+                    "message": "Resource not found",
+                    "error": "Not Found"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 500,
+                    "message": "Something went wrong",
+                    "error": "Internal Server Error"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Event"
+        ]
+      },
+      "delete": {
+        "operationId": "EventController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Delete event",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "message": "Event deleted successfully"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 400,
+                    "message": "Error",
+                    "error": "Bad Request"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 401,
+                    "message": "Invalid, malformed, or expired token",
+                    "error": "Unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 403,
+                    "message": "The action you are trying to perform is not allowed or just cannot be done",
+                    "error": "Forbidden"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 404,
+                    "message": "Resource not found",
+                    "error": "Not Found"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 500,
+                    "message": "Something went wrong",
+                    "error": "Internal Server Error"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Event"
+        ]
+      }
+    },
+    "/api/events/{id}/attendees": {
+      "get": {
+        "operationId": "EventController_getAttendees",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get event attendees",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": [
+                    {
+                      "_id": "68218e24f41de91e2e46ecf6",
+                      "name": "User 2",
+                      "email": "user_2@qut.edu.au"
+                    },
+                    {
+                      "_id": "68218e24f41de91e2e46ecf4",
+                      "name": "User 1",
+                      "email": "user_1@qut.edu.au"
+                    },
+                    {
+                      "_id": "68210420f639de1251ae31a5",
+                      "name": "dev",
+                      "email": "dev@qut.edu.au"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 400,
+                    "message": "Error",
+                    "error": "Bad Request"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 401,
+                    "message": "Invalid, malformed, or expired token",
+                    "error": "Unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 403,
+                    "message": "The action you are trying to perform is not allowed or just cannot be done",
+                    "error": "Forbidden"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 500,
+                    "message": "Something went wrong",
+                    "error": "Internal Server Error"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Event"
+        ]
+      }
+    },
+    "/api/ticket/get-price": {
+      "post": {
+        "operationId": "TicketController_getTicketPrice",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetTicketPriceDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Get ticket price",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "price": 15
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 400,
+                    "message": "Error",
+                    "error": "Bad Request"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 401,
+                    "message": "Invalid, malformed, or expired token",
+                    "error": "Unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 403,
+                    "message": "The action you are trying to perform is not allowed or just cannot be done",
+                    "error": "Forbidden"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 500,
+                    "message": "Something went wrong",
+                    "error": "Internal Server Error"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Ticket"
+        ]
+      }
+    },
+    "/api/ticket/purchase": {
+      "post": {
+        "operationId": "TicketController_purchaseTicket",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PurchaseTicketDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Purchase ticket",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "price": 142,
+                    "ticket_id": "68219a6b5d758dfb1640733d"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 400,
+                    "message": "Error",
+                    "error": "Bad Request"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 401,
+                    "message": "Invalid, malformed, or expired token",
+                    "error": "Unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 403,
+                    "message": "The action you are trying to perform is not allowed or just cannot be done",
+                    "error": "Forbidden"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 500,
+                    "message": "Something went wrong",
+                    "error": "Internal Server Error"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Ticket"
+        ]
+      }
+    },
+    "/api/ticket/find-my-tickets": {
+      "get": {
+        "operationId": "TicketController_findMyTicket",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Find my tickets",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": [
+                    {
+                      "_id": "682345d4c36f1bd8acc37ac0",
+                      "event_id": {
+                        "_id": "68218e24f41de91e2e46ed0a",
+                        "name": "Event 1",
+                        "description": "Description 1",
+                        "location": "Location 1",
+                        "start_time": "2026-01-24T14:00:00.000Z",
+                        "end_time": "2026-01-25T14:00:00.000Z"
+                      },
+                      "checked_in": false,
+                      "transaction_id": "dummy_transaction_id",
+                      "createdAt": "2025-05-13T13:15:00.193Z",
+                      "updatedAt": "2025-05-13T13:15:00.193Z",
+                      "__v": 0
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 400,
+                    "message": "Error",
+                    "error": "Bad Request"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 401,
+                    "message": "Invalid, malformed, or expired token",
+                    "error": "Unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 403,
+                    "message": "The action you are trying to perform is not allowed or just cannot be done",
+                    "error": "Forbidden"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 500,
+                    "message": "Something went wrong",
+                    "error": "Internal Server Error"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Ticket"
+        ]
+      }
+    },
+    "/api/image/upload": {
+      "post": {
+        "operationId": "ImageController_uploadImage",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Image uploaded successfully",
+            "content": {
+              "application/json": {
+                "example": {
+                  "image_name": "069b71fc-94a8-40a5-b963-035f6d53551f.jpeg",
+                  "image_url": "/public/1747029635173-15727855-069b71fc-94a8-40a5-b963-035f6d53551f.jpeg",
+                  "_id": "68218e83f41de91e2e46ed15",
+                  "createdAt": "2025-05-12T06:00:35.180Z",
+                  "updatedAt": "2025-05-12T06:00:35.180Z",
+                  "__v": 0
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 400,
+                    "message": "Error",
+                    "error": "Bad Request"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 401,
+                    "message": "Invalid, malformed, or expired token",
+                    "error": "Unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 403,
+                    "message": "The action you are trying to perform is not allowed or just cannot be done",
+                    "error": "Forbidden"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 500,
+                    "message": "Something went wrong",
+                    "error": "Internal Server Error"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          },
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Image"
+        ]
+      }
+    },
+    "/api/image/{id}": {
+      "get": {
+        "operationId": "ImageController_getImage",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get image by ID",
+            "content": {
+              "application/json": {
+                "example": {
+                  "image_name": "069b71fc-94a8-40a5-b963-035f6d53551f.jpeg",
+                  "image_url": "/public/1747029635173-15727855-069b71fc-94a8-40a5-b963-035f6d53551f.jpeg",
+                  "_id": "68218e83f41de91e2e46ed15",
+                  "createdAt": "2025-05-12T06:00:35.180Z",
+                  "updatedAt": "2025-05-12T06:00:35.180Z",
+                  "__v": 0
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 400,
+                    "message": "Error",
+                    "error": "Bad Request"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 401,
+                    "message": "Invalid, malformed, or expired token",
+                    "error": "Unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 403,
+                    "message": "The action you are trying to perform is not allowed or just cannot be done",
+                    "error": "Forbidden"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 500,
+                    "message": "Something went wrong",
+                    "error": "Internal Server Error"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Image"
+        ]
+      }
+    },
+    "/api/report/{eventId}/attendees": {
+      "get": {
+        "operationId": "ReportController_getAttendees",
+        "parameters": [
+          {
+            "name": "eventId",
+            "required": true,
+            "in": "path",
+            "description": "The ID of the event",
+            "schema": {
+              "example": "60d0fe4f5311236168a109ca",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "CSV file containing the list of attendees",
+            "content": {
+              "text/csv": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "text/csv": {
+                "schema": {
+                  "example": {
+                    "statusCode": 400,
+                    "message": "Error",
+                    "error": "Bad Request"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/csv": {
+                "schema": {
+                  "example": {
+                    "statusCode": 401,
+                    "message": "Invalid, malformed, or expired token",
+                    "error": "Unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "text/csv": {
+                "schema": {
+                  "example": {
+                    "statusCode": 403,
+                    "message": "The action you are trying to perform is not allowed or just cannot be done",
+                    "error": "Forbidden"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "text/csv": {
+                "schema": {
+                  "example": {
+                    "statusCode": 500,
+                    "message": "Something went wrong",
+                    "error": "Internal Server Error"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Report"
+        ]
+      }
+    },
+    "/api/report/{eventId}/revenue": {
+      "get": {
+        "operationId": "ReportController_exportRevenue",
+        "parameters": [
+          {
+            "name": "eventId",
+            "required": true,
+            "in": "path",
+            "description": "The ID of the event",
+            "schema": {
+              "example": "60d0fe4f5311236168a109ca",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PDF report of ticket sales",
+            "content": {
+              "application/pdf": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/pdf": {
+                "schema": {
+                  "example": {
+                    "statusCode": 400,
+                    "message": "Error",
+                    "error": "Bad Request"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/pdf": {
+                "schema": {
+                  "example": {
+                    "statusCode": 401,
+                    "message": "Invalid, malformed, or expired token",
+                    "error": "Unauthorized"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/pdf": {
+                "schema": {
+                  "example": {
+                    "statusCode": 403,
+                    "message": "The action you are trying to perform is not allowed or just cannot be done",
+                    "error": "Forbidden"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/pdf": {
+                "schema": {
+                  "example": {
+                    "statusCode": 500,
+                    "message": "Something went wrong",
+                    "error": "Internal Server Error"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Report"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Events Management API",
+    "description": "The event API description",
+    "version": "1.0",
+    "contact": {
+
+    }
+  },
+  "tags": [],
+  "servers": [
+    {
+      "url": "https://ifn636.marcusnguyen.dev"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "RegisterDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User name",
+            "example": "John Doe"
+          },
+          "email": {
+            "type": "string",
+            "description": "User email",
+            "example": "n123456789@qut.edu.au"
+          },
+          "password": {
+            "type": "string",
+            "description": "User password",
+            "example": "password123"
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "password"
+        ]
+      },
+      "LoginDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User email",
+            "example": "dev@qut.edu.au"
+          },
+          "password": {
+            "type": "string",
+            "description": "User password",
+            "example": "123456"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ]
+      },
+      "UpdateProfileDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User name",
+            "example": "John Doe"
+          },
+          "email": {
+            "type": "string",
+            "description": "User email",
+            "example": "n123456789@qut.edu.au"
+          },
+          "university": {
+            "type": "string",
+            "description": "University name",
+            "example": "Queensland University of Technology"
+          },
+          "address": {
+            "type": "string",
+            "description": "User address",
+            "example": "123 Main St, Brisbane, QLD 4000"
+          }
+        },
+        "required": [
+          "email"
+        ]
+      },
+      "CreateEventDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Event name",
+            "example": "Tech Conference 2023"
+          },
+          "date": {
+            "type": "string",
+            "description": "Event date",
+            "example": "2023-10-01T10:00:00Z"
+          },
+          "location": {
+            "type": "string",
+            "description": "Event location",
+            "example": "New York, NY"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description and detail of the event ",
+            "example": "Here is the description of the event which is a long string"
+          },
+          "start_time": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Start time of the event in Javascript Date() format",
+            "example": "2019-02-01T00:00:00Z"
+          },
+          "end_time": {
+            "format": "date-time",
+            "type": "string",
+            "description": "End time of the event in Javascript Date() format",
+            "example": "2019-02-01T00:00:00Z"
+          },
+          "ticket_price": {
+            "type": "number",
+            "description": "Price of the Ticket",
+            "example": 10
+          },
+          "ticket_available": {
+            "type": "number",
+            "description": "How many ticket is available",
+            "example": 100
+          },
+          "category": {
+            "type": "string",
+            "description": "Event category",
+            "example": "Networking"
+          },
+          "image_url": {
+            "type": "string",
+            "description": "This is optional field of image url",
+            "example": "This is optional field of image url and should be URL return when creating new image"
+          }
+        },
+        "required": [
+          "name",
+          "date",
+          "location",
+          "description",
+          "start_time",
+          "end_time",
+          "ticket_price",
+          "ticket_available",
+          "category",
+          "image_url"
+        ]
+      },
+      "UpdateEventDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Event name",
+            "example": "Tech Conference 2023"
+          },
+          "date": {
+            "type": "string",
+            "description": "Event date",
+            "example": "2023-10-01T10:00:00Z"
+          },
+          "location": {
+            "type": "string",
+            "description": "Event location",
+            "example": "New York, NY"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description and detail of the event ",
+            "example": "Here is the description of the event which is a long string"
+          },
+          "start_time": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Start time of the event in Javascript Date() format",
+            "example": "2019-02-01T00:00:00Z"
+          },
+          "end_time": {
+            "format": "date-time",
+            "type": "string",
+            "description": "End time of the event in Javascript Date() format",
+            "example": "2019-02-01T00:00:00Z"
+          },
+          "ticket_price": {
+            "type": "number",
+            "description": "Price of the Ticket",
+            "example": 10
+          },
+          "ticket_available": {
+            "type": "number",
+            "description": "How many ticket is available",
+            "example": 100
+          },
+          "category": {
+            "type": "string",
+            "description": "Event category",
+            "example": "Networking"
+          },
+          "image_url": {
+            "type": "string",
+            "description": "This is optional field of image url",
+            "example": "This is optional field of image url and should be URL return when creating new image"
+          }
+        }
+      },
+      "GetTicketPriceDto": {
+        "type": "object",
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "description": "Event id",
+            "example": ""
+          },
+          "add_on": {
+            "type": "object",
+            "description": "Add on options",
+            "example": {
+              "vip": true,
+              "parking": false,
+              "food": true,
+              "priority": false
+            }
+          }
+        },
+        "required": [
+          "event_id",
+          "add_on"
+        ]
+      },
+      "PurchaseTicketDto": {
+        "type": "object",
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "description": "Event id",
+            "example": ""
+          },
+          "add_on": {
+            "type": "object",
+            "description": "Add on options",
+            "example": {
+              "vip": true,
+              "parking": false,
+              "food": true,
+              "priority": false
+            }
+          }
+        },
+        "required": [
+          "event_id",
+          "add_on"
+        ]
+      }
+    }
+  }
+}

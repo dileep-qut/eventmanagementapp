@@ -1,0 +1,4689 @@
+{
+	"info": {
+		"_postman_id": "ff38b36f-57ba-4578-a14d-2cd4618c3259",
+		"name": "Events Management API",
+		"description": "The event API description",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45019740",
+		"_collection_link": "https://dileep-1411073.postman.co/workspace/abc47a5f-6587-4f7f-82b6-717f5bf6f99a/collection/45019740-ff38b36f-57ba-4578-a14d-2cd4618c3259?action=share&source=collection_link&creator=45019740"
+	},
+	"item": [
+		{
+			"name": "api",
+			"item": [
+				{
+					"name": "auth",
+					"item": [
+						{
+							"name": "register",
+							"item": [
+								{
+									"name": "Auth Controller register",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"n123456789@qut.edu.au\",\n  \"password\": \"password123\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/auth/register",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"auth",
+												"register"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Login successful",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"n123456789@qut.edu.au\",\n  \"password\": \"password123\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/auth/register",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"auth",
+														"register"
+													]
+												}
+											},
+											"status": "Created",
+											"code": 201,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"id\": \"MongoDB ObjectId\",\n  \"name\": \"dev\",\n  \"email\": \"dev@qut.edu.au\",\n  \"token\": \"This is a JWT token\"\n}"
+										},
+										{
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"n123456789@qut.edu.au\",\n  \"password\": \"password123\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/auth/register",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"auth",
+														"register"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 400,\n  \"message\": \"Error\",\n  \"error\": \"Bad Request\"\n}"
+										},
+										{
+											"name": "Forbidden",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"n123456789@qut.edu.au\",\n  \"password\": \"password123\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/auth/register",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"auth",
+														"register"
+													]
+												}
+											},
+											"status": "Forbidden",
+											"code": 403,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 403,\n  \"message\": \"The action you are trying to perform is not allowed or just cannot be done\",\n  \"error\": \"Forbidden\"\n}"
+										},
+										{
+											"name": "Internal server error",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"n123456789@qut.edu.au\",\n  \"password\": \"password123\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/auth/register",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"auth",
+														"register"
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 500,\n  \"message\": \"Something went wrong\",\n  \"error\": \"Internal Server Error\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "login",
+							"item": [
+								{
+									"name": "Auth Controller login",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const jsonData = pm.response.json();\r",
+													"pm.collectionVariables.set(\"bearerToken\", jsonData.token);"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"email\": \"dev@qut.edu.au\",\n  \"password\": \"123456\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/auth/login",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"auth",
+												"login"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Login successful",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"email\": \"dev@qut.edu.au\",\n  \"password\": \"123456\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/auth/login",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"auth",
+														"login"
+													]
+												}
+											},
+											"status": "Created",
+											"code": 201,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"id\": \"MongoDB ObjectId\",\n  \"name\": \"dev\",\n  \"email\": \"dev@qut.edu.au\",\n  \"token\": \"This is a JWT token\"\n}"
+										},
+										{
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"email\": \"dev@qut.edu.au\",\n  \"password\": \"123456\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/auth/login",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"auth",
+														"login"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 400,\n  \"message\": \"Error\",\n  \"error\": \"Bad Request\"\n}"
+										},
+										{
+											"name": "Unauthorized",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"email\": \"dev@qut.edu.au\",\n  \"password\": \"123456\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/auth/login",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"auth",
+														"login"
+													]
+												}
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 401,\n  \"message\": \"Invalid, malformed, or expired token\",\n  \"error\": \"Unauthorized\"\n}"
+										},
+										{
+											"name": "Internal server error",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"email\": \"dev@qut.edu.au\",\n  \"password\": \"123456\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/auth/login",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"auth",
+														"login"
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 500,\n  \"message\": \"Something went wrong\",\n  \"error\": \"Internal Server Error\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "profile",
+							"item": [
+								{
+									"name": "Auth Controller get Profile",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/auth/profile",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"auth",
+												"profile"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Get user profile",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/auth/profile",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"auth",
+														"profile"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"_id\": \"6811a67495c4b721f28e63ca\",\n  \"name\": \"John Doe\",\n  \"email\": \"n123456789@qut.edu.au\",\n  \"createdAt\": \"2025-04-30T04:26:28.408Z\",\n  \"updatedAt\": \"2025-04-30T04:26:28.408Z\"\n}"
+										},
+										{
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/auth/profile",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"auth",
+														"profile"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 400,\n  \"message\": \"Error\",\n  \"error\": \"Bad Request\"\n}"
+										},
+										{
+											"name": "Unauthorized",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/auth/profile",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"auth",
+														"profile"
+													]
+												}
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 401,\n  \"message\": \"Invalid, malformed, or expired token\",\n  \"error\": \"Unauthorized\"\n}"
+										},
+										{
+											"name": "Forbidden",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/auth/profile",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"auth",
+														"profile"
+													]
+												}
+											},
+											"status": "Forbidden",
+											"code": 403,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 403,\n  \"message\": \"The action you are trying to perform is not allowed or just cannot be done\",\n  \"error\": \"Forbidden\"\n}"
+										},
+										{
+											"name": "Internal server error",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/auth/profile",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"auth",
+														"profile"
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 500,\n  \"message\": \"Something went wrong\",\n  \"error\": \"Internal Server Error\"\n}"
+										}
+									]
+								},
+								{
+									"name": "Auth Controller update Profile",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"email\": \"n123456789@qut.edu.au\",\n  \"name\": \"John Doe\",\n  \"university\": \"Queensland University of Technology\",\n  \"address\": \"123 Main St, Brisbane, QLD 4000\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/auth/profile",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"auth",
+												"profile"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Get user profile",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"email\": \"n123456789@qut.edu.au\",\n  \"name\": \"John Doe\",\n  \"university\": \"Queensland University of Technology\",\n  \"address\": \"123 Main St, Brisbane, QLD 4000\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/auth/profile",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"auth",
+														"profile"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"_id\": \"6811a67495c4b721f28e63ca\",\n  \"name\": \"John Doe\",\n  \"email\": \"n123456789@qut.edu.au\",\n  \"createdAt\": \"2025-04-30T04:26:28.408Z\",\n  \"updatedAt\": \"2025-04-30T04:26:28.408Z\"\n}"
+										},
+										{
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"email\": \"n123456789@qut.edu.au\",\n  \"name\": \"John Doe\",\n  \"university\": \"Queensland University of Technology\",\n  \"address\": \"123 Main St, Brisbane, QLD 4000\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/auth/profile",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"auth",
+														"profile"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 400,\n  \"message\": \"Error\",\n  \"error\": \"Bad Request\"\n}"
+										},
+										{
+											"name": "Unauthorized",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"email\": \"n123456789@qut.edu.au\",\n  \"name\": \"John Doe\",\n  \"university\": \"Queensland University of Technology\",\n  \"address\": \"123 Main St, Brisbane, QLD 4000\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/auth/profile",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"auth",
+														"profile"
+													]
+												}
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 401,\n  \"message\": \"Invalid, malformed, or expired token\",\n  \"error\": \"Unauthorized\"\n}"
+										},
+										{
+											"name": "Forbidden",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"email\": \"n123456789@qut.edu.au\",\n  \"name\": \"John Doe\",\n  \"university\": \"Queensland University of Technology\",\n  \"address\": \"123 Main St, Brisbane, QLD 4000\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/auth/profile",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"auth",
+														"profile"
+													]
+												}
+											},
+											"status": "Forbidden",
+											"code": 403,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 403,\n  \"message\": \"The action you are trying to perform is not allowed or just cannot be done\",\n  \"error\": \"Forbidden\"\n}"
+										},
+										{
+											"name": "Internal server error",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"email\": \"n123456789@qut.edu.au\",\n  \"name\": \"John Doe\",\n  \"university\": \"Queensland University of Technology\",\n  \"address\": \"123 Main St, Brisbane, QLD 4000\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/auth/profile",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"auth",
+														"profile"
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 500,\n  \"message\": \"Something went wrong\",\n  \"error\": \"Internal Server Error\"\n}"
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "events",
+					"item": [
+						{
+							"name": "my-events",
+							"item": [
+								{
+									"name": "Event Controller find My Events",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/events/my-events",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"events",
+												"my-events"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Get my events",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/events/my-events",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"events",
+														"my-events"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "[\n  {\n    \"_id\": \"68218e24f41de91e2e46ed0a\",\n    \"name\": \"Event 1\",\n    \"description\": \"Description 1\",\n    \"location\": \"Location 1\",\n    \"start_time\": \"2026-01-24T14:00:00.000Z\",\n    \"end_time\": \"2026-01-25T14:00:00.000Z\",\n    \"creator\": {\n      \"_id\": \"68210420f639de1251ae31a5\",\n      \"name\": \"dev\",\n      \"email\": \"dev@qut.edu.au\"\n    },\n    \"participants\": [\n      {\n        \"_id\": \"68218e24f41de91e2e46ecf6\",\n        \"name\": \"User 2\",\n        \"email\": \"user_2@qut.edu.au\"\n      },\n      {\n        \"_id\": \"68218e24f41de91e2e46ecf4\",\n        \"name\": \"User 1\",\n        \"email\": \"user_1@qut.edu.au\"\n      },\n      {\n        \"_id\": \"68210420f639de1251ae31a5\",\n        \"name\": \"dev\",\n        \"email\": \"dev@qut.edu.au\"\n      }\n    ],\n    \"ticket_price\": 15,\n    \"ticket_available\": 1000,\n    \"ticket_left\": 100,\n    \"category\": \"Hackathon\",\n    \"createdAt\": \"2025-05-12T05:59:00.722Z\",\n    \"updatedAt\": \"2025-05-12T05:59:00.722Z\",\n    \"__v\": 0\n  }\n]"
+										},
+										{
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/events/my-events",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"events",
+														"my-events"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 400,\n  \"message\": \"Error\",\n  \"error\": \"Bad Request\"\n}"
+										},
+										{
+											"name": "Unauthorized",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/events/my-events",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"events",
+														"my-events"
+													]
+												}
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 401,\n  \"message\": \"Invalid, malformed, or expired token\",\n  \"error\": \"Unauthorized\"\n}"
+										},
+										{
+											"name": "Forbidden",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/events/my-events",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"events",
+														"my-events"
+													]
+												}
+											},
+											"status": "Forbidden",
+											"code": 403,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 403,\n  \"message\": \"The action you are trying to perform is not allowed or just cannot be done\",\n  \"error\": \"Forbidden\"\n}"
+										},
+										{
+											"name": "Internal server error",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/events/my-events",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"events",
+														"my-events"
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 500,\n  \"message\": \"Something went wrong\",\n  \"error\": \"Internal Server Error\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "{id}",
+							"item": [
+								{
+									"name": "attendees",
+									"item": [
+										{
+											"name": "Event Controller get Attendees",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/events/:id/attendees",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"events",
+														":id",
+														"attendees"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "ullamco",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "Get event attendees",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/events/:id/attendees",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"events",
+																":id",
+																"attendees"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "[\n  {\n    \"_id\": \"68218e24f41de91e2e46ecf6\",\n    \"name\": \"User 2\",\n    \"email\": \"user_2@qut.edu.au\"\n  },\n  {\n    \"_id\": \"68218e24f41de91e2e46ecf4\",\n    \"name\": \"User 1\",\n    \"email\": \"user_1@qut.edu.au\"\n  },\n  {\n    \"_id\": \"68210420f639de1251ae31a5\",\n    \"name\": \"dev\",\n    \"email\": \"dev@qut.edu.au\"\n  }\n]"
+												},
+												{
+													"name": "Bad request",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/events/:id/attendees",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"events",
+																":id",
+																"attendees"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																}
+															]
+														}
+													},
+													"status": "Bad Request",
+													"code": 400,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"statusCode\": 400,\n  \"message\": \"Error\",\n  \"error\": \"Bad Request\"\n}"
+												},
+												{
+													"name": "Unauthorized",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/events/:id/attendees",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"events",
+																":id",
+																"attendees"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																}
+															]
+														}
+													},
+													"status": "Unauthorized",
+													"code": 401,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"statusCode\": 401,\n  \"message\": \"Invalid, malformed, or expired token\",\n  \"error\": \"Unauthorized\"\n}"
+												},
+												{
+													"name": "Forbidden",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/events/:id/attendees",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"events",
+																":id",
+																"attendees"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																}
+															]
+														}
+													},
+													"status": "Forbidden",
+													"code": 403,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"statusCode\": 403,\n  \"message\": \"The action you are trying to perform is not allowed or just cannot be done\",\n  \"error\": \"Forbidden\"\n}"
+												},
+												{
+													"name": "Internal server error",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/events/:id/attendees",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"events",
+																":id",
+																"attendees"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																}
+															]
+														}
+													},
+													"status": "Internal Server Error",
+													"code": 500,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"statusCode\": 500,\n  \"message\": \"Something went wrong\",\n  \"error\": \"Internal Server Error\"\n}"
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "Event Controller find By Id",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/events/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"events",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "ullamco",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Get event by id",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/events/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"events",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"_id\": \"68218a44558c61c3d0e5c773\",\n  \"name\": \"Event 0\",\n  \"description\": \"Description 0\",\n  \"location\": \"Location 0\",\n  \"start_time\": \"2026-01-24T14:00:00.000Z\",\n  \"end_time\": \"2026-01-25T14:00:00.000Z\",\n  \"creator\": \"68210420f639de1251ae31a5\",\n  \"ticket_price\": 15,\n  \"ticket_available\": 1000,\n  \"ticket_left\": 100,\n  \"category\": \"Workshop\",\n  \"createdAt\": \"2025-05-12T05:42:28.577Z\",\n  \"updatedAt\": \"2025-05-12T05:42:28.577Z\",\n  \"__v\": 0\n}"
+										},
+										{
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/events/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"events",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 400,\n  \"message\": \"Error\",\n  \"error\": \"Bad Request\"\n}"
+										},
+										{
+											"name": "Unauthorized",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/events/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"events",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 401,\n  \"message\": \"Invalid, malformed, or expired token\",\n  \"error\": \"Unauthorized\"\n}"
+										},
+										{
+											"name": "Forbidden",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/events/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"events",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Forbidden",
+											"code": 403,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 403,\n  \"message\": \"The action you are trying to perform is not allowed or just cannot be done\",\n  \"error\": \"Forbidden\"\n}"
+										},
+										{
+											"name": "Not found",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/events/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"events",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 404,\n  \"message\": \"Resource not found\",\n  \"error\": \"Not Found\"\n}"
+										},
+										{
+											"name": "Internal server error",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/events/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"events",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 500,\n  \"message\": \"Something went wrong\",\n  \"error\": \"Internal Server Error\"\n}"
+										}
+									]
+								},
+								{
+									"name": "Event Controller update",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"Tech Conference 2023\",\n  \"date\": \"2023-10-01T10:00:00Z\",\n  \"location\": \"New York, NY\",\n  \"description\": \"Here is the description of the event which is a long string\",\n  \"start_time\": \"2019-02-01T00:00:00Z\",\n  \"end_time\": \"2019-02-01T00:00:00Z\",\n  \"ticket_price\": 10,\n  \"ticket_available\": 100,\n  \"category\": \"Networking\",\n  \"image_url\": \"This is optional field of image url and should be URL return when creating new image\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/events/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"events",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "ullamco",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Create event",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"name\": \"Tech Conference 2023\",\n  \"date\": \"2023-10-01T10:00:00Z\",\n  \"location\": \"New York, NY\",\n  \"description\": \"Here is the description of the event which is a long string\",\n  \"start_time\": \"2019-02-01T00:00:00Z\",\n  \"end_time\": \"2019-02-01T00:00:00Z\",\n  \"ticket_price\": 10,\n  \"ticket_available\": 100,\n  \"category\": \"Networking\",\n  \"image_url\": \"This is optional field of image url and should be URL return when creating new image\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/events/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"events",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"name\": \"Tech Conference 2023\",\n  \"description\": \"Here is the description of the event which is a long string\",\n  \"location\": \"New York, NY\",\n  \"start_time\": \"2019-02-01T00:00:00.000Z\",\n  \"end_time\": \"2019-02-01T00:00:00.000Z\",\n  \"creator\": {\n    \"_id\": \"68210420f639de1251ae31a5\",\n    \"name\": \"dev\",\n    \"email\": \"dev@qut.edu.au\"\n  },\n  \"ticket_price\": 10,\n  \"ticket_available\": 100,\n  \"category\": \"Networking\",\n  \"image_url\": \"This is optional field of image url\",\n  \"_id\": \"6821886a312ff80975a1e661\",\n  \"createdAt\": \"2025-05-12T05:34:34.384Z\",\n  \"updatedAt\": \"2025-05-12T05:34:34.384Z\",\n  \"__v\": 0\n}"
+										},
+										{
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"name\": \"Tech Conference 2023\",\n  \"date\": \"2023-10-01T10:00:00Z\",\n  \"location\": \"New York, NY\",\n  \"description\": \"Here is the description of the event which is a long string\",\n  \"start_time\": \"2019-02-01T00:00:00Z\",\n  \"end_time\": \"2019-02-01T00:00:00Z\",\n  \"ticket_price\": 10,\n  \"ticket_available\": 100,\n  \"category\": \"Networking\",\n  \"image_url\": \"This is optional field of image url and should be URL return when creating new image\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/events/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"events",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 400,\n  \"message\": \"Error\",\n  \"error\": \"Bad Request\"\n}"
+										},
+										{
+											"name": "Unauthorized",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"name\": \"Tech Conference 2023\",\n  \"date\": \"2023-10-01T10:00:00Z\",\n  \"location\": \"New York, NY\",\n  \"description\": \"Here is the description of the event which is a long string\",\n  \"start_time\": \"2019-02-01T00:00:00Z\",\n  \"end_time\": \"2019-02-01T00:00:00Z\",\n  \"ticket_price\": 10,\n  \"ticket_available\": 100,\n  \"category\": \"Networking\",\n  \"image_url\": \"This is optional field of image url and should be URL return when creating new image\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/events/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"events",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 401,\n  \"message\": \"Invalid, malformed, or expired token\",\n  \"error\": \"Unauthorized\"\n}"
+										},
+										{
+											"name": "Forbidden",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"name\": \"Tech Conference 2023\",\n  \"date\": \"2023-10-01T10:00:00Z\",\n  \"location\": \"New York, NY\",\n  \"description\": \"Here is the description of the event which is a long string\",\n  \"start_time\": \"2019-02-01T00:00:00Z\",\n  \"end_time\": \"2019-02-01T00:00:00Z\",\n  \"ticket_price\": 10,\n  \"ticket_available\": 100,\n  \"category\": \"Networking\",\n  \"image_url\": \"This is optional field of image url and should be URL return when creating new image\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/events/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"events",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Forbidden",
+											"code": 403,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 403,\n  \"message\": \"The action you are trying to perform is not allowed or just cannot be done\",\n  \"error\": \"Forbidden\"\n}"
+										},
+										{
+											"name": "Not found",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"name\": \"Tech Conference 2023\",\n  \"date\": \"2023-10-01T10:00:00Z\",\n  \"location\": \"New York, NY\",\n  \"description\": \"Here is the description of the event which is a long string\",\n  \"start_time\": \"2019-02-01T00:00:00Z\",\n  \"end_time\": \"2019-02-01T00:00:00Z\",\n  \"ticket_price\": 10,\n  \"ticket_available\": 100,\n  \"category\": \"Networking\",\n  \"image_url\": \"This is optional field of image url and should be URL return when creating new image\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/events/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"events",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 404,\n  \"message\": \"Resource not found\",\n  \"error\": \"Not Found\"\n}"
+										},
+										{
+											"name": "Internal server error",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"name\": \"Tech Conference 2023\",\n  \"date\": \"2023-10-01T10:00:00Z\",\n  \"location\": \"New York, NY\",\n  \"description\": \"Here is the description of the event which is a long string\",\n  \"start_time\": \"2019-02-01T00:00:00Z\",\n  \"end_time\": \"2019-02-01T00:00:00Z\",\n  \"ticket_price\": 10,\n  \"ticket_available\": 100,\n  \"category\": \"Networking\",\n  \"image_url\": \"This is optional field of image url and should be URL return when creating new image\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/events/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"events",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 500,\n  \"message\": \"Something went wrong\",\n  \"error\": \"Internal Server Error\"\n}"
+										}
+									]
+								},
+								{
+									"name": "Event Controller remove",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/events/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"events",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "ullamco",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Delete event",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/events/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"events",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"message\": \"Event deleted successfully\"\n}"
+										},
+										{
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/events/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"events",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 400,\n  \"message\": \"Error\",\n  \"error\": \"Bad Request\"\n}"
+										},
+										{
+											"name": "Unauthorized",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/events/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"events",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 401,\n  \"message\": \"Invalid, malformed, or expired token\",\n  \"error\": \"Unauthorized\"\n}"
+										},
+										{
+											"name": "Forbidden",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/events/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"events",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Forbidden",
+											"code": 403,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 403,\n  \"message\": \"The action you are trying to perform is not allowed or just cannot be done\",\n  \"error\": \"Forbidden\"\n}"
+										},
+										{
+											"name": "Not found",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/events/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"events",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 404,\n  \"message\": \"Resource not found\",\n  \"error\": \"Not Found\"\n}"
+										},
+										{
+											"name": "Internal server error",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/events/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"events",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 500,\n  \"message\": \"Something went wrong\",\n  \"error\": \"Internal Server Error\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Event Controller find All",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/events?name=Tech&category=Networking",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"events"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "Tech",
+											"description": "Event name"
+										},
+										{
+											"key": "category",
+											"value": "Networking",
+											"description": "Event category"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Get all events",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/events?name=Tech&category=Networking",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"events"
+											],
+											"query": [
+												{
+													"key": "name",
+													"value": "Tech",
+													"description": "Event name"
+												},
+												{
+													"key": "category",
+													"value": "Networking",
+													"description": "Event category"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "[\n  {\n    \"_id\": \"68210420f639de1251ae31c5\",\n    \"name\": \"Event 4\",\n    \"description\": \"Description 4\",\n    \"location\": \"Location 4\",\n    \"start_time\": \"2026-01-24T14:00:00.000Z\",\n    \"end_time\": \"2026-01-25T14:00:00.000Z\",\n    \"creator\": {\n      \"_id\": \"68210420f639de1251ae31a5\",\n      \"name\": \"dev\",\n      \"email\": \"dev@qut.edu.au\"\n    },\n    \"ticket_price\": 15,\n    \"ticket_left\": 100,\n    \"ticket_available\": 1000,\n    \"category\": \"Workshop\",\n    \"createdAt\": \"2025-05-11T20:10:08.537Z\",\n    \"updatedAt\": \"2025-05-11T20:10:08.537Z\",\n    \"__v\": 0\n  }\n]"
+								},
+								{
+									"name": "Bad request",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/events?name=Tech&category=Networking",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"events"
+											],
+											"query": [
+												{
+													"key": "name",
+													"value": "Tech",
+													"description": "Event name"
+												},
+												{
+													"key": "category",
+													"value": "Networking",
+													"description": "Event category"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"statusCode\": 400,\n  \"message\": \"Error\",\n  \"error\": \"Bad Request\"\n}"
+								},
+								{
+									"name": "Unauthorized",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/events?name=Tech&category=Networking",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"events"
+											],
+											"query": [
+												{
+													"key": "name",
+													"value": "Tech",
+													"description": "Event name"
+												},
+												{
+													"key": "category",
+													"value": "Networking",
+													"description": "Event category"
+												}
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"statusCode\": 401,\n  \"message\": \"Invalid, malformed, or expired token\",\n  \"error\": \"Unauthorized\"\n}"
+								},
+								{
+									"name": "Forbidden",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/events?name=Tech&category=Networking",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"events"
+											],
+											"query": [
+												{
+													"key": "name",
+													"value": "Tech",
+													"description": "Event name"
+												},
+												{
+													"key": "category",
+													"value": "Networking",
+													"description": "Event category"
+												}
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"statusCode\": 403,\n  \"message\": \"The action you are trying to perform is not allowed or just cannot be done\",\n  \"error\": \"Forbidden\"\n}"
+								},
+								{
+									"name": "Internal server error",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/events?name=Tech&category=Networking",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"events"
+											],
+											"query": [
+												{
+													"key": "name",
+													"value": "Tech",
+													"description": "Event name"
+												},
+												{
+													"key": "category",
+													"value": "Networking",
+													"description": "Event category"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"statusCode\": 500,\n  \"message\": \"Something went wrong\",\n  \"error\": \"Internal Server Error\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Event Controller create",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Tech Conference 2023\",\n  \"date\": \"2023-10-01T10:00:00Z\",\n  \"location\": \"New York, NY\",\n  \"description\": \"Here is the description of the event which is a long string\",\n  \"start_time\": \"2019-02-01T00:00:00Z\",\n  \"end_time\": \"2019-02-01T00:00:00Z\",\n  \"ticket_price\": 10,\n  \"ticket_available\": 100,\n  \"category\": \"Networking\",\n  \"image_url\": \"This is optional field of image url and should be URL return when creating new image\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/events",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"events"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Create event",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"Tech Conference 2023\",\n  \"date\": \"2023-10-01T10:00:00Z\",\n  \"location\": \"New York, NY\",\n  \"description\": \"Here is the description of the event which is a long string\",\n  \"start_time\": \"2019-02-01T00:00:00Z\",\n  \"end_time\": \"2019-02-01T00:00:00Z\",\n  \"ticket_price\": 10,\n  \"ticket_available\": 100,\n  \"category\": \"Networking\",\n  \"image_url\": \"This is optional field of image url and should be URL return when creating new image\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/events",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"events"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"name\": \"Tech Conference 2023\",\n  \"description\": \"Here is the description of the event which is a long string\",\n  \"location\": \"New York, NY\",\n  \"start_time\": \"2019-02-01T00:00:00.000Z\",\n  \"end_time\": \"2019-02-01T00:00:00.000Z\",\n  \"creator\": {\n    \"_id\": \"68210420f639de1251ae31a5\",\n    \"name\": \"dev\",\n    \"email\": \"dev@qut.edu.au\"\n  },\n  \"participants\": [],\n  \"ticket_price\": 10,\n  \"ticket_available\": 100,\n  \"category\": \"Networking\",\n  \"image_url\": \"This is optional field of image url\",\n  \"_id\": \"6821886a312ff80975a1e661\",\n  \"createdAt\": \"2025-05-12T05:34:34.384Z\",\n  \"updatedAt\": \"2025-05-12T05:34:34.384Z\",\n  \"__v\": 0\n}"
+								},
+								{
+									"name": "Bad request",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"Tech Conference 2023\",\n  \"date\": \"2023-10-01T10:00:00Z\",\n  \"location\": \"New York, NY\",\n  \"description\": \"Here is the description of the event which is a long string\",\n  \"start_time\": \"2019-02-01T00:00:00Z\",\n  \"end_time\": \"2019-02-01T00:00:00Z\",\n  \"ticket_price\": 10,\n  \"ticket_available\": 100,\n  \"category\": \"Networking\",\n  \"image_url\": \"This is optional field of image url and should be URL return when creating new image\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/events",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"events"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"statusCode\": 400,\n  \"message\": \"Error\",\n  \"error\": \"Bad Request\"\n}"
+								},
+								{
+									"name": "Unauthorized",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"Tech Conference 2023\",\n  \"date\": \"2023-10-01T10:00:00Z\",\n  \"location\": \"New York, NY\",\n  \"description\": \"Here is the description of the event which is a long string\",\n  \"start_time\": \"2019-02-01T00:00:00Z\",\n  \"end_time\": \"2019-02-01T00:00:00Z\",\n  \"ticket_price\": 10,\n  \"ticket_available\": 100,\n  \"category\": \"Networking\",\n  \"image_url\": \"This is optional field of image url and should be URL return when creating new image\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/events",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"events"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"statusCode\": 401,\n  \"message\": \"Invalid, malformed, or expired token\",\n  \"error\": \"Unauthorized\"\n}"
+								},
+								{
+									"name": "Forbidden",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"Tech Conference 2023\",\n  \"date\": \"2023-10-01T10:00:00Z\",\n  \"location\": \"New York, NY\",\n  \"description\": \"Here is the description of the event which is a long string\",\n  \"start_time\": \"2019-02-01T00:00:00Z\",\n  \"end_time\": \"2019-02-01T00:00:00Z\",\n  \"ticket_price\": 10,\n  \"ticket_available\": 100,\n  \"category\": \"Networking\",\n  \"image_url\": \"This is optional field of image url and should be URL return when creating new image\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/events",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"events"
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"statusCode\": 403,\n  \"message\": \"The action you are trying to perform is not allowed or just cannot be done\",\n  \"error\": \"Forbidden\"\n}"
+								},
+								{
+									"name": "Internal server error",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"Tech Conference 2023\",\n  \"date\": \"2023-10-01T10:00:00Z\",\n  \"location\": \"New York, NY\",\n  \"description\": \"Here is the description of the event which is a long string\",\n  \"start_time\": \"2019-02-01T00:00:00Z\",\n  \"end_time\": \"2019-02-01T00:00:00Z\",\n  \"ticket_price\": 10,\n  \"ticket_available\": 100,\n  \"category\": \"Networking\",\n  \"image_url\": \"This is optional field of image url and should be URL return when creating new image\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/events",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"events"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"statusCode\": 500,\n  \"message\": \"Something went wrong\",\n  \"error\": \"Internal Server Error\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "ticket",
+					"item": [
+						{
+							"name": "get-price",
+							"item": [
+								{
+									"name": "Ticket Controller get Ticket Price",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"event_id\": \"\",\n  \"add_on\": {\n    \"vip\": true,\n    \"parking\": false,\n    \"food\": true,\n    \"priority\": false\n  }\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/ticket/get-price",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"ticket",
+												"get-price"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Get ticket price",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"event_id\": \"\",\n  \"add_on\": {\n    \"vip\": true,\n    \"parking\": false,\n    \"food\": true,\n    \"priority\": false\n  }\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/ticket/get-price",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"ticket",
+														"get-price"
+													]
+												}
+											},
+											"status": "Created",
+											"code": 201,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"price\": 15\n}"
+										},
+										{
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"event_id\": \"\",\n  \"add_on\": {\n    \"vip\": true,\n    \"parking\": false,\n    \"food\": true,\n    \"priority\": false\n  }\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/ticket/get-price",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"ticket",
+														"get-price"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 400,\n  \"message\": \"Error\",\n  \"error\": \"Bad Request\"\n}"
+										},
+										{
+											"name": "Unauthorized",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"event_id\": \"\",\n  \"add_on\": {\n    \"vip\": true,\n    \"parking\": false,\n    \"food\": true,\n    \"priority\": false\n  }\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/ticket/get-price",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"ticket",
+														"get-price"
+													]
+												}
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 401,\n  \"message\": \"Invalid, malformed, or expired token\",\n  \"error\": \"Unauthorized\"\n}"
+										},
+										{
+											"name": "Forbidden",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"event_id\": \"\",\n  \"add_on\": {\n    \"vip\": true,\n    \"parking\": false,\n    \"food\": true,\n    \"priority\": false\n  }\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/ticket/get-price",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"ticket",
+														"get-price"
+													]
+												}
+											},
+											"status": "Forbidden",
+											"code": 403,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 403,\n  \"message\": \"The action you are trying to perform is not allowed or just cannot be done\",\n  \"error\": \"Forbidden\"\n}"
+										},
+										{
+											"name": "Internal server error",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"event_id\": \"\",\n  \"add_on\": {\n    \"vip\": true,\n    \"parking\": false,\n    \"food\": true,\n    \"priority\": false\n  }\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/ticket/get-price",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"ticket",
+														"get-price"
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 500,\n  \"message\": \"Something went wrong\",\n  \"error\": \"Internal Server Error\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "purchase",
+							"item": [
+								{
+									"name": "Ticket Controller purchase Ticket",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"event_id\": \"\",\n  \"add_on\": {\n    \"vip\": true,\n    \"parking\": false,\n    \"food\": true,\n    \"priority\": false\n  }\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/ticket/purchase",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"ticket",
+												"purchase"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Purchase ticket",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"event_id\": \"\",\n  \"add_on\": {\n    \"vip\": true,\n    \"parking\": false,\n    \"food\": true,\n    \"priority\": false\n  }\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/ticket/purchase",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"ticket",
+														"purchase"
+													]
+												}
+											},
+											"status": "Created",
+											"code": 201,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"price\": 142,\n  \"ticket_id\": \"68219a6b5d758dfb1640733d\"\n}"
+										},
+										{
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"event_id\": \"\",\n  \"add_on\": {\n    \"vip\": true,\n    \"parking\": false,\n    \"food\": true,\n    \"priority\": false\n  }\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/ticket/purchase",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"ticket",
+														"purchase"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 400,\n  \"message\": \"Error\",\n  \"error\": \"Bad Request\"\n}"
+										},
+										{
+											"name": "Unauthorized",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"event_id\": \"\",\n  \"add_on\": {\n    \"vip\": true,\n    \"parking\": false,\n    \"food\": true,\n    \"priority\": false\n  }\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/ticket/purchase",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"ticket",
+														"purchase"
+													]
+												}
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 401,\n  \"message\": \"Invalid, malformed, or expired token\",\n  \"error\": \"Unauthorized\"\n}"
+										},
+										{
+											"name": "Forbidden",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"event_id\": \"\",\n  \"add_on\": {\n    \"vip\": true,\n    \"parking\": false,\n    \"food\": true,\n    \"priority\": false\n  }\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/ticket/purchase",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"ticket",
+														"purchase"
+													]
+												}
+											},
+											"status": "Forbidden",
+											"code": 403,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 403,\n  \"message\": \"The action you are trying to perform is not allowed or just cannot be done\",\n  \"error\": \"Forbidden\"\n}"
+										},
+										{
+											"name": "Internal server error",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"event_id\": \"\",\n  \"add_on\": {\n    \"vip\": true,\n    \"parking\": false,\n    \"food\": true,\n    \"priority\": false\n  }\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/ticket/purchase",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"ticket",
+														"purchase"
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 500,\n  \"message\": \"Something went wrong\",\n  \"error\": \"Internal Server Error\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "find-my-tickets",
+							"item": [
+								{
+									"name": "Ticket Controller find My Ticket",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/ticket/find-my-tickets",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"ticket",
+												"find-my-tickets"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Find my tickets",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/ticket/find-my-tickets",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"ticket",
+														"find-my-tickets"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "[\n  {\n    \"_id\": \"682345d4c36f1bd8acc37ac0\",\n    \"event_id\": {\n      \"_id\": \"68218e24f41de91e2e46ed0a\",\n      \"name\": \"Event 1\",\n      \"description\": \"Description 1\",\n      \"location\": \"Location 1\",\n      \"start_time\": \"2026-01-24T14:00:00.000Z\",\n      \"end_time\": \"2026-01-25T14:00:00.000Z\"\n    },\n    \"checked_in\": false,\n    \"transaction_id\": \"dummy_transaction_id\",\n    \"createdAt\": \"2025-05-13T13:15:00.193Z\",\n    \"updatedAt\": \"2025-05-13T13:15:00.193Z\",\n    \"__v\": 0\n  }\n]"
+										},
+										{
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/ticket/find-my-tickets",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"ticket",
+														"find-my-tickets"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 400,\n  \"message\": \"Error\",\n  \"error\": \"Bad Request\"\n}"
+										},
+										{
+											"name": "Unauthorized",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/ticket/find-my-tickets",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"ticket",
+														"find-my-tickets"
+													]
+												}
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 401,\n  \"message\": \"Invalid, malformed, or expired token\",\n  \"error\": \"Unauthorized\"\n}"
+										},
+										{
+											"name": "Forbidden",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/ticket/find-my-tickets",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"ticket",
+														"find-my-tickets"
+													]
+												}
+											},
+											"status": "Forbidden",
+											"code": 403,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 403,\n  \"message\": \"The action you are trying to perform is not allowed or just cannot be done\",\n  \"error\": \"Forbidden\"\n}"
+										},
+										{
+											"name": "Internal server error",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/ticket/find-my-tickets",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"ticket",
+														"find-my-tickets"
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 500,\n  \"message\": \"Something went wrong\",\n  \"error\": \"Internal Server Error\"\n}"
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "image",
+					"item": [
+						{
+							"name": "upload",
+							"item": [
+								{
+									"name": "Image Controller upload Image",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "multipart/form-data"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "file",
+													"type": "file",
+													"src": []
+												}
+											]
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/image/upload",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"image",
+												"upload"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Image uploaded successfully",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "multipart/form-data"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "formdata",
+													"formdata": [
+														{
+															"key": "file",
+															"type": "file",
+															"src": []
+														}
+													]
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/image/upload",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"image",
+														"upload"
+													]
+												}
+											},
+											"status": "Created",
+											"code": 201,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"image_name\": \"069b71fc-94a8-40a5-b963-035f6d53551f.jpeg\",\n  \"image_url\": \"/public/1747029635173-15727855-069b71fc-94a8-40a5-b963-035f6d53551f.jpeg\",\n  \"_id\": \"68218e83f41de91e2e46ed15\",\n  \"createdAt\": \"2025-05-12T06:00:35.180Z\",\n  \"updatedAt\": \"2025-05-12T06:00:35.180Z\",\n  \"__v\": 0\n}"
+										},
+										{
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "multipart/form-data"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "formdata",
+													"formdata": [
+														{
+															"key": "file",
+															"type": "file",
+															"src": []
+														}
+													]
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/image/upload",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"image",
+														"upload"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 400,\n  \"message\": \"Error\",\n  \"error\": \"Bad Request\"\n}"
+										},
+										{
+											"name": "Unauthorized",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "multipart/form-data"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "formdata",
+													"formdata": [
+														{
+															"key": "file",
+															"type": "file",
+															"src": []
+														}
+													]
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/image/upload",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"image",
+														"upload"
+													]
+												}
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 401,\n  \"message\": \"Invalid, malformed, or expired token\",\n  \"error\": \"Unauthorized\"\n}"
+										},
+										{
+											"name": "Forbidden",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "multipart/form-data"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "formdata",
+													"formdata": [
+														{
+															"key": "file",
+															"type": "file",
+															"src": []
+														}
+													]
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/image/upload",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"image",
+														"upload"
+													]
+												}
+											},
+											"status": "Forbidden",
+											"code": 403,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 403,\n  \"message\": \"The action you are trying to perform is not allowed or just cannot be done\",\n  \"error\": \"Forbidden\"\n}"
+										},
+										{
+											"name": "Internal server error",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "multipart/form-data"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "formdata",
+													"formdata": [
+														{
+															"key": "file",
+															"type": "file",
+															"src": []
+														}
+													]
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/image/upload",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"image",
+														"upload"
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 500,\n  \"message\": \"Something went wrong\",\n  \"error\": \"Internal Server Error\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "{id}",
+							"item": [
+								{
+									"name": "Image Controller get Image",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/image/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"image",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "ullamco",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Get image by ID",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/image/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"image",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"image_name\": \"069b71fc-94a8-40a5-b963-035f6d53551f.jpeg\",\n  \"image_url\": \"/public/1747029635173-15727855-069b71fc-94a8-40a5-b963-035f6d53551f.jpeg\",\n  \"_id\": \"68218e83f41de91e2e46ed15\",\n  \"createdAt\": \"2025-05-12T06:00:35.180Z\",\n  \"updatedAt\": \"2025-05-12T06:00:35.180Z\",\n  \"__v\": 0\n}"
+										},
+										{
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/image/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"image",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 400,\n  \"message\": \"Error\",\n  \"error\": \"Bad Request\"\n}"
+										},
+										{
+											"name": "Unauthorized",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/image/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"image",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 401,\n  \"message\": \"Invalid, malformed, or expired token\",\n  \"error\": \"Unauthorized\"\n}"
+										},
+										{
+											"name": "Forbidden",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/image/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"image",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Forbidden",
+											"code": 403,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 403,\n  \"message\": \"The action you are trying to perform is not allowed or just cannot be done\",\n  \"error\": \"Forbidden\"\n}"
+										},
+										{
+											"name": "Internal server error",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/image/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"image",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"statusCode\": 500,\n  \"message\": \"Something went wrong\",\n  \"error\": \"Internal Server Error\"\n}"
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "report",
+					"item": [
+						{
+							"name": "{eventId}",
+							"item": [
+								{
+									"name": "attendees",
+									"item": [
+										{
+											"name": "Report Controller get Attendees",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "text/csv"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/report/:eventId/attendees",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"report",
+														":eventId",
+														"attendees"
+													],
+													"variable": [
+														{
+															"key": "eventId",
+															"value": "60d0fe4f5311236168a109ca",
+															"description": "(Required) The ID of the event"
+														}
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "CSV file containing the list of attendees",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "text/csv"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/report/:eventId/attendees",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"report",
+																":eventId",
+																"attendees"
+															],
+															"variable": [
+																{
+																	"key": "eventId"
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "text/csv"
+														}
+													],
+													"cookie": [],
+													"body": "eu eiusmod"
+												},
+												{
+													"name": "Bad request",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "text/csv"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/report/:eventId/attendees",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"report",
+																":eventId",
+																"attendees"
+															],
+															"variable": [
+																{
+																	"key": "eventId"
+																}
+															]
+														}
+													},
+													"status": "Bad Request",
+													"code": 400,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "text/csv"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"statusCode\": 400,\n  \"message\": \"Error\",\n  \"error\": \"Bad Request\"\n}"
+												},
+												{
+													"name": "Unauthorized",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "text/csv"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/report/:eventId/attendees",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"report",
+																":eventId",
+																"attendees"
+															],
+															"variable": [
+																{
+																	"key": "eventId"
+																}
+															]
+														}
+													},
+													"status": "Unauthorized",
+													"code": 401,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "text/csv"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"statusCode\": 401,\n  \"message\": \"Invalid, malformed, or expired token\",\n  \"error\": \"Unauthorized\"\n}"
+												},
+												{
+													"name": "Forbidden",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "text/csv"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/report/:eventId/attendees",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"report",
+																":eventId",
+																"attendees"
+															],
+															"variable": [
+																{
+																	"key": "eventId"
+																}
+															]
+														}
+													},
+													"status": "Forbidden",
+													"code": 403,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "text/csv"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"statusCode\": 403,\n  \"message\": \"The action you are trying to perform is not allowed or just cannot be done\",\n  \"error\": \"Forbidden\"\n}"
+												},
+												{
+													"name": "Internal server error",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "text/csv"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/report/:eventId/attendees",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"report",
+																":eventId",
+																"attendees"
+															],
+															"variable": [
+																{
+																	"key": "eventId"
+																}
+															]
+														}
+													},
+													"status": "Internal Server Error",
+													"code": 500,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "text/csv"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"statusCode\": 500,\n  \"message\": \"Something went wrong\",\n  \"error\": \"Internal Server Error\"\n}"
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "revenue",
+									"item": [
+										{
+											"name": "Report Controller export Revenue",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/pdf"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/report/:eventId/revenue",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"report",
+														":eventId",
+														"revenue"
+													],
+													"variable": [
+														{
+															"key": "eventId",
+															"value": "60d0fe4f5311236168a109ca",
+															"description": "(Required) The ID of the event"
+														}
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "PDF report of ticket sales",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/pdf"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/report/:eventId/revenue",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"report",
+																":eventId",
+																"revenue"
+															],
+															"variable": [
+																{
+																	"key": "eventId"
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/pdf"
+														}
+													],
+													"cookie": [],
+													"body": "eu eiusmod"
+												},
+												{
+													"name": "Bad request",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/pdf"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/report/:eventId/revenue",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"report",
+																":eventId",
+																"revenue"
+															],
+															"variable": [
+																{
+																	"key": "eventId"
+																}
+															]
+														}
+													},
+													"status": "Bad Request",
+													"code": 400,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/pdf"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"statusCode\": 400,\n  \"message\": \"Error\",\n  \"error\": \"Bad Request\"\n}"
+												},
+												{
+													"name": "Unauthorized",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/pdf"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/report/:eventId/revenue",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"report",
+																":eventId",
+																"revenue"
+															],
+															"variable": [
+																{
+																	"key": "eventId"
+																}
+															]
+														}
+													},
+													"status": "Unauthorized",
+													"code": 401,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/pdf"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"statusCode\": 401,\n  \"message\": \"Invalid, malformed, or expired token\",\n  \"error\": \"Unauthorized\"\n}"
+												},
+												{
+													"name": "Forbidden",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/pdf"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/report/:eventId/revenue",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"report",
+																":eventId",
+																"revenue"
+															],
+															"variable": [
+																{
+																	"key": "eventId"
+																}
+															]
+														}
+													},
+													"status": "Forbidden",
+													"code": 403,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/pdf"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"statusCode\": 403,\n  \"message\": \"The action you are trying to perform is not allowed or just cannot be done\",\n  \"error\": \"Forbidden\"\n}"
+												},
+												{
+													"name": "Internal server error",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/pdf"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/report/:eventId/revenue",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"report",
+																":eventId",
+																"revenue"
+															],
+															"variable": [
+																{
+																	"key": "eventId"
+																}
+															]
+														}
+													},
+													"status": "Internal Server Error",
+													"code": 500,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/pdf"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"statusCode\": 500,\n  \"message\": \"Something went wrong\",\n  \"error\": \"Internal Server Error\"\n}"
+												}
+											]
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{bearerToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://ifn636.marcusnguyen.dev"
+		},
+		{
+			"key": "bearerToken",
+			"value": ""
+		}
+	]
+}

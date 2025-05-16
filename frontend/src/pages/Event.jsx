@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { Flex, Text, Title, Paper, Button, Stack, Container, Box, Modal, Checkbox, Loader } from "@mantine/core";
 import { useDisclosure } from '@mantine/hooks'
+import { useDisclosure } from '@mantine/hooks'
 import { useParams } from 'react-router-dom';
 
 import axiosInstance from '../axiosConfig';
@@ -17,6 +18,8 @@ import { baseURL } from '../config';
 
 export default function EventPage() {
   const { eventId } = useParams();
+  const [TicketConfirmedModalOpened, { TicketConfirmedModalOpen, TicketConfirmedModalClose }] = useDisclosure(false);
+  const [ticket, setTicket] = useState(null); // This will be initialised when the booking confirms
   const [TicketConfirmedModalOpened, { TicketConfirmedModalOpen, TicketConfirmedModalClose }] = useDisclosure(false);
   const [ticket, setTicket] = useState(null); // This will be initialised when the booking confirms
   const [eventDetails, setEventDetails] = useState(null);
@@ -60,6 +63,7 @@ export default function EventPage() {
       } catch (err) {
         showNotification({
           title: 'Error',
+          message: err?.response?.data?.message || err.message || 'Something went wrong',
           message: err?.response?.data?.message || err.message || 'Something went wrong',
           autoClose: 3000,
           color: 'red',
@@ -107,7 +111,9 @@ export default function EventPage() {
       showNotification({
         title: 'Error',
         message: err?.response?.data?.message || err.message || 'Something went wrong',
+        message: err?.response?.data?.message || err.message || 'Something went wrong',
         autoClose: 3000,
+        color: 'red',
         color: 'red',
       });
     } finally {
@@ -147,7 +153,9 @@ export default function EventPage() {
       showNotification({
         title: 'Error',
         message: err?.response?.data?.message || err.message || 'Something went wrong',
+        message: err?.response?.data?.message || err.message || 'Something went wrong',
         autoClose: 3000,
+        color: 'red',
         color: 'red',
       });
     } finally {
@@ -176,6 +184,7 @@ export default function EventPage() {
 
     <>
       <TicketQRCode opened={TicketConfirmedModalOpened} onClose={TicketConfirmedModalClose} ticket={ticket} />
+      <TicketQRCode opened={TicketConfirmedModalOpened} onClose={TicketConfirmedModalClose} ticket={ticket} />
       <Container
         size="xl"
         py="sm">
@@ -184,6 +193,7 @@ export default function EventPage() {
 
         {image_url && (
           <img
+            src={`${baseURL}${image_url}`}
             src={`${baseURL}${image_url}`}
             alt="Event Banner"
             style={{

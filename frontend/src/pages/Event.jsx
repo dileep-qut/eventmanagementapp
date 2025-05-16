@@ -21,10 +21,10 @@ export default function EventPage() {
   const [loading, setLoading] = useState(true);
   const [modalLoading, setModalLoading] = useState(false);
 
-  const [modalOpened, setModalOpened] = useState(false); // For the Addon Model
+  const [modalOpened, setModalOpened] = useState(false);
 
 
-  const [selectedAddons, setSelectedAddons] = useState([]); // Store the selected addons
+  const [selectedAddons, setSelectedAddons] = useState([]); 
 
   const [ticket_price, setTicketPrice] = useState(null)
 

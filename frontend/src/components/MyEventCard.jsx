@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import EditEventModal from "./EditEvent";
 import {
   Card,
   Text,
@@ -16,7 +17,14 @@ import axiosInstance from "../axiosConfig";
 import { baseURL } from "../config";
 import { useNavigate } from "react-router-dom";
 
-const MyEventCard = ({ event, onEventDeleted }) => {
+const MyEventCard = ({
+  event,
+  onEventDeleted,
+  onDownloadCSV,
+  onDownloadPDF,
+  onEventUpdated,
+}) => {
+  const [editModalOpen, setEditModalOpen] = useState(false);
   const navigate = useNavigate();
   const [deleting, setDeleting] = useState(false);
   const [downloading, setDownloading] = useState({ csv: false, pdf: false });
@@ -90,7 +98,6 @@ const MyEventCard = ({ event, onEventDeleted }) => {
         gap="md"
         direction={{ base: "column", sm: "row" }}
       >
-        
         <Box
           style={{
             flex: "0 0 130px",
@@ -109,7 +116,6 @@ const MyEventCard = ({ event, onEventDeleted }) => {
           />
         </Box>
 
-        
         <Box
           style={{
             flex: "1 1 auto",
@@ -139,7 +145,6 @@ const MyEventCard = ({ event, onEventDeleted }) => {
           </Stack>
         </Box>
 
-        
         <Stack
           spacing="xs"
           align={isLargeScreen ? "flex-end" : "stretch"}
@@ -182,7 +187,14 @@ const MyEventCard = ({ event, onEventDeleted }) => {
           >
             {downloading.pdf ? <Loader size="xs" /> : "Download Revenue PDF"}
           </Button>
-
+          <Button
+            color="teal"
+            size="sm"
+            variant="outline"
+            onClick={() => setEditModalOpen(true)}
+          >
+            Edit Event
+          </Button>
           <Button
             color="red"
             variant="outline"
@@ -195,6 +207,18 @@ const MyEventCard = ({ event, onEventDeleted }) => {
           </Button>
         </Stack>
       </Flex>
+
+      <EditEventModal
+        opened={editModalOpen}
+        onClose={() => setEditModalOpen(false)}
+        eventId={event._id}
+        onEventUpdated={(updatedEvent) => {
+          // Pass the updated event back to parent immediately
+          onEventUpdated?.(updatedEvent);
+          // Close modal after update
+          setEditModalOpen(false);
+        }}
+      />
     </Card>
   );
 };

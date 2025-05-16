@@ -130,7 +130,6 @@ const MyEventsPage = () => {
           </Stack>
         )}
       </Container>
-
     </div>
   );
 };

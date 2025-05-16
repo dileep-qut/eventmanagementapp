@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
+
 import { Container, Text, Loader, SimpleGrid, Paper, Stack } from "@mantine/core";
 import axiosInstance from "../axiosConfig";
 import MyEventCard from "../components/MyEventCard"; 

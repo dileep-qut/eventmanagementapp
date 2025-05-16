@@ -13,6 +13,7 @@ import { DateTimePicker } from "@mantine/dates";
 import axiosInstance from "../axiosConfig";
 import { showNotification } from "@mantine/notifications";
 
+
 export default function AddEventModal({ opened, onClose, onEventCreated }) {
   const [formData, setFormData] = useState({
     name: "",
@@ -94,6 +95,7 @@ console.log(payload);
       setLoading(false);
     }
   };
+
 
   return (
     <Modal

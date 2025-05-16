@@ -22,27 +22,41 @@ export class EventService {
 
   async findAll(query: GetEventsQueryDto) {
     const { name, category } = query;
-    return await this.eventModel
+    const events = await this.eventModel
       .find({
         name: {
           $regex: name ? name : '',
         },
         category: category ? category : { $exists: true },
       })
-      .select('-participants')
       .populate('creator', 'name email')
       .exec();
+
+    if (!events) throw new NotFoundException('No events found');
+
+    return events.map((e) => {
+      const total_participants = e.participants.length;
+      const ticket_left = e.ticket_available - total_participants;
+
+      const { participants, ...rest } = e.toObject();
+
+      return { ...rest, ticket_left: ticket_left };
+    });
   }
 
   async findById(id: string) {
     const event = await this.eventModel
       .findById(id)
-      .select('-participants')
       .populate('creator', 'name email')
       .exec();
 
     if (!event) throw new NotFoundException('Event not found');
-    return event;
+    const total_participants = event.participants.length;
+    const ticket_left = event.ticket_available - total_participants;
+
+    const { participants, ...rest } = event.toObject();
+
+    return { ...rest, ticket_left: ticket_left };
   }
 
   async create(createDto: CreateEventDto, userId: string) {
@@ -100,6 +114,14 @@ export class EventService {
       .exec();
 
     if (!events) throw new NotFoundException('No events found');
-    return events;
+
+    return events.map((e) => {
+      const total_participants = e.participants.length;
+      const ticket_left = e.ticket_available - total_participants;
+      return {
+        ...e.toObject(),
+        ticket_left: ticket_left,
+      };
+    });
   }
 }

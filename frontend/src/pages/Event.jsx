@@ -19,7 +19,9 @@ export default function EventPage() {
   const { eventId } = useParams();
   const [TicketConfirmedModalOpened, { TicketConfirmedModalOpen, TicketConfirmedModalClose }] = useDisclosure(false);
   const [ticket, setTicket] = useState(null); // This will be initialised when the booking confirms
+
   
+
   const [eventDetails, setEventDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [modalLoading, setModalLoading] = useState(false);
@@ -62,7 +64,9 @@ export default function EventPage() {
         showNotification({
           title: 'Error',
           message: err?.response?.data?.message || err.message || 'Something went wrong',
+
           message: err?.response?.data?.message || err.message || 'Something went wrong',
+
           autoClose: 3000,
           color: 'red',
         });
@@ -109,10 +113,12 @@ export default function EventPage() {
       showNotification({
         title: 'Error',
         message: err?.response?.data?.message || err.message || 'Something went wrong',
+
         message: err?.response?.data?.message || err.message || 'Something went wrong',
         autoClose: 3000,
         color: 'red',
         color: 'red',
+
       });
     } finally {
     }
@@ -151,9 +157,7 @@ export default function EventPage() {
       showNotification({
         title: 'Error',
         message: err?.response?.data?.message || err.message || 'Something went wrong',
-        message: err?.response?.data?.message || err.message || 'Something went wrong',
         autoClose: 3000,
-        color: 'red',
         color: 'red',
       });
     } finally {
@@ -182,7 +186,8 @@ export default function EventPage() {
 
     <>
       <TicketQRCode opened={TicketConfirmedModalOpened} onClose={TicketConfirmedModalClose} ticket={ticket} />
-      <TicketQRCode opened={TicketConfirmedModalOpened} onClose={TicketConfirmedModalClose} ticket={ticket} />
+
+
       <Container
         size="xl"
         py="sm">

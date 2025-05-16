@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 import { Flex, Text, Title, Paper, Button, Stack, Container, Box, Modal, Checkbox, Loader } from "@mantine/core";
 import { useDisclosure } from '@mantine/hooks'
-import { useDisclosure } from '@mantine/hooks'
 import { useParams } from 'react-router-dom';
 
 import axiosInstance from '../axiosConfig';
@@ -20,8 +19,7 @@ export default function EventPage() {
   const { eventId } = useParams();
   const [TicketConfirmedModalOpened, { TicketConfirmedModalOpen, TicketConfirmedModalClose }] = useDisclosure(false);
   const [ticket, setTicket] = useState(null); // This will be initialised when the booking confirms
-  const [TicketConfirmedModalOpened, { TicketConfirmedModalOpen, TicketConfirmedModalClose }] = useDisclosure(false);
-  const [ticket, setTicket] = useState(null); // This will be initialised when the booking confirms
+  
   const [eventDetails, setEventDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [modalLoading, setModalLoading] = useState(false);
@@ -193,7 +191,6 @@ export default function EventPage() {
 
         {image_url && (
           <img
-            src={`${baseURL}${image_url}`}
             src={`${baseURL}${image_url}`}
             alt="Event Banner"
             style={{

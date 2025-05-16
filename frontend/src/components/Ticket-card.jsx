@@ -60,7 +60,28 @@ const TicketCard = ({ ticket }) => {
                     <Title fw={700} size="md" style={{ fontSize: 20 }}>
                        {event.name}
                     </Title>
-                    <Text size="sm">{new Date(event.start_time).toLocaleString()} - {new Date(event.end_time).toLocaleString()}</Text>
+                    <Text size="sm">
+  {new Date(event.start_time).toLocaleString('en-AU', {
+    weekday: 'short',
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true,
+  })}{' '}
+  -{' '}
+  {new Date(event.end_time).toLocaleString('en-AU', {
+    weekday: 'short',
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true,
+  })}
+</Text>
+
                     <Flex align="center" gap={6}>
                         <img
                             src="/assets/location-grey.svg"
@@ -97,7 +118,7 @@ const TicketCard = ({ ticket }) => {
                 >
                     View Ticket
                 </Button>
-                <Button
+                {/* <Button
                     color="red"
                     radius="md"
                     size="sm"
@@ -113,7 +134,7 @@ const TicketCard = ({ ticket }) => {
                     }}
                 >
                     Remove
-                </Button>
+                </Button> */}
             </Stack>
         </Flex>
     </Card>

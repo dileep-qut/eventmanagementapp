@@ -173,8 +173,8 @@ console.log(payload);
             "Networking",
             "Music",
             "Night Life",
-            "Cyber",
-            "Coding",
+            "CyberSecurity",
+            "Computer Science",
             "Dating",
           ]}
           value={formData.category}

@@ -5,7 +5,6 @@ import { useDisclosure } from '@mantine/hooks'
 import { useParams } from 'react-router-dom';
 
 import axiosInstance from '../axiosConfig';
-import TicketQRCode from '../components/TicketQR-code'
 
 import dayjs from 'dayjs';
 import { showNotification } from '@mantine/notifications';
@@ -17,9 +16,6 @@ import { baseURL } from '../config';
 
 export default function EventPage() {
   const { eventId } = useParams();
-  const [TicketConfirmedModalOpened, { TicketConfirmedModalOpen, TicketConfirmedModalClose }] = useDisclosure(false);
-  const [ticket, setTicket] = useState(null); // This will be initialised when the booking confirms
-  
 
   const [eventDetails, setEventDetails] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -28,11 +24,9 @@ export default function EventPage() {
   const [modalOpened, setModalOpened] = useState(false); // For the Addon Model
 
 
-  const [selectedAddons, setSelectedAddons] = useState([]); // Store the selected addon if the request fullfills
-  const [_selectedAddons, _setSelectedAddons] = useState([]); //To store the selected addon in a temp variable
+  const [selectedAddons, setSelectedAddons] = useState([]); // Store the selected addons
 
   const [ticket_price, setTicketPrice] = useState(null)
-  const [addonConfirmed, setAddonConfirmed] = useState(false)
 
 
   const token = localStorage.getItem('jwt')
@@ -63,6 +57,9 @@ export default function EventPage() {
         showNotification({
           title: 'Error',
           message: err?.response?.data?.message || err.message || 'Something went wrong',
+
+          message: err?.response?.data?.message || err.message || 'Something went wrong',
+
           autoClose: 3000,
           color: 'red',
         });
@@ -74,29 +71,28 @@ export default function EventPage() {
     fetchEventDetails();
   }, [eventId, token]);
 
-  const getTicketPrice = async () => {
+  const getTicketPrice = async (addons) => {
     setModalLoading(true)
-    console.log('Selected Add-ons:', _selectedAddons);
+
+
 
     try {
       const response = await axiosInstance.post(`/ticket/get-price`, {
         "event_id": eventId,
         "add_on": {
-          "vip": _selectedAddons.includes('vip'),
-          "parking": _selectedAddons.includes('parking'),
-          "food": _selectedAddons.includes('food'),
-          "priority": _selectedAddons.includes('priority'),
+          "vip": addons.includes('vip'),
+          "parking": addons.includes('parking'),
+          "food": addons.includes('food'),
+          "priority": addons.includes('priority'),
         }
       }, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
       if (response.status === 201 || response.status === 200) {
+        setSelectedAddons(addons);
         setTicketPrice(response.data.price)
-        setSelectedAddons(_selectedAddons)
-        setAddonConfirmed(true)
       } else {
-        setAddonConfirmed(false)
         showNotification({
           title: 'Error',
           message: response.data.message,
@@ -105,18 +101,22 @@ export default function EventPage() {
         });
       }
     } catch (err) {
-      setAddonConfirmed(false)
+
+      setSelectedAddons(selectedAddons)
       showNotification({
         title: 'Error',
         message: err?.response?.data?.message || err.message || 'Something went wrong',
+
+        message: err?.response?.data?.message || err.message || 'Something went wrong',
         autoClose: 3000,
         color: 'red',
+        color: 'red',
+
       });
     } finally {
+      setModalLoading(false)
+
     }
-
-    setModalLoading(false)
-
   };
 
   const purchaseTicket = async () => {
@@ -159,8 +159,42 @@ export default function EventPage() {
 
   };
 
-  if (loading) return <Text>Loading event details...</Text>;
-  if (!eventDetails) return <Text>Error loading event details.</Text>;
+  if (loading) {
+    return (
+      <Flex
+        justify="center"
+        align="center"
+        style={{ minHeight: '80vh', width: '100%' }}
+      >
+        <Loader size="lg" />
+      </Flex>
+    );
+  }
+
+  if(!token) {
+    return (
+      <Flex
+        justify="center"
+        align="center"
+        style={{ minHeight: '80vh', width: '100%' }}
+      >
+        <Text color="red" size="lg">Please login to view the event</Text>
+      </Flex>
+    );
+  }
+  
+  if (!eventDetails) {
+    return (
+      <Flex
+        justify="center"
+        align="center"
+        style={{ minHeight: '80vh', width: '100%' }}
+      >
+        <Text color="red" size="lg">Error loading event details.</Text>
+      </Flex>
+    );
+  }
+  
 
   const { name, description, start_time, end_time, location, image_url, creator, category, ticket_available } = eventDetails;
 
@@ -177,7 +211,6 @@ export default function EventPage() {
   return (
 
     <>
-      <TicketQRCode opened={TicketConfirmedModalOpened} onClose={TicketConfirmedModalClose} ticket={ticket} />
       <Container
         size="xl"
         py="sm">
@@ -317,10 +350,9 @@ export default function EventPage() {
             spacing="sm"
             orientation="vertical"
             label="Choose your add-ons"
-            value={_selectedAddons}
+            value={selectedAddons}
             onChange={(value) => {
-              setAddonConfirmed(false);
-              _setSelectedAddons(value)
+              getTicketPrice(value)
             }}
           >
             <Stack spacing="sm" mt="xs">
@@ -334,24 +366,24 @@ export default function EventPage() {
 
 
           <Button
-            variant={addonConfirmed ? 'filled' : 'outline'}
+            variant={'filled'}
             color="#6E58F6"
             fullWidth
-            onClick={addonConfirmed ? purchaseTicket : getTicketPrice}
+            onClick={purchaseTicket}
             disabled={modalLoading} // Optional: disables button while loading
             style={{
               borderColor: '#6E58F6',
-              color: addonConfirmed ? '#fff' : '#6E58F6',
-              backgroundColor: addonConfirmed ? '#6E58F6' : 'transparent',
+              color: '#fff',
+              backgroundColor: '#6E58F6',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
             }}
           >
             {modalLoading ? (
-              <Loader size="xs" color={addonConfirmed ? "#fff" : "#6E58F6"} />
+              <Loader size="xs" color={"#fff"} />
             ) : (
-              addonConfirmed ? 'Confirm Booking' : 'Add Extras'
+              'Confirm Booking'
             )}
           </Button>
         </Stack>

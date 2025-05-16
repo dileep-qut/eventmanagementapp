@@ -14,8 +14,8 @@ const categories = [
   { icon: "/assets/music-filter.svg", text: "Music" },
   { icon: "/assets/sms-tracking.svg", text: "Networking" },
   { icon: "/assets/global.svg", text: "Night Life" },
-  { icon: "/assets/key.svg", text: "Cyber" },
-  { icon: "/assets/message-programming.svg", text: "Coding" },
+  { icon: "/assets/key.svg", text: "CyberSecurity" },
+  { icon: "/assets/message-programming.svg", text: "Computer Science" },
   { icon: "/assets/lovely.svg", text: "Dating" },
 ];
 

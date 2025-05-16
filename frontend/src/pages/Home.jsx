@@ -25,52 +25,61 @@ const categories = [
 export default function EventPage() {
   const [selectedCategory, setSelectedCategory] = useState('');
 
-    const [events, setEvents] = useState([]);
-    const [searchQuery, setSearchQuery] = useState('');
+  const [events, setEvents] = useState([]);
+  let searchQuery= null
 
-    useEffect(() => {
-        const fetchEvents = async () => {
-          try {
-            const response = await axiosInstance.get("/events");
-            if (response.status === 200) {
-              setEvents(response.data);
-            }
-          } catch (err) {
-            console.error("Failed to fetch events:", err);
-          }
-        };
-      
-        fetchEvents();
-      }, []);
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await axiosInstance.get("/events");
+        if (response.status === 200) {
+          setEvents(response.data);
+        }
+      } catch (err) {
+        console.error("Failed to fetch events:", err);
+      }
+    };
 
-
-      const filteredEvents = events.filter((event) => {
-  const matchesSearch = searchQuery.trim() === '' || 
-    event.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    event.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    event.category.toLowerCase().includes(searchQuery.toLowerCase());
-
-  const matchesCategory = selectedCategory === '' || 
-    event.category.toLowerCase() === selectedCategory.toLowerCase();
-
-  return matchesSearch && matchesCategory;
-});
+    fetchEvents();
+  }, []);
+  const searchByName = async (query) => {
+    try {
+      const response = await axiosInstance.get(`/events?name=${query}`);
+      if (response.status === 200) {
+        setEvents(response.data);
+      }
+    } catch (err) {
+      console.error("Failed to fetch events:", err);
+    }
+  }
+  const searchByCategory = async (category) => {
+    try {
+      const response = await axiosInstance.get(`/events?category=${category}`);
+      if (response.status === 200) {
+        setEvents(response.data);
+      }
+    } catch (err) {
+      console.error("Failed to fetch events:", err);
+    }
+  }
 
   return (
     <div>
       <Flex justify="space-between" align="center" wrap="wrap" gap="md" mt={40}>
-  {categories.map(({ icon, text }) => (
-    <CircleWithIcon
-      key={text}
-      icon={icon}
-      text={text}
-      selected={selectedCategory === text}
-      onClick={() =>
-        setSelectedCategory((prev) => (prev === text ? '' : text))
-      }
-    />
-  ))}
-</Flex>
+        {categories.map(({ icon, text }) => (
+          <CircleWithIcon
+            key={text}
+            icon={icon}
+            text={text}
+            selected={selectedCategory === text}
+            onClick={() => {
+              const newCategory = selectedCategory === text ? '' : text;
+              setSelectedCategory(newCategory);
+              searchByCategory(newCategory);
+            }}
+          />
+        ))}
+      </Flex>
 
 
       <div
@@ -87,7 +96,7 @@ export default function EventPage() {
         <TextInput
           placeholder="Looking for"
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.currentTarget.value)}
+          onChange={(e) => searchByName(e.currentTarget.value)}
           radius="xl"
           size="lg"
           styles={{
@@ -111,13 +120,13 @@ export default function EventPage() {
         />
       </div>
       <Flex wrap="wrap" gap="lg" justify="center" mt="lg">
-  {filteredEvents.map((event) => (
-    <Link to={`/events/${event._id}`} style={{ textDecoration: 'none' }}>
-    <EventCard key={event._id} event={event} />
-  </Link>
-    
-  ))}
-</Flex>
+        {events.map((event) => (
+          <Link to={`/events/${event._id}`} style={{ textDecoration: 'none' }}>
+            <EventCard key={event._id} event={event} />
+          </Link>
+
+        ))}
+      </Flex>
     </div>
   );
 }

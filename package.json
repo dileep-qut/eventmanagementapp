@@ -15,7 +15,7 @@
   "author": "Task Manager Team",
   "license": "ISC",
   "dependencies": {
-    "@mantine/notifications": "^8.0.1",
-    "stripe": "^18.0.0"
+    "@mantine/dates": "^8.0.1",
+    "@mantine/notifications": "^8.0.1"
   }
 }

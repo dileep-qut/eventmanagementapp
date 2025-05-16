@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useState,useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -6,11 +7,12 @@ import Profile from './pages/Profile';
 import Event from './pages/Event';
 import Home from './pages/Home';
 import MyTickets from './pages/My-tickets';
+import EventParticipantsPage from './pages/EventParticipants';
 import PaymentSuccessPage from './pages/payment-success'
 import PaymentFailurePage from './pages/payment-failure';
+import MyEventsPage from './pages/My-events';
 
 
-import { useState,useEffect } from 'react';
 
 function App() {
 
@@ -42,13 +44,11 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/" element={<Home />} />
         <Route path="/mytickets" element={<MyTickets />} />
+        <Route path="/myevents" element={<MyEventsPage />} />
         <Route path="/success" element={<PaymentSuccessPage />} />
         <Route path="/cancel" element={<PaymentFailurePage />} />
-
-
-
         <Route path="/events/:eventId" element={<Event />} />
-
+        <Route path="/events/:eventId/attendees" element={<EventParticipantsPage/>} />
 
       </Routes>
     </Router>

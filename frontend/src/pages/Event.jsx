@@ -62,7 +62,6 @@ export default function EventPage() {
         showNotification({
           title: 'Error',
           message: err?.response?.data?.message || err.message || 'Something went wrong',
-          message: err?.response?.data?.message || err.message || 'Something went wrong',
           autoClose: 3000,
           color: 'red',
         });
@@ -109,7 +108,6 @@ export default function EventPage() {
       showNotification({
         title: 'Error',
         message: err?.response?.data?.message || err.message || 'Something went wrong',
-        message: err?.response?.data?.message || err.message || 'Something went wrong',
         autoClose: 3000,
         color: 'red',
         color: 'red',
@@ -150,7 +148,6 @@ export default function EventPage() {
     } catch (err) {
       showNotification({
         title: 'Error',
-        message: err?.response?.data?.message || err.message || 'Something went wrong',
         message: err?.response?.data?.message || err.message || 'Something went wrong',
         autoClose: 3000,
         color: 'red',

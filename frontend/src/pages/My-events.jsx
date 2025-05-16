@@ -49,7 +49,7 @@ const MyEventsPage = () => {
   return (
     <div style={{ padding: "40px" }}>
 
-      
+
       <div
         style={{
           width: "100%",
@@ -82,32 +82,55 @@ const MyEventsPage = () => {
         opened={addModalOpen}
         onClose={() => setAddModalOpen(false)}
         onEventCreated={(newEvent) => {
-          setMyEvents((prev) => [newEvent, ...prev]);
+          if (myEvents.length === 0) {
+            setMyEvents([newEvent])
+          } else {
+            setMyEvents((prev) => [newEvent, ...prev]);
+          }
         }}
       />
 
 
       <Container size="xl" py="sm" style={{ backgroundColor: "transparent" }}>
         {loading ? (
-          <Loader size="lg" />
+          <div
+            style={{
+              height: '60vh',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Loader size="lg" />
+          </div>
         ) : error ? (
-          <Text color="red">{error}</Text>
+          <div
+            style={{
+              height: '60vh',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Text color="red" size="lg" fw={600}>
+              {error}
+            </Text>
+          </div>
         ) : myEvents.length === 0 ? (
           <Text>No events created yet.</Text>
         ) : (
           <Stack>
             {myEvents.map((event) => (
-
               <MyEventCard
                 key={event._id}
                 event={event}
                 onEventDeleted={handleEventDeleted}
               />
-
             ))}
           </Stack>
         )}
       </Container>
+
     </div>
   );
 };

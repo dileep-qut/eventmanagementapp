@@ -11,6 +11,7 @@ import {
 } from "@mantine/core";
 import { DateTimePicker } from "@mantine/dates";
 import axiosInstance from "../axiosConfig";
+import { showNotification } from "@mantine/notifications";
 
 export default function AddEventModal({ opened, onClose, onEventCreated }) {
   const [formData, setFormData] = useState({
@@ -28,49 +29,71 @@ export default function AddEventModal({ opened, onClose, onEventCreated }) {
   const [loading, setLoading] = useState(false);
 
   const handleChange = (field, value) => {
+    console.log(`[${field}] => ${value}`);
+    
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleSubmit = async () => {
-  setLoading(true);
-  try {
-    const token = localStorage.getItem("jwt");
-    if (!token) throw new Error("No token found");
+    setLoading(true);
+    try {
+      const token = localStorage.getItem("jwt");
+      if (!token) throw new Error("No token found");
 
-    const authHeader = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
+      
 
 
-    const formImage = new FormData();
-    formImage.append("file", formData.image);
-    const uploadRes = await axiosInstance.post(
-      "/image/upload",
-      formImage,
-      authHeader
-    );
-    const imageUrl = uploadRes.data.path;
+      const formImage = new FormData();
+      formImage.append("file", formData.image);
+   
+      const uploadRes = await axiosInstance.post(
+        "/image/upload",
+        formImage,
+        {
+          'headers': {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${token}`,
+          }
+        }
+      );
+      const imageUrl = uploadRes.data.image_url;
 
-    const payload = {
-      ...formData,
-      image_url: imageUrl,
-      start_time: formData.start_time?.toISOString(),
-      end_time: formData.end_time?.toISOString(),
-      ticket_price: parseFloat(formData.ticket_price),
-      ticket_available: parseInt(formData.ticket_available),
-    };
+      const payload = {
+        ...formData,
+        image_url: imageUrl,
+        date: new Date(formData.start_time).toISOString(),
+        start_time: new Date(formData.start_time).toISOString(),
+        end_time: new Date(formData.end_time).toISOString(),
+        ticket_price: parseFloat(formData.ticket_price),
+        ticket_available: parseInt(formData.ticket_available),
+      };
+console.log(payload);
 
-    const eventRes = await axiosInstance.post("/events", payload, authHeader);
-    onEventCreated(eventRes.data);
-    onClose();
-  } catch (err) {
-    console.error("Failed to create event:", err);
-  } finally {
-    setLoading(false);
-  }
-};
+      const eventRes = await axiosInstance.post("/events", payload, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      });
+      onEventCreated(eventRes.data);
+      showNotification({
+        title: 'Success',
+        message: 'Event created',
+        autoClose: 3000,
+        color: 'green',
+      });
+      onClose();
+    } catch (err) {
+      console.error("Failed to create event:", err);
+      showNotification({
+        title: 'Error',
+        message: err?.response?.data?.message || err.message || 'Something went wrong',
+        autoClose: 3000,
+        color: 'red',
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <Modal
@@ -80,6 +103,11 @@ export default function AddEventModal({ opened, onClose, onEventCreated }) {
       size="lg"
       centered
       radius="lg"
+      styles={{
+        title: {
+          fontWeight: 700,
+        },
+      }}
     >
       <Stack spacing="sm">
         <TextInput
@@ -161,7 +189,7 @@ export default function AddEventModal({ opened, onClose, onEventCreated }) {
           required
         />
 
-        <Button fullWidth onClick={handleSubmit} loading={loading}>
+        <Button fullWidth onClick={handleSubmit} loading={loading} color="#6E58F6">
           Add Event
         </Button>
       </Stack>

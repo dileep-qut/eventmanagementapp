@@ -14,7 +14,7 @@ export class StripeService {
 
   async createCheckoutSession(
     price: number,
-    userEmail?: string,
+    userEmail: string,
   ): Promise<Stripe.Checkout.Session> {
     return this.stripe.checkout.sessions.create({
       line_items: [

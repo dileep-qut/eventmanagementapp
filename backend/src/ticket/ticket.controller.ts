@@ -6,7 +6,7 @@ import { ApplyApiResponse } from '@/_decorators/apply-api-response.decorator';
 import { PurchaseTicketDto } from '@/ticket/dto/purchase-ticket.dto';
 import { ApplyStrictAuth } from '@/_decorators/apply-strict-auth.decorator';
 import { PaymentService } from '@/services/payment.service';
-import { PaymentContext } from '@/services/payment.middleware.interface';
+import { PaymentContext } from '@/services/payment.service.interface';
 
 @Controller('ticket')
 export class TicketController {

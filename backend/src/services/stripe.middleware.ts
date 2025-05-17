@@ -1,13 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import {
-  PaymentContext,
-  PaymentMiddleware,
-} from './payment.middleware.interface';
-import { PaymentResponse } from './payment.service.interface';
+import { IPaymentMiddleware } from './payment.middleware.interface';
+import { PaymentContext, PaymentResponse } from './payment.service.interface';
 import { StripeService } from './stripe.service';
 
 @Injectable()
-export class StripePaymentMiddleware implements PaymentMiddleware {
+export class StripePaymentMiddleware implements IPaymentMiddleware {
   constructor(private readonly stripeService: StripeService) {}
 
   async process(

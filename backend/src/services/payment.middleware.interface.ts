@@ -1,13 +1,6 @@
-import { PaymentResponse } from './payment.service.interface';
+import { PaymentContext, PaymentResponse } from './payment.service.interface';
 
-export interface PaymentContext {
-  price: number;
-  userEmail?: string;
-  eventId?: string;
-  ticketId?: string;
-}
-
-export interface PaymentMiddleware {
+export interface IPaymentMiddleware {
   process(
     context: PaymentContext,
     next: (context: PaymentContext) => Promise<PaymentResponse>,

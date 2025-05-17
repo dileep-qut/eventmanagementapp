@@ -1,12 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import {
-  PaymentContext,
-  PaymentMiddleware,
-} from './payment.middleware.interface';
-import { PaymentResponse } from './payment.service.interface';
+import { IPaymentMiddleware } from './payment.middleware.interface';
+import { PaymentContext, PaymentResponse } from './payment.service.interface';
 
 @Injectable()
-export class ValidationMiddleware implements PaymentMiddleware {
+export class ValidationMiddleware implements IPaymentMiddleware {
   async process(
     context: PaymentContext,
     next: (context: PaymentContext) => Promise<PaymentResponse>,

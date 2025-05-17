@@ -27,7 +27,7 @@ export default function EditEventModal({
     start_time: null,
     end_time: null,
     ticket_price: "",
-    total_tickets: "",
+    ticket_available: "",
     category: "",
     image: null,
     image_url: "",
@@ -57,7 +57,7 @@ export default function EditEventModal({
           start_time: new Date(event.start_time),
           end_time: new Date(event.end_time),
           ticket_price: event.ticket_price?.toString() || "",
-          total_tickets: event.total_tickets?.toString() || "",
+          ticket_available: event.ticket_available?.toString() || "",
           category: event.category || "",
           image: null,
           image_url: event.image_url || "",
@@ -108,7 +108,7 @@ export default function EditEventModal({
         start_time: new Date(formData.start_time).toISOString(),
         end_time: new Date(formData.end_time).toISOString(),
         ticket_price: parseFloat(formData.ticket_price),
-        total_tickets: parseInt(formData.total_tickets),
+        ticket_available: parseInt(formData.ticket_available),
       };
 
       const updatedResponse = await axiosInstance.put(
@@ -202,8 +202,8 @@ export default function EditEventModal({
               <TextInput
                 label="Total Tickets"
                 type="number"
-                value={formData.total_tickets}
-                onChange={(e) => handleChange("total_tickets")(e.target.value)}
+                value={formData.ticket_available}
+                onChange={(e) => handleChange("ticket_available")(e.target.value)}
                 required
               />
             </Group>

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 import { Flex, Text, Title, Paper, Button, Stack, Container, Box, Modal, Checkbox, Loader } from "@mantine/core";
-import { useDisclosure } from '@mantine/hooks'
 import { useParams } from 'react-router-dom';
 
 import axiosInstance from '../axiosConfig';

@@ -11,17 +11,15 @@ import {
   Button,
   Loader,
 } from "@mantine/core";
-import { saveAs } from "file-saver";
 import { useMediaQuery } from "@mantine/hooks";
 import axiosInstance from "../axiosConfig";
 import { baseURL } from "../config";
 import { useNavigate } from "react-router-dom";
+import { showNotification } from "@mantine/notifications";
 
 const MyEventCard = ({
   event,
   onEventDeleted,
-  onDownloadCSV,
-  onDownloadPDF,
   onEventUpdated,
 }) => {
   const [editModalOpen, setEditModalOpen] = useState(false);
@@ -59,10 +57,22 @@ const MyEventCard = ({
         headers: { Authorization: `Bearer ${token}` },
         responseType: "blob",
       });
-      saveAs(res.data, `${event.name}-attendees.csv`);
+      const url = URL.createObjectURL(res.data);
+      window.open(url, '_blank');
+      showNotification({
+        title: 'Success',
+        message: 'CSV file downloaded',
+        autoClose: 3000,
+        color: 'green',
+      });
     } catch (err) {
       console.error("CSV download failed", err);
-      alert("Failed to download attendees list.");
+      showNotification({
+        title: 'Error',
+        message: "Failed to download attendees list",
+        autoClose: 3000,
+        color: 'green',
+      });
     } finally {
       setDownloading((prev) => ({ ...prev, csv: false }));
     }
@@ -71,14 +81,20 @@ const MyEventCard = ({
   const handleDownloadPDF = async () => {
     setDownloading((prev) => ({ ...prev, pdf: true }));
     try {
-      const res = await axiosInstance.get(`/report/${event._id}/tickets`, {
+      const res = await axiosInstance.get(`/report/${event._id}/revenue`, {
         headers: { Authorization: `Bearer ${token}` },
         responseType: "blob",
       });
-      saveAs(res.data, `${event.name}-revenue.pdf`);
+      const url = URL.createObjectURL(res.data);
+      window.open(url, '_blank');
     } catch (err) {
       console.error("PDF download failed", err);
-      alert("Failed to download revenue report.");
+      showNotification({
+        title: 'Error',
+        message: "Failed to download revenue report",
+        autoClose: 3000,
+        color: 'green',
+      });
     } finally {
       setDownloading((prev) => ({ ...prev, pdf: false }));
     }
@@ -127,16 +143,25 @@ const MyEventCard = ({
             <Text fw={700} truncate size="lg">
               {event.name}
             </Text>
-            <Text size="sm" truncate>
-              {new Date(event.start_time).toLocaleDateString()} —{" "}
-              {new Date(event.start_time).toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-              })}{" "}
-              to{" "}
-              {new Date(event.end_time).toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
+            <Text size="sm">
+              {new Date(event.start_time).toLocaleString('en-AU', {
+                weekday: 'short',
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true,
+              })}{' '}
+              -{' '}
+              {new Date(event.end_time).toLocaleString('en-AU', {
+                weekday: 'short',
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true,
               })}
             </Text>
             <Text size="sm" c="dimmed" truncate>
@@ -181,7 +206,7 @@ const MyEventCard = ({
           <Button
             variant="light"
             size="xs"
-            color="gray"
+            color="orange"
             onClick={handleDownloadPDF}
             disabled={downloading.pdf}
           >

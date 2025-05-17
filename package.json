@@ -16,7 +16,6 @@
   "license": "ISC",
   "dependencies": {
     "@mantine/dates": "^8.0.1",
-    "@mantine/notifications": "^8.0.1",
-    "file-saver": "^2.0.5"
+    "@mantine/notifications": "^8.0.1"
   }
 }

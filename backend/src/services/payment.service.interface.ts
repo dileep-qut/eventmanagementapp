@@ -5,9 +5,9 @@ export interface PaymentResponse {
 
 export interface PaymentContext {
   price: number;
-  userEmail?: string;
-  eventId?: string;
-  ticketId?: string;
+  userEmail: string;
+  eventId: string;
+  ticketId: string;
 }
 
 export interface IPaymentService {

@@ -118,7 +118,10 @@ export class TicketService {
   async findMyTickets(user_id: string) {
     const tickets = await this.ticketListModel
       .find({ user_id })
-      .populate('event_id', 'name description location start_time end_time')
+      .populate(
+        'event_id',
+        'name description location start_time end_time image_url',
+      )
       .select('-user_id')
       .exec();
 

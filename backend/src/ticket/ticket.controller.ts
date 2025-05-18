@@ -84,6 +84,7 @@ export class TicketController {
             location: 'Location 1',
             start_time: '2026-01-24T14:00:00.000Z',
             end_time: '2026-01-25T14:00:00.000Z',
+            image_url: 'This is a test image',
           },
           checked_in: false,
           transaction_id: 'dummy_transaction_id',

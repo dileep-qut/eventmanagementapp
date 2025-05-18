@@ -1,15 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { IPaymentService, PaymentResponse } from './payment.service.interface';
 import {
+  IPaymentService,
   PaymentContext,
-  PaymentMiddleware,
-} from './payment.middleware.interface';
+  PaymentResponse,
+} from './payment.service.interface';
+import { IPaymentMiddleware } from './payment.middleware.interface';
 import { ValidationMiddleware } from './validation.middleware';
 import { StripePaymentMiddleware } from './stripe.middleware';
 
 @Injectable()
 export class PaymentService implements IPaymentService {
-  private middlewares: PaymentMiddleware[] = [];
+  private middlewares: IPaymentMiddleware[] = [];
 
   constructor(
     validationMiddleware: ValidationMiddleware,

@@ -4,7 +4,9 @@
 
 This application allows authenticated users to:
 
-* Create and manage events with details like title, date, location, and description
+* Create and manage events with details like title, description, dates, location, price and number of tickets  
+* Purchase tickets for events
+* Purchase tickets with addons like vip, food etc...
 * Register for events
 * Track event attendance
 
@@ -12,7 +14,7 @@ This application allows authenticated users to:
 
 ### Backend
 
-* Node.js + Express
+* Nestjs + typescript
 * MongoDB
 
 ### Frontend
@@ -43,7 +45,7 @@ This application allows authenticated users to:
 
 ### Project structure
 
-* backend/ - Node.js API implementation using Express and MongoDB
+* backend/ - Nestjs API implementation using typescript and MongoDB
 * frontend/ - React.js application
 
 ## **Setup Instructions**
@@ -51,7 +53,7 @@ This application allows authenticated users to:
 1. Clone the repository
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/dileep-qut/eventmanagementapp.git
    ```
 
 2. Install dependencies
@@ -62,11 +64,17 @@ This application allows authenticated users to:
 
 3. Configure environment variables
 
-   ```
+   ```.env
    # Backend .env
    MONGODB_URI=<your-mongodb-uri>
    JWT_SECRET=<your-jwt-secret>
    PORT=5001
+   STRIPE_SECRET_KEY=<stripe secret key>
+   STRIPE_PUBLISHABLE_KEY=<stripe publishable key>
+   CLIENT_URL=http://localhost:3000
+   SERVER_HOST=http://localhost:3000
+   SEED_DB="FALSE" # TRUE or FALSE
+
    # Frontend 
    Application launch uri =http://localhost:3000
    ```

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 import { Flex, Text, Title, Paper, Button, Stack, Container, Box, Modal, Checkbox, Loader } from "@mantine/core";
-import { useDisclosure } from '@mantine/hooks'
 import { useParams } from 'react-router-dom';
 
 import axiosInstance from '../axiosConfig';
@@ -21,10 +20,10 @@ export default function EventPage() {
   const [loading, setLoading] = useState(true);
   const [modalLoading, setModalLoading] = useState(false);
 
-  const [modalOpened, setModalOpened] = useState(false); // For the Addon Model
+  const [modalOpened, setModalOpened] = useState(false);
 
 
-  const [selectedAddons, setSelectedAddons] = useState([]); // Store the selected addons
+  const [selectedAddons, setSelectedAddons] = useState([]); 
 
   const [ticket_price, setTicketPrice] = useState(null)
 
@@ -370,7 +369,7 @@ export default function EventPage() {
             color="#6E58F6"
             fullWidth
             onClick={purchaseTicket}
-            disabled={modalLoading} // Optional: disables button while loading
+            disabled={modalLoading} 
             style={{
               borderColor: '#6E58F6',
               color: '#fff',
